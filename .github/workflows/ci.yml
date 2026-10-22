@@ -37,14 +37,23 @@ jobs:
           key: playwright-${{ runner.os }}-${{ hashFiles('package-lock.json') }}
 
       - name: Install Playwright browsers
-        timeout-minutes: 8
+        timeout-minutes: 12
         run: |
           set -euo pipefail
+          release_dpkg() {
+            if command -v fuser >/dev/null 2>&1 && sudo fuser /var/lib/dpkg/lock-frontend >/dev/null 2>&1; then
+              echo "releasing dpkg lock"
+              sudo fuser -k /var/lib/dpkg/lock-frontend || true
+              sleep 2
+            fi
+            sudo dpkg --configure -a || true
+          }
           for attempt in 1 2 3; do
-            if timeout 150 npx playwright install --with-deps chromium webkit; then
+            if timeout -k 20s 300s npx playwright install --with-deps chromium webkit; then
               exit 0
             fi
             echo "playwright install attempt ${attempt} failed"
+            release_dpkg
             sleep $((attempt * 5))
           done
           exit 1
