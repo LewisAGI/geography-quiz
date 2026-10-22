@@ -11,7 +11,7 @@ permissions:
 jobs:
   test:
     runs-on: ubuntu-latest
-    timeout-minutes: 25
+    timeout-minutes: 55
     steps:
       - name: Checkout
         uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262
@@ -37,23 +37,21 @@ jobs:
           key: playwright-${{ runner.os }}-${{ hashFiles('package-lock.json') }}
 
       - name: Install Playwright browsers
-        timeout-minutes: 12
+        timeout-minutes: 45
         run: |
           set -euo pipefail
-          release_dpkg() {
-            if command -v fuser >/dev/null 2>&1 && sudo fuser /var/lib/dpkg/lock-frontend >/dev/null 2>&1; then
-              echo "releasing dpkg lock"
-              sudo fuser -k /var/lib/dpkg/lock-frontend || true
-              sleep 2
-            fi
-            sudo dpkg --configure -a || true
-          }
+          # A slow apt mirror can take most of an hour. Do not kill a download that is still moving.
           for attempt in 1 2 3; do
-            if timeout -k 20s 300s npx playwright install --with-deps chromium webkit; then
+            if npx playwright install --with-deps chromium webkit; then
               exit 0
             fi
             echo "playwright install attempt ${attempt} failed"
-            release_dpkg
+            if command -v fuser >/dev/null 2>&1 && sudo fuser /var/lib/dpkg/lock-frontend >/dev/null 2>&1; then
+              echo "releasing dpkg lock"
+              sudo fuser -k /var/lib/dpkg/lock-frontend || true
+              sleep 3
+            fi
+            sudo dpkg --configure -a || true
             sleep $((attempt * 5))
           done
           exit 1
