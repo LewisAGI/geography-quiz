@@ -1,0 +1,1938 @@
+[
+ {
+  "id": "cia-wfb",
+  "title": "The World Factbook",
+  "publisher": "US Central Intelligence Agency",
+  "url": "https://www.cia.gov/the-world-factbook/",
+  "type": "dataset",
+  "note": "Official site"
+ },
+ {
+  "id": "factbook-json",
+  "title": "factbook.json: World Factbook country profiles in JSON",
+  "publisher": "factbook project (open-data mirror of the CIA World Factbook)",
+  "url": "https://github.com/factbook/factbook.json",
+  "type": "dataset",
+  "note": "Snapshot commit 144d6977b2b01ac1cbd220de754c0a005616760b 2026-09-11T15:19:23+02:00"
+ },
+ {
+  "id": "geonames-countryinfo",
+  "title": "GeoNames countryInfo.txt",
+  "publisher": "GeoNames",
+  "url": "https://download.geonames.org/export/dump/countryInfo.txt",
+  "type": "dataset",
+  "note": "ISO 3166 codes, FIPS mapping, continent; CC BY 4.0"
+ },
+ {
+  "id": "ne-elev",
+  "title": "Natural Earth 1:10m Geography regions - elevation points",
+  "publisher": "Natural Earth",
+  "url": "https://www.naturalearthdata.com/downloads/10m-physical-vectors/10m-physical-labels/",
+  "type": "dataset",
+  "note": "Public domain; GeoJSON from github.com/nvkelso/natural-earth-vector"
+ },
+ {
+  "id": "wfb-ag",
+  "title": "World Factbook: Algeria",
+  "publisher": "US Central Intelligence Agency (via factbook.json)",
+  "url": "https://github.com/factbook/factbook.json/blob/master/africa/ag.json",
+  "type": "dataset",
+  "note": "Fields: Government, Geography, People and Society"
+ },
+ {
+  "id": "wfb-ao",
+  "title": "World Factbook: Angola",
+  "publisher": "US Central Intelligence Agency (via factbook.json)",
+  "url": "https://github.com/factbook/factbook.json/blob/master/africa/ao.json",
+  "type": "dataset",
+  "note": "Fields: Government, Geography, People and Society"
+ },
+ {
+  "id": "wfb-bc",
+  "title": "World Factbook: Botswana",
+  "publisher": "US Central Intelligence Agency (via factbook.json)",
+  "url": "https://github.com/factbook/factbook.json/blob/master/africa/bc.json",
+  "type": "dataset",
+  "note": "Fields: Government, Geography, People and Society"
+ },
+ {
+  "id": "wfb-bn",
+  "title": "World Factbook: Benin",
+  "publisher": "US Central Intelligence Agency (via factbook.json)",
+  "url": "https://github.com/factbook/factbook.json/blob/master/africa/bn.json",
+  "type": "dataset",
+  "note": "Fields: Government, Geography, People and Society"
+ },
+ {
+  "id": "wfb-by",
+  "title": "World Factbook: Burundi",
+  "publisher": "US Central Intelligence Agency (via factbook.json)",
+  "url": "https://github.com/factbook/factbook.json/blob/master/africa/by.json",
+  "type": "dataset",
+  "note": "Fields: Government, Geography, People and Society"
+ },
+ {
+  "id": "wfb-cd",
+  "title": "World Factbook: Chad",
+  "publisher": "US Central Intelligence Agency (via factbook.json)",
+  "url": "https://github.com/factbook/factbook.json/blob/master/africa/cd.json",
+  "type": "dataset",
+  "note": "Fields: Government, Geography, People and Society"
+ },
+ {
+  "id": "wfb-cf",
+  "title": "World Factbook: Republic of the Congo",
+  "publisher": "US Central Intelligence Agency (via factbook.json)",
+  "url": "https://github.com/factbook/factbook.json/blob/master/africa/cf.json",
+  "type": "dataset",
+  "note": "Fields: Government, Geography, People and Society"
+ },
+ {
+  "id": "wfb-cg",
+  "title": "World Factbook: Democratic Republic of the Congo",
+  "publisher": "US Central Intelligence Agency (via factbook.json)",
+  "url": "https://github.com/factbook/factbook.json/blob/master/africa/cg.json",
+  "type": "dataset",
+  "note": "Fields: Government, Geography, People and Society"
+ },
+ {
+  "id": "wfb-cm",
+  "title": "World Factbook: Cameroon",
+  "publisher": "US Central Intelligence Agency (via factbook.json)",
+  "url": "https://github.com/factbook/factbook.json/blob/master/africa/cm.json",
+  "type": "dataset",
+  "note": "Fields: Government, Geography, People and Society"
+ },
+ {
+  "id": "wfb-cn",
+  "title": "World Factbook: Comoros",
+  "publisher": "US Central Intelligence Agency (via factbook.json)",
+  "url": "https://github.com/factbook/factbook.json/blob/master/africa/cn.json",
+  "type": "dataset",
+  "note": "Fields: Government, Geography, People and Society"
+ },
+ {
+  "id": "wfb-ct",
+  "title": "World Factbook: Central African Republic",
+  "publisher": "US Central Intelligence Agency (via factbook.json)",
+  "url": "https://github.com/factbook/factbook.json/blob/master/africa/ct.json",
+  "type": "dataset",
+  "note": "Fields: Government, Geography, People and Society"
+ },
+ {
+  "id": "wfb-cv",
+  "title": "World Factbook: Cabo Verde",
+  "publisher": "US Central Intelligence Agency (via factbook.json)",
+  "url": "https://github.com/factbook/factbook.json/blob/master/africa/cv.json",
+  "type": "dataset",
+  "note": "Fields: Government, Geography, People and Society"
+ },
+ {
+  "id": "wfb-dj",
+  "title": "World Factbook: Djibouti",
+  "publisher": "US Central Intelligence Agency (via factbook.json)",
+  "url": "https://github.com/factbook/factbook.json/blob/master/africa/dj.json",
+  "type": "dataset",
+  "note": "Fields: Government, Geography, People and Society"
+ },
+ {
+  "id": "wfb-eg",
+  "title": "World Factbook: Egypt",
+  "publisher": "US Central Intelligence Agency (via factbook.json)",
+  "url": "https://github.com/factbook/factbook.json/blob/master/africa/eg.json",
+  "type": "dataset",
+  "note": "Fields: Government, Geography, People and Society"
+ },
+ {
+  "id": "wfb-ek",
+  "title": "World Factbook: Equatorial Guinea",
+  "publisher": "US Central Intelligence Agency (via factbook.json)",
+  "url": "https://github.com/factbook/factbook.json/blob/master/africa/ek.json",
+  "type": "dataset",
+  "note": "Fields: Government, Geography, People and Society"
+ },
+ {
+  "id": "wfb-er",
+  "title": "World Factbook: Eritrea",
+  "publisher": "US Central Intelligence Agency (via factbook.json)",
+  "url": "https://github.com/factbook/factbook.json/blob/master/africa/er.json",
+  "type": "dataset",
+  "note": "Fields: Government, Geography, People and Society"
+ },
+ {
+  "id": "wfb-et",
+  "title": "World Factbook: Ethiopia",
+  "publisher": "US Central Intelligence Agency (via factbook.json)",
+  "url": "https://github.com/factbook/factbook.json/blob/master/africa/et.json",
+  "type": "dataset",
+  "note": "Fields: Government, Geography, People and Society"
+ },
+ {
+  "id": "wfb-ga",
+  "title": "World Factbook: Gambia",
+  "publisher": "US Central Intelligence Agency (via factbook.json)",
+  "url": "https://github.com/factbook/factbook.json/blob/master/africa/ga.json",
+  "type": "dataset",
+  "note": "Fields: Government, Geography, People and Society"
+ },
+ {
+  "id": "wfb-gb",
+  "title": "World Factbook: Gabon",
+  "publisher": "US Central Intelligence Agency (via factbook.json)",
+  "url": "https://github.com/factbook/factbook.json/blob/master/africa/gb.json",
+  "type": "dataset",
+  "note": "Fields: Government, Geography, People and Society"
+ },
+ {
+  "id": "wfb-gh",
+  "title": "World Factbook: Ghana",
+  "publisher": "US Central Intelligence Agency (via factbook.json)",
+  "url": "https://github.com/factbook/factbook.json/blob/master/africa/gh.json",
+  "type": "dataset",
+  "note": "Fields: Government, Geography, People and Society"
+ },
+ {
+  "id": "wfb-gv",
+  "title": "World Factbook: Guinea",
+  "publisher": "US Central Intelligence Agency (via factbook.json)",
+  "url": "https://github.com/factbook/factbook.json/blob/master/africa/gv.json",
+  "type": "dataset",
+  "note": "Fields: Government, Geography, People and Society"
+ },
+ {
+  "id": "wfb-iv",
+  "title": "World Factbook: Ivory Coast",
+  "publisher": "US Central Intelligence Agency (via factbook.json)",
+  "url": "https://github.com/factbook/factbook.json/blob/master/africa/iv.json",
+  "type": "dataset",
+  "note": "Fields: Government, Geography, People and Society"
+ },
+ {
+  "id": "wfb-ke",
+  "title": "World Factbook: Kenya",
+  "publisher": "US Central Intelligence Agency (via factbook.json)",
+  "url": "https://github.com/factbook/factbook.json/blob/master/africa/ke.json",
+  "type": "dataset",
+  "note": "Fields: Government, Geography, People and Society"
+ },
+ {
+  "id": "wfb-li",
+  "title": "World Factbook: Liberia",
+  "publisher": "US Central Intelligence Agency (via factbook.json)",
+  "url": "https://github.com/factbook/factbook.json/blob/master/africa/li.json",
+  "type": "dataset",
+  "note": "Fields: Government, Geography, People and Society"
+ },
+ {
+  "id": "wfb-lt",
+  "title": "World Factbook: Lesotho",
+  "publisher": "US Central Intelligence Agency (via factbook.json)",
+  "url": "https://github.com/factbook/factbook.json/blob/master/africa/lt.json",
+  "type": "dataset",
+  "note": "Fields: Government, Geography, People and Society"
+ },
+ {
+  "id": "wfb-ly",
+  "title": "World Factbook: Libya",
+  "publisher": "US Central Intelligence Agency (via factbook.json)",
+  "url": "https://github.com/factbook/factbook.json/blob/master/africa/ly.json",
+  "type": "dataset",
+  "note": "Fields: Government, Geography, People and Society"
+ },
+ {
+  "id": "wfb-ma",
+  "title": "World Factbook: Madagascar",
+  "publisher": "US Central Intelligence Agency (via factbook.json)",
+  "url": "https://github.com/factbook/factbook.json/blob/master/africa/ma.json",
+  "type": "dataset",
+  "note": "Fields: Government, Geography, People and Society"
+ },
+ {
+  "id": "wfb-mi",
+  "title": "World Factbook: Malawi",
+  "publisher": "US Central Intelligence Agency (via factbook.json)",
+  "url": "https://github.com/factbook/factbook.json/blob/master/africa/mi.json",
+  "type": "dataset",
+  "note": "Fields: Government, Geography, People and Society"
+ },
+ {
+  "id": "wfb-ml",
+  "title": "World Factbook: Mali",
+  "publisher": "US Central Intelligence Agency (via factbook.json)",
+  "url": "https://github.com/factbook/factbook.json/blob/master/africa/ml.json",
+  "type": "dataset",
+  "note": "Fields: Government, Geography, People and Society"
+ },
+ {
+  "id": "wfb-mo",
+  "title": "World Factbook: Morocco",
+  "publisher": "US Central Intelligence Agency (via factbook.json)",
+  "url": "https://github.com/factbook/factbook.json/blob/master/africa/mo.json",
+  "type": "dataset",
+  "note": "Fields: Government, Geography, People and Society"
+ },
+ {
+  "id": "wfb-mp",
+  "title": "World Factbook: Mauritius",
+  "publisher": "US Central Intelligence Agency (via factbook.json)",
+  "url": "https://github.com/factbook/factbook.json/blob/master/africa/mp.json",
+  "type": "dataset",
+  "note": "Fields: Government, Geography, People and Society"
+ },
+ {
+  "id": "wfb-mr",
+  "title": "World Factbook: Mauritania",
+  "publisher": "US Central Intelligence Agency (via factbook.json)",
+  "url": "https://github.com/factbook/factbook.json/blob/master/africa/mr.json",
+  "type": "dataset",
+  "note": "Fields: Government, Geography, People and Society"
+ },
+ {
+  "id": "wfb-mz",
+  "title": "World Factbook: Mozambique",
+  "publisher": "US Central Intelligence Agency (via factbook.json)",
+  "url": "https://github.com/factbook/factbook.json/blob/master/africa/mz.json",
+  "type": "dataset",
+  "note": "Fields: Government, Geography, People and Society"
+ },
+ {
+  "id": "wfb-ng",
+  "title": "World Factbook: Niger",
+  "publisher": "US Central Intelligence Agency (via factbook.json)",
+  "url": "https://github.com/factbook/factbook.json/blob/master/africa/ng.json",
+  "type": "dataset",
+  "note": "Fields: Government, Geography, People and Society"
+ },
+ {
+  "id": "wfb-ni",
+  "title": "World Factbook: Nigeria",
+  "publisher": "US Central Intelligence Agency (via factbook.json)",
+  "url": "https://github.com/factbook/factbook.json/blob/master/africa/ni.json",
+  "type": "dataset",
+  "note": "Fields: Government, Geography, People and Society"
+ },
+ {
+  "id": "wfb-od",
+  "title": "World Factbook: South Sudan",
+  "publisher": "US Central Intelligence Agency (via factbook.json)",
+  "url": "https://github.com/factbook/factbook.json/blob/master/africa/od.json",
+  "type": "dataset",
+  "note": "Fields: Government, Geography, People and Society"
+ },
+ {
+  "id": "wfb-pu",
+  "title": "World Factbook: Guinea-Bissau",
+  "publisher": "US Central Intelligence Agency (via factbook.json)",
+  "url": "https://github.com/factbook/factbook.json/blob/master/africa/pu.json",
+  "type": "dataset",
+  "note": "Fields: Government, Geography, People and Society"
+ },
+ {
+  "id": "wfb-rw",
+  "title": "World Factbook: Rwanda",
+  "publisher": "US Central Intelligence Agency (via factbook.json)",
+  "url": "https://github.com/factbook/factbook.json/blob/master/africa/rw.json",
+  "type": "dataset",
+  "note": "Fields: Government, Geography, People and Society"
+ },
+ {
+  "id": "wfb-se",
+  "title": "World Factbook: Seychelles",
+  "publisher": "US Central Intelligence Agency (via factbook.json)",
+  "url": "https://github.com/factbook/factbook.json/blob/master/africa/se.json",
+  "type": "dataset",
+  "note": "Fields: Government, Geography, People and Society"
+ },
+ {
+  "id": "wfb-sf",
+  "title": "World Factbook: South Africa",
+  "publisher": "US Central Intelligence Agency (via factbook.json)",
+  "url": "https://github.com/factbook/factbook.json/blob/master/africa/sf.json",
+  "type": "dataset",
+  "note": "Fields: Government, Geography, People and Society"
+ },
+ {
+  "id": "wfb-sg",
+  "title": "World Factbook: Senegal",
+  "publisher": "US Central Intelligence Agency (via factbook.json)",
+  "url": "https://github.com/factbook/factbook.json/blob/master/africa/sg.json",
+  "type": "dataset",
+  "note": "Fields: Government, Geography, People and Society"
+ },
+ {
+  "id": "wfb-sh",
+  "title": "World Factbook: Saint Helena",
+  "publisher": "US Central Intelligence Agency (via factbook.json)",
+  "url": "https://github.com/factbook/factbook.json/blob/master/africa/sh.json",
+  "type": "dataset",
+  "note": "Fields: Government, Geography, People and Society"
+ },
+ {
+  "id": "wfb-sl",
+  "title": "World Factbook: Sierra Leone",
+  "publisher": "US Central Intelligence Agency (via factbook.json)",
+  "url": "https://github.com/factbook/factbook.json/blob/master/africa/sl.json",
+  "type": "dataset",
+  "note": "Fields: Government, Geography, People and Society"
+ },
+ {
+  "id": "wfb-so",
+  "title": "World Factbook: Somalia",
+  "publisher": "US Central Intelligence Agency (via factbook.json)",
+  "url": "https://github.com/factbook/factbook.json/blob/master/africa/so.json",
+  "type": "dataset",
+  "note": "Fields: Government, Geography, People and Society"
+ },
+ {
+  "id": "wfb-su",
+  "title": "World Factbook: Sudan",
+  "publisher": "US Central Intelligence Agency (via factbook.json)",
+  "url": "https://github.com/factbook/factbook.json/blob/master/africa/su.json",
+  "type": "dataset",
+  "note": "Fields: Government, Geography, People and Society"
+ },
+ {
+  "id": "wfb-to",
+  "title": "World Factbook: Togo",
+  "publisher": "US Central Intelligence Agency (via factbook.json)",
+  "url": "https://github.com/factbook/factbook.json/blob/master/africa/to.json",
+  "type": "dataset",
+  "note": "Fields: Government, Geography, People and Society"
+ },
+ {
+  "id": "wfb-tp",
+  "title": "World Factbook: Sao Tome and Principe",
+  "publisher": "US Central Intelligence Agency (via factbook.json)",
+  "url": "https://github.com/factbook/factbook.json/blob/master/africa/tp.json",
+  "type": "dataset",
+  "note": "Fields: Government, Geography, People and Society"
+ },
+ {
+  "id": "wfb-ts",
+  "title": "World Factbook: Tunisia",
+  "publisher": "US Central Intelligence Agency (via factbook.json)",
+  "url": "https://github.com/factbook/factbook.json/blob/master/africa/ts.json",
+  "type": "dataset",
+  "note": "Fields: Government, Geography, People and Society"
+ },
+ {
+  "id": "wfb-tz",
+  "title": "World Factbook: Tanzania",
+  "publisher": "US Central Intelligence Agency (via factbook.json)",
+  "url": "https://github.com/factbook/factbook.json/blob/master/africa/tz.json",
+  "type": "dataset",
+  "note": "Fields: Government, Geography, People and Society"
+ },
+ {
+  "id": "wfb-ug",
+  "title": "World Factbook: Uganda",
+  "publisher": "US Central Intelligence Agency (via factbook.json)",
+  "url": "https://github.com/factbook/factbook.json/blob/master/africa/ug.json",
+  "type": "dataset",
+  "note": "Fields: Government, Geography, People and Society"
+ },
+ {
+  "id": "wfb-uv",
+  "title": "World Factbook: Burkina Faso",
+  "publisher": "US Central Intelligence Agency (via factbook.json)",
+  "url": "https://github.com/factbook/factbook.json/blob/master/africa/uv.json",
+  "type": "dataset",
+  "note": "Fields: Government, Geography, People and Society"
+ },
+ {
+  "id": "wfb-wa",
+  "title": "World Factbook: Namibia",
+  "publisher": "US Central Intelligence Agency (via factbook.json)",
+  "url": "https://github.com/factbook/factbook.json/blob/master/africa/wa.json",
+  "type": "dataset",
+  "note": "Fields: Government, Geography, People and Society"
+ },
+ {
+  "id": "wfb-wi",
+  "title": "World Factbook: Western Sahara",
+  "publisher": "US Central Intelligence Agency (via factbook.json)",
+  "url": "https://github.com/factbook/factbook.json/blob/master/africa/wi.json",
+  "type": "dataset",
+  "note": "Fields: Government, Geography, People and Society"
+ },
+ {
+  "id": "wfb-wz",
+  "title": "World Factbook: Eswatini",
+  "publisher": "US Central Intelligence Agency (via factbook.json)",
+  "url": "https://github.com/factbook/factbook.json/blob/master/africa/wz.json",
+  "type": "dataset",
+  "note": "Fields: Government, Geography, People and Society"
+ },
+ {
+  "id": "wfb-za",
+  "title": "World Factbook: Zambia",
+  "publisher": "US Central Intelligence Agency (via factbook.json)",
+  "url": "https://github.com/factbook/factbook.json/blob/master/africa/za.json",
+  "type": "dataset",
+  "note": "Fields: Government, Geography, People and Society"
+ },
+ {
+  "id": "wfb-zi",
+  "title": "World Factbook: Zimbabwe",
+  "publisher": "US Central Intelligence Agency (via factbook.json)",
+  "url": "https://github.com/factbook/factbook.json/blob/master/africa/zi.json",
+  "type": "dataset",
+  "note": "Fields: Government, Geography, People and Society"
+ },
+ {
+  "id": "wfb-aq",
+  "title": "World Factbook: American Samoa",
+  "publisher": "US Central Intelligence Agency (via factbook.json)",
+  "url": "https://github.com/factbook/factbook.json/blob/master/australia-oceania/aq.json",
+  "type": "dataset",
+  "note": "Fields: Government, Geography, People and Society"
+ },
+ {
+  "id": "wfb-as",
+  "title": "World Factbook: Australia",
+  "publisher": "US Central Intelligence Agency (via factbook.json)",
+  "url": "https://github.com/factbook/factbook.json/blob/master/australia-oceania/as.json",
+  "type": "dataset",
+  "note": "Fields: Government, Geography, People and Society"
+ },
+ {
+  "id": "wfb-bp",
+  "title": "World Factbook: Solomon Islands",
+  "publisher": "US Central Intelligence Agency (via factbook.json)",
+  "url": "https://github.com/factbook/factbook.json/blob/master/australia-oceania/bp.json",
+  "type": "dataset",
+  "note": "Fields: Government, Geography, People and Society"
+ },
+ {
+  "id": "wfb-ck",
+  "title": "World Factbook: Cocos Islands",
+  "publisher": "US Central Intelligence Agency (via factbook.json)",
+  "url": "https://github.com/factbook/factbook.json/blob/master/australia-oceania/ck.json",
+  "type": "dataset",
+  "note": "Fields: Government, Geography, People and Society"
+ },
+ {
+  "id": "wfb-cq",
+  "title": "World Factbook: Northern Mariana Islands",
+  "publisher": "US Central Intelligence Agency (via factbook.json)",
+  "url": "https://github.com/factbook/factbook.json/blob/master/australia-oceania/cq.json",
+  "type": "dataset",
+  "note": "Fields: Government, Geography, People and Society"
+ },
+ {
+  "id": "wfb-cw",
+  "title": "World Factbook: Cook Islands",
+  "publisher": "US Central Intelligence Agency (via factbook.json)",
+  "url": "https://github.com/factbook/factbook.json/blob/master/australia-oceania/cw.json",
+  "type": "dataset",
+  "note": "Fields: Government, Geography, People and Society"
+ },
+ {
+  "id": "wfb-fj",
+  "title": "World Factbook: Fiji",
+  "publisher": "US Central Intelligence Agency (via factbook.json)",
+  "url": "https://github.com/factbook/factbook.json/blob/master/australia-oceania/fj.json",
+  "type": "dataset",
+  "note": "Fields: Government, Geography, People and Society"
+ },
+ {
+  "id": "wfb-fm",
+  "title": "World Factbook: Micronesia",
+  "publisher": "US Central Intelligence Agency (via factbook.json)",
+  "url": "https://github.com/factbook/factbook.json/blob/master/australia-oceania/fm.json",
+  "type": "dataset",
+  "note": "Fields: Government, Geography, People and Society"
+ },
+ {
+  "id": "wfb-fp",
+  "title": "World Factbook: French Polynesia",
+  "publisher": "US Central Intelligence Agency (via factbook.json)",
+  "url": "https://github.com/factbook/factbook.json/blob/master/australia-oceania/fp.json",
+  "type": "dataset",
+  "note": "Fields: Government, Geography, People and Society"
+ },
+ {
+  "id": "wfb-gq",
+  "title": "World Factbook: Guam",
+  "publisher": "US Central Intelligence Agency (via factbook.json)",
+  "url": "https://github.com/factbook/factbook.json/blob/master/australia-oceania/gq.json",
+  "type": "dataset",
+  "note": "Fields: Government, Geography, People and Society"
+ },
+ {
+  "id": "wfb-kr",
+  "title": "World Factbook: Kiribati",
+  "publisher": "US Central Intelligence Agency (via factbook.json)",
+  "url": "https://github.com/factbook/factbook.json/blob/master/australia-oceania/kr.json",
+  "type": "dataset",
+  "note": "Fields: Government, Geography, People and Society"
+ },
+ {
+  "id": "wfb-kt",
+  "title": "World Factbook: Christmas Island",
+  "publisher": "US Central Intelligence Agency (via factbook.json)",
+  "url": "https://github.com/factbook/factbook.json/blob/master/australia-oceania/kt.json",
+  "type": "dataset",
+  "note": "Fields: Government, Geography, People and Society"
+ },
+ {
+  "id": "wfb-nc",
+  "title": "World Factbook: New Caledonia",
+  "publisher": "US Central Intelligence Agency (via factbook.json)",
+  "url": "https://github.com/factbook/factbook.json/blob/master/australia-oceania/nc.json",
+  "type": "dataset",
+  "note": "Fields: Government, Geography, People and Society"
+ },
+ {
+  "id": "wfb-ne",
+  "title": "World Factbook: Niue",
+  "publisher": "US Central Intelligence Agency (via factbook.json)",
+  "url": "https://github.com/factbook/factbook.json/blob/master/australia-oceania/ne.json",
+  "type": "dataset",
+  "note": "Fields: Government, Geography, People and Society"
+ },
+ {
+  "id": "wfb-nf",
+  "title": "World Factbook: Norfolk Island",
+  "publisher": "US Central Intelligence Agency (via factbook.json)",
+  "url": "https://github.com/factbook/factbook.json/blob/master/australia-oceania/nf.json",
+  "type": "dataset",
+  "note": "Fields: Government, Geography, People and Society"
+ },
+ {
+  "id": "wfb-nh",
+  "title": "World Factbook: Vanuatu",
+  "publisher": "US Central Intelligence Agency (via factbook.json)",
+  "url": "https://github.com/factbook/factbook.json/blob/master/australia-oceania/nh.json",
+  "type": "dataset",
+  "note": "Fields: Government, Geography, People and Society"
+ },
+ {
+  "id": "wfb-nr",
+  "title": "World Factbook: Nauru",
+  "publisher": "US Central Intelligence Agency (via factbook.json)",
+  "url": "https://github.com/factbook/factbook.json/blob/master/australia-oceania/nr.json",
+  "type": "dataset",
+  "note": "Fields: Government, Geography, People and Society"
+ },
+ {
+  "id": "wfb-nz",
+  "title": "World Factbook: New Zealand",
+  "publisher": "US Central Intelligence Agency (via factbook.json)",
+  "url": "https://github.com/factbook/factbook.json/blob/master/australia-oceania/nz.json",
+  "type": "dataset",
+  "note": "Fields: Government, Geography, People and Society"
+ },
+ {
+  "id": "wfb-pc",
+  "title": "World Factbook: Pitcairn",
+  "publisher": "US Central Intelligence Agency (via factbook.json)",
+  "url": "https://github.com/factbook/factbook.json/blob/master/australia-oceania/pc.json",
+  "type": "dataset",
+  "note": "Fields: Government, Geography, People and Society"
+ },
+ {
+  "id": "wfb-ps",
+  "title": "World Factbook: Palau",
+  "publisher": "US Central Intelligence Agency (via factbook.json)",
+  "url": "https://github.com/factbook/factbook.json/blob/master/australia-oceania/ps.json",
+  "type": "dataset",
+  "note": "Fields: Government, Geography, People and Society"
+ },
+ {
+  "id": "wfb-rm",
+  "title": "World Factbook: Marshall Islands",
+  "publisher": "US Central Intelligence Agency (via factbook.json)",
+  "url": "https://github.com/factbook/factbook.json/blob/master/australia-oceania/rm.json",
+  "type": "dataset",
+  "note": "Fields: Government, Geography, People and Society"
+ },
+ {
+  "id": "wfb-tl",
+  "title": "World Factbook: Tokelau",
+  "publisher": "US Central Intelligence Agency (via factbook.json)",
+  "url": "https://github.com/factbook/factbook.json/blob/master/australia-oceania/tl.json",
+  "type": "dataset",
+  "note": "Fields: Government, Geography, People and Society"
+ },
+ {
+  "id": "wfb-tn",
+  "title": "World Factbook: Tonga",
+  "publisher": "US Central Intelligence Agency (via factbook.json)",
+  "url": "https://github.com/factbook/factbook.json/blob/master/australia-oceania/tn.json",
+  "type": "dataset",
+  "note": "Fields: Government, Geography, People and Society"
+ },
+ {
+  "id": "wfb-tv",
+  "title": "World Factbook: Tuvalu",
+  "publisher": "US Central Intelligence Agency (via factbook.json)",
+  "url": "https://github.com/factbook/factbook.json/blob/master/australia-oceania/tv.json",
+  "type": "dataset",
+  "note": "Fields: Government, Geography, People and Society"
+ },
+ {
+  "id": "wfb-wf",
+  "title": "World Factbook: Wallis and Futuna",
+  "publisher": "US Central Intelligence Agency (via factbook.json)",
+  "url": "https://github.com/factbook/factbook.json/blob/master/australia-oceania/wf.json",
+  "type": "dataset",
+  "note": "Fields: Government, Geography, People and Society"
+ },
+ {
+  "id": "wfb-ws",
+  "title": "World Factbook: Samoa",
+  "publisher": "US Central Intelligence Agency (via factbook.json)",
+  "url": "https://github.com/factbook/factbook.json/blob/master/australia-oceania/ws.json",
+  "type": "dataset",
+  "note": "Fields: Government, Geography, People and Society"
+ },
+ {
+  "id": "wfb-aa",
+  "title": "World Factbook: Aruba",
+  "publisher": "US Central Intelligence Agency (via factbook.json)",
+  "url": "https://github.com/factbook/factbook.json/blob/master/central-america-n-caribbean/aa.json",
+  "type": "dataset",
+  "note": "Fields: Government, Geography, People and Society"
+ },
+ {
+  "id": "wfb-ac",
+  "title": "World Factbook: Antigua and Barbuda",
+  "publisher": "US Central Intelligence Agency (via factbook.json)",
+  "url": "https://github.com/factbook/factbook.json/blob/master/central-america-n-caribbean/ac.json",
+  "type": "dataset",
+  "note": "Fields: Government, Geography, People and Society"
+ },
+ {
+  "id": "wfb-av",
+  "title": "World Factbook: Anguilla",
+  "publisher": "US Central Intelligence Agency (via factbook.json)",
+  "url": "https://github.com/factbook/factbook.json/blob/master/central-america-n-caribbean/av.json",
+  "type": "dataset",
+  "note": "Fields: Government, Geography, People and Society"
+ },
+ {
+  "id": "wfb-bb",
+  "title": "World Factbook: Barbados",
+  "publisher": "US Central Intelligence Agency (via factbook.json)",
+  "url": "https://github.com/factbook/factbook.json/blob/master/central-america-n-caribbean/bb.json",
+  "type": "dataset",
+  "note": "Fields: Government, Geography, People and Society"
+ },
+ {
+  "id": "wfb-bf",
+  "title": "World Factbook: Bahamas",
+  "publisher": "US Central Intelligence Agency (via factbook.json)",
+  "url": "https://github.com/factbook/factbook.json/blob/master/central-america-n-caribbean/bf.json",
+  "type": "dataset",
+  "note": "Fields: Government, Geography, People and Society"
+ },
+ {
+  "id": "wfb-bh",
+  "title": "World Factbook: Belize",
+  "publisher": "US Central Intelligence Agency (via factbook.json)",
+  "url": "https://github.com/factbook/factbook.json/blob/master/central-america-n-caribbean/bh.json",
+  "type": "dataset",
+  "note": "Fields: Government, Geography, People and Society"
+ },
+ {
+  "id": "wfb-cj",
+  "title": "World Factbook: Cayman Islands",
+  "publisher": "US Central Intelligence Agency (via factbook.json)",
+  "url": "https://github.com/factbook/factbook.json/blob/master/central-america-n-caribbean/cj.json",
+  "type": "dataset",
+  "note": "Fields: Government, Geography, People and Society"
+ },
+ {
+  "id": "wfb-cs",
+  "title": "World Factbook: Costa Rica",
+  "publisher": "US Central Intelligence Agency (via factbook.json)",
+  "url": "https://github.com/factbook/factbook.json/blob/master/central-america-n-caribbean/cs.json",
+  "type": "dataset",
+  "note": "Fields: Government, Geography, People and Society"
+ },
+ {
+  "id": "wfb-cu",
+  "title": "World Factbook: Cuba",
+  "publisher": "US Central Intelligence Agency (via factbook.json)",
+  "url": "https://github.com/factbook/factbook.json/blob/master/central-america-n-caribbean/cu.json",
+  "type": "dataset",
+  "note": "Fields: Government, Geography, People and Society"
+ },
+ {
+  "id": "wfb-do",
+  "title": "World Factbook: Dominica",
+  "publisher": "US Central Intelligence Agency (via factbook.json)",
+  "url": "https://github.com/factbook/factbook.json/blob/master/central-america-n-caribbean/do.json",
+  "type": "dataset",
+  "note": "Fields: Government, Geography, People and Society"
+ },
+ {
+  "id": "wfb-dr",
+  "title": "World Factbook: Dominican Republic",
+  "publisher": "US Central Intelligence Agency (via factbook.json)",
+  "url": "https://github.com/factbook/factbook.json/blob/master/central-america-n-caribbean/dr.json",
+  "type": "dataset",
+  "note": "Fields: Government, Geography, People and Society"
+ },
+ {
+  "id": "wfb-es",
+  "title": "World Factbook: El Salvador",
+  "publisher": "US Central Intelligence Agency (via factbook.json)",
+  "url": "https://github.com/factbook/factbook.json/blob/master/central-america-n-caribbean/es.json",
+  "type": "dataset",
+  "note": "Fields: Government, Geography, People and Society"
+ },
+ {
+  "id": "wfb-gj",
+  "title": "World Factbook: Grenada",
+  "publisher": "US Central Intelligence Agency (via factbook.json)",
+  "url": "https://github.com/factbook/factbook.json/blob/master/central-america-n-caribbean/gj.json",
+  "type": "dataset",
+  "note": "Fields: Government, Geography, People and Society"
+ },
+ {
+  "id": "wfb-gt",
+  "title": "World Factbook: Guatemala",
+  "publisher": "US Central Intelligence Agency (via factbook.json)",
+  "url": "https://github.com/factbook/factbook.json/blob/master/central-america-n-caribbean/gt.json",
+  "type": "dataset",
+  "note": "Fields: Government, Geography, People and Society"
+ },
+ {
+  "id": "wfb-ha",
+  "title": "World Factbook: Haiti",
+  "publisher": "US Central Intelligence Agency (via factbook.json)",
+  "url": "https://github.com/factbook/factbook.json/blob/master/central-america-n-caribbean/ha.json",
+  "type": "dataset",
+  "note": "Fields: Government, Geography, People and Society"
+ },
+ {
+  "id": "wfb-ho",
+  "title": "World Factbook: Honduras",
+  "publisher": "US Central Intelligence Agency (via factbook.json)",
+  "url": "https://github.com/factbook/factbook.json/blob/master/central-america-n-caribbean/ho.json",
+  "type": "dataset",
+  "note": "Fields: Government, Geography, People and Society"
+ },
+ {
+  "id": "wfb-jm",
+  "title": "World Factbook: Jamaica",
+  "publisher": "US Central Intelligence Agency (via factbook.json)",
+  "url": "https://github.com/factbook/factbook.json/blob/master/central-america-n-caribbean/jm.json",
+  "type": "dataset",
+  "note": "Fields: Government, Geography, People and Society"
+ },
+ {
+  "id": "wfb-mh",
+  "title": "World Factbook: Montserrat",
+  "publisher": "US Central Intelligence Agency (via factbook.json)",
+  "url": "https://github.com/factbook/factbook.json/blob/master/central-america-n-caribbean/mh.json",
+  "type": "dataset",
+  "note": "Fields: Government, Geography, People and Society"
+ },
+ {
+  "id": "wfb-nn",
+  "title": "World Factbook: Sint Maarten",
+  "publisher": "US Central Intelligence Agency (via factbook.json)",
+  "url": "https://github.com/factbook/factbook.json/blob/master/central-america-n-caribbean/nn.json",
+  "type": "dataset",
+  "note": "Fields: Government, Geography, People and Society"
+ },
+ {
+  "id": "wfb-nu",
+  "title": "World Factbook: Nicaragua",
+  "publisher": "US Central Intelligence Agency (via factbook.json)",
+  "url": "https://github.com/factbook/factbook.json/blob/master/central-america-n-caribbean/nu.json",
+  "type": "dataset",
+  "note": "Fields: Government, Geography, People and Society"
+ },
+ {
+  "id": "wfb-pm",
+  "title": "World Factbook: Panama",
+  "publisher": "US Central Intelligence Agency (via factbook.json)",
+  "url": "https://github.com/factbook/factbook.json/blob/master/central-america-n-caribbean/pm.json",
+  "type": "dataset",
+  "note": "Fields: Government, Geography, People and Society"
+ },
+ {
+  "id": "wfb-rn",
+  "title": "World Factbook: Saint Martin",
+  "publisher": "US Central Intelligence Agency (via factbook.json)",
+  "url": "https://github.com/factbook/factbook.json/blob/master/central-america-n-caribbean/rn.json",
+  "type": "dataset",
+  "note": "Fields: Government, Geography, People and Society"
+ },
+ {
+  "id": "wfb-rq",
+  "title": "World Factbook: Puerto Rico",
+  "publisher": "US Central Intelligence Agency (via factbook.json)",
+  "url": "https://github.com/factbook/factbook.json/blob/master/central-america-n-caribbean/rq.json",
+  "type": "dataset",
+  "note": "Fields: Government, Geography, People and Society"
+ },
+ {
+  "id": "wfb-sc",
+  "title": "World Factbook: Saint Kitts and Nevis",
+  "publisher": "US Central Intelligence Agency (via factbook.json)",
+  "url": "https://github.com/factbook/factbook.json/blob/master/central-america-n-caribbean/sc.json",
+  "type": "dataset",
+  "note": "Fields: Government, Geography, People and Society"
+ },
+ {
+  "id": "wfb-st",
+  "title": "World Factbook: Saint Lucia",
+  "publisher": "US Central Intelligence Agency (via factbook.json)",
+  "url": "https://github.com/factbook/factbook.json/blob/master/central-america-n-caribbean/st.json",
+  "type": "dataset",
+  "note": "Fields: Government, Geography, People and Society"
+ },
+ {
+  "id": "wfb-tb",
+  "title": "World Factbook: Saint Barthelemy",
+  "publisher": "US Central Intelligence Agency (via factbook.json)",
+  "url": "https://github.com/factbook/factbook.json/blob/master/central-america-n-caribbean/tb.json",
+  "type": "dataset",
+  "note": "Fields: Government, Geography, People and Society"
+ },
+ {
+  "id": "wfb-td",
+  "title": "World Factbook: Trinidad and Tobago",
+  "publisher": "US Central Intelligence Agency (via factbook.json)",
+  "url": "https://github.com/factbook/factbook.json/blob/master/central-america-n-caribbean/td.json",
+  "type": "dataset",
+  "note": "Fields: Government, Geography, People and Society"
+ },
+ {
+  "id": "wfb-tk",
+  "title": "World Factbook: Turks and Caicos Islands",
+  "publisher": "US Central Intelligence Agency (via factbook.json)",
+  "url": "https://github.com/factbook/factbook.json/blob/master/central-america-n-caribbean/tk.json",
+  "type": "dataset",
+  "note": "Fields: Government, Geography, People and Society"
+ },
+ {
+  "id": "wfb-uc",
+  "title": "World Factbook: Curacao",
+  "publisher": "US Central Intelligence Agency (via factbook.json)",
+  "url": "https://github.com/factbook/factbook.json/blob/master/central-america-n-caribbean/uc.json",
+  "type": "dataset",
+  "note": "Fields: Government, Geography, People and Society"
+ },
+ {
+  "id": "wfb-vc",
+  "title": "World Factbook: Saint Vincent and the Grenadines",
+  "publisher": "US Central Intelligence Agency (via factbook.json)",
+  "url": "https://github.com/factbook/factbook.json/blob/master/central-america-n-caribbean/vc.json",
+  "type": "dataset",
+  "note": "Fields: Government, Geography, People and Society"
+ },
+ {
+  "id": "wfb-vi",
+  "title": "World Factbook: British Virgin Islands",
+  "publisher": "US Central Intelligence Agency (via factbook.json)",
+  "url": "https://github.com/factbook/factbook.json/blob/master/central-america-n-caribbean/vi.json",
+  "type": "dataset",
+  "note": "Fields: Government, Geography, People and Society"
+ },
+ {
+  "id": "wfb-vq",
+  "title": "World Factbook: U.S. Virgin Islands",
+  "publisher": "US Central Intelligence Agency (via factbook.json)",
+  "url": "https://github.com/factbook/factbook.json/blob/master/central-america-n-caribbean/vq.json",
+  "type": "dataset",
+  "note": "Fields: Government, Geography, People and Society"
+ },
+ {
+  "id": "wfb-aj",
+  "title": "World Factbook: Azerbaijan",
+  "publisher": "US Central Intelligence Agency (via factbook.json)",
+  "url": "https://github.com/factbook/factbook.json/blob/master/central-asia/aj.json",
+  "type": "dataset",
+  "note": "Fields: Government, Geography, People and Society"
+ },
+ {
+  "id": "wfb-am",
+  "title": "World Factbook: Armenia",
+  "publisher": "US Central Intelligence Agency (via factbook.json)",
+  "url": "https://github.com/factbook/factbook.json/blob/master/central-asia/am.json",
+  "type": "dataset",
+  "note": "Fields: Government, Geography, People and Society"
+ },
+ {
+  "id": "wfb-gg",
+  "title": "World Factbook: Georgia",
+  "publisher": "US Central Intelligence Agency (via factbook.json)",
+  "url": "https://github.com/factbook/factbook.json/blob/master/central-asia/gg.json",
+  "type": "dataset",
+  "note": "Fields: Government, Geography, People and Society"
+ },
+ {
+  "id": "wfb-kg",
+  "title": "World Factbook: Kyrgyzstan",
+  "publisher": "US Central Intelligence Agency (via factbook.json)",
+  "url": "https://github.com/factbook/factbook.json/blob/master/central-asia/kg.json",
+  "type": "dataset",
+  "note": "Fields: Government, Geography, People and Society"
+ },
+ {
+  "id": "wfb-kz",
+  "title": "World Factbook: Kazakhstan",
+  "publisher": "US Central Intelligence Agency (via factbook.json)",
+  "url": "https://github.com/factbook/factbook.json/blob/master/central-asia/kz.json",
+  "type": "dataset",
+  "note": "Fields: Government, Geography, People and Society"
+ },
+ {
+  "id": "wfb-rs",
+  "title": "World Factbook: Russia",
+  "publisher": "US Central Intelligence Agency (via factbook.json)",
+  "url": "https://github.com/factbook/factbook.json/blob/master/central-asia/rs.json",
+  "type": "dataset",
+  "note": "Fields: Government, Geography, People and Society"
+ },
+ {
+  "id": "wfb-ti",
+  "title": "World Factbook: Tajikistan",
+  "publisher": "US Central Intelligence Agency (via factbook.json)",
+  "url": "https://github.com/factbook/factbook.json/blob/master/central-asia/ti.json",
+  "type": "dataset",
+  "note": "Fields: Government, Geography, People and Society"
+ },
+ {
+  "id": "wfb-tx",
+  "title": "World Factbook: Turkmenistan",
+  "publisher": "US Central Intelligence Agency (via factbook.json)",
+  "url": "https://github.com/factbook/factbook.json/blob/master/central-asia/tx.json",
+  "type": "dataset",
+  "note": "Fields: Government, Geography, People and Society"
+ },
+ {
+  "id": "wfb-uz",
+  "title": "World Factbook: Uzbekistan",
+  "publisher": "US Central Intelligence Agency (via factbook.json)",
+  "url": "https://github.com/factbook/factbook.json/blob/master/central-asia/uz.json",
+  "type": "dataset",
+  "note": "Fields: Government, Geography, People and Society"
+ },
+ {
+  "id": "wfb-bm",
+  "title": "World Factbook: Myanmar",
+  "publisher": "US Central Intelligence Agency (via factbook.json)",
+  "url": "https://github.com/factbook/factbook.json/blob/master/east-n-southeast-asia/bm.json",
+  "type": "dataset",
+  "note": "Fields: Government, Geography, People and Society"
+ },
+ {
+  "id": "wfb-bx",
+  "title": "World Factbook: Brunei",
+  "publisher": "US Central Intelligence Agency (via factbook.json)",
+  "url": "https://github.com/factbook/factbook.json/blob/master/east-n-southeast-asia/bx.json",
+  "type": "dataset",
+  "note": "Fields: Government, Geography, People and Society"
+ },
+ {
+  "id": "wfb-cb",
+  "title": "World Factbook: Cambodia",
+  "publisher": "US Central Intelligence Agency (via factbook.json)",
+  "url": "https://github.com/factbook/factbook.json/blob/master/east-n-southeast-asia/cb.json",
+  "type": "dataset",
+  "note": "Fields: Government, Geography, People and Society"
+ },
+ {
+  "id": "wfb-ch",
+  "title": "World Factbook: China",
+  "publisher": "US Central Intelligence Agency (via factbook.json)",
+  "url": "https://github.com/factbook/factbook.json/blob/master/east-n-southeast-asia/ch.json",
+  "type": "dataset",
+  "note": "Fields: Government, Geography, People and Society"
+ },
+ {
+  "id": "wfb-hk",
+  "title": "World Factbook: Hong Kong",
+  "publisher": "US Central Intelligence Agency (via factbook.json)",
+  "url": "https://github.com/factbook/factbook.json/blob/master/east-n-southeast-asia/hk.json",
+  "type": "dataset",
+  "note": "Fields: Government, Geography, People and Society"
+ },
+ {
+  "id": "wfb-id",
+  "title": "World Factbook: Indonesia",
+  "publisher": "US Central Intelligence Agency (via factbook.json)",
+  "url": "https://github.com/factbook/factbook.json/blob/master/east-n-southeast-asia/id.json",
+  "type": "dataset",
+  "note": "Fields: Government, Geography, People and Society"
+ },
+ {
+  "id": "wfb-ja",
+  "title": "World Factbook: Japan",
+  "publisher": "US Central Intelligence Agency (via factbook.json)",
+  "url": "https://github.com/factbook/factbook.json/blob/master/east-n-southeast-asia/ja.json",
+  "type": "dataset",
+  "note": "Fields: Government, Geography, People and Society"
+ },
+ {
+  "id": "wfb-kn",
+  "title": "World Factbook: North Korea",
+  "publisher": "US Central Intelligence Agency (via factbook.json)",
+  "url": "https://github.com/factbook/factbook.json/blob/master/east-n-southeast-asia/kn.json",
+  "type": "dataset",
+  "note": "Fields: Government, Geography, People and Society"
+ },
+ {
+  "id": "wfb-ks",
+  "title": "World Factbook: South Korea",
+  "publisher": "US Central Intelligence Agency (via factbook.json)",
+  "url": "https://github.com/factbook/factbook.json/blob/master/east-n-southeast-asia/ks.json",
+  "type": "dataset",
+  "note": "Fields: Government, Geography, People and Society"
+ },
+ {
+  "id": "wfb-la",
+  "title": "World Factbook: Laos",
+  "publisher": "US Central Intelligence Agency (via factbook.json)",
+  "url": "https://github.com/factbook/factbook.json/blob/master/east-n-southeast-asia/la.json",
+  "type": "dataset",
+  "note": "Fields: Government, Geography, People and Society"
+ },
+ {
+  "id": "wfb-mc",
+  "title": "World Factbook: Macao",
+  "publisher": "US Central Intelligence Agency (via factbook.json)",
+  "url": "https://github.com/factbook/factbook.json/blob/master/east-n-southeast-asia/mc.json",
+  "type": "dataset",
+  "note": "Fields: Government, Geography, People and Society"
+ },
+ {
+  "id": "wfb-mg",
+  "title": "World Factbook: Mongolia",
+  "publisher": "US Central Intelligence Agency (via factbook.json)",
+  "url": "https://github.com/factbook/factbook.json/blob/master/east-n-southeast-asia/mg.json",
+  "type": "dataset",
+  "note": "Fields: Government, Geography, People and Society"
+ },
+ {
+  "id": "wfb-my",
+  "title": "World Factbook: Malaysia",
+  "publisher": "US Central Intelligence Agency (via factbook.json)",
+  "url": "https://github.com/factbook/factbook.json/blob/master/east-n-southeast-asia/my.json",
+  "type": "dataset",
+  "note": "Fields: Government, Geography, People and Society"
+ },
+ {
+  "id": "wfb-pp",
+  "title": "World Factbook: Papua New Guinea",
+  "publisher": "US Central Intelligence Agency (via factbook.json)",
+  "url": "https://github.com/factbook/factbook.json/blob/master/east-n-southeast-asia/pp.json",
+  "type": "dataset",
+  "note": "Fields: Government, Geography, People and Society"
+ },
+ {
+  "id": "wfb-rp",
+  "title": "World Factbook: Philippines",
+  "publisher": "US Central Intelligence Agency (via factbook.json)",
+  "url": "https://github.com/factbook/factbook.json/blob/master/east-n-southeast-asia/rp.json",
+  "type": "dataset",
+  "note": "Fields: Government, Geography, People and Society"
+ },
+ {
+  "id": "wfb-sn",
+  "title": "World Factbook: Singapore",
+  "publisher": "US Central Intelligence Agency (via factbook.json)",
+  "url": "https://github.com/factbook/factbook.json/blob/master/east-n-southeast-asia/sn.json",
+  "type": "dataset",
+  "note": "Fields: Government, Geography, People and Society"
+ },
+ {
+  "id": "wfb-th",
+  "title": "World Factbook: Thailand",
+  "publisher": "US Central Intelligence Agency (via factbook.json)",
+  "url": "https://github.com/factbook/factbook.json/blob/master/east-n-southeast-asia/th.json",
+  "type": "dataset",
+  "note": "Fields: Government, Geography, People and Society"
+ },
+ {
+  "id": "wfb-tt",
+  "title": "World Factbook: Timor Leste",
+  "publisher": "US Central Intelligence Agency (via factbook.json)",
+  "url": "https://github.com/factbook/factbook.json/blob/master/east-n-southeast-asia/tt.json",
+  "type": "dataset",
+  "note": "Fields: Government, Geography, People and Society"
+ },
+ {
+  "id": "wfb-tw",
+  "title": "World Factbook: Taiwan",
+  "publisher": "US Central Intelligence Agency (via factbook.json)",
+  "url": "https://github.com/factbook/factbook.json/blob/master/east-n-southeast-asia/tw.json",
+  "type": "dataset",
+  "note": "Fields: Government, Geography, People and Society"
+ },
+ {
+  "id": "wfb-vm",
+  "title": "World Factbook: Vietnam",
+  "publisher": "US Central Intelligence Agency (via factbook.json)",
+  "url": "https://github.com/factbook/factbook.json/blob/master/east-n-southeast-asia/vm.json",
+  "type": "dataset",
+  "note": "Fields: Government, Geography, People and Society"
+ },
+ {
+  "id": "wfb-al",
+  "title": "World Factbook: Albania",
+  "publisher": "US Central Intelligence Agency (via factbook.json)",
+  "url": "https://github.com/factbook/factbook.json/blob/master/europe/al.json",
+  "type": "dataset",
+  "note": "Fields: Government, Geography, People and Society"
+ },
+ {
+  "id": "wfb-an",
+  "title": "World Factbook: Andorra",
+  "publisher": "US Central Intelligence Agency (via factbook.json)",
+  "url": "https://github.com/factbook/factbook.json/blob/master/europe/an.json",
+  "type": "dataset",
+  "note": "Fields: Government, Geography, People and Society"
+ },
+ {
+  "id": "wfb-au",
+  "title": "World Factbook: Austria",
+  "publisher": "US Central Intelligence Agency (via factbook.json)",
+  "url": "https://github.com/factbook/factbook.json/blob/master/europe/au.json",
+  "type": "dataset",
+  "note": "Fields: Government, Geography, People and Society"
+ },
+ {
+  "id": "wfb-be",
+  "title": "World Factbook: Belgium",
+  "publisher": "US Central Intelligence Agency (via factbook.json)",
+  "url": "https://github.com/factbook/factbook.json/blob/master/europe/be.json",
+  "type": "dataset",
+  "note": "Fields: Government, Geography, People and Society"
+ },
+ {
+  "id": "wfb-bk",
+  "title": "World Factbook: Bosnia and Herzegovina",
+  "publisher": "US Central Intelligence Agency (via factbook.json)",
+  "url": "https://github.com/factbook/factbook.json/blob/master/europe/bk.json",
+  "type": "dataset",
+  "note": "Fields: Government, Geography, People and Society"
+ },
+ {
+  "id": "wfb-bo",
+  "title": "World Factbook: Belarus",
+  "publisher": "US Central Intelligence Agency (via factbook.json)",
+  "url": "https://github.com/factbook/factbook.json/blob/master/europe/bo.json",
+  "type": "dataset",
+  "note": "Fields: Government, Geography, People and Society"
+ },
+ {
+  "id": "wfb-bu",
+  "title": "World Factbook: Bulgaria",
+  "publisher": "US Central Intelligence Agency (via factbook.json)",
+  "url": "https://github.com/factbook/factbook.json/blob/master/europe/bu.json",
+  "type": "dataset",
+  "note": "Fields: Government, Geography, People and Society"
+ },
+ {
+  "id": "wfb-cy",
+  "title": "World Factbook: Cyprus",
+  "publisher": "US Central Intelligence Agency (via factbook.json)",
+  "url": "https://github.com/factbook/factbook.json/blob/master/europe/cy.json",
+  "type": "dataset",
+  "note": "Fields: Government, Geography, People and Society"
+ },
+ {
+  "id": "wfb-da",
+  "title": "World Factbook: Denmark",
+  "publisher": "US Central Intelligence Agency (via factbook.json)",
+  "url": "https://github.com/factbook/factbook.json/blob/master/europe/da.json",
+  "type": "dataset",
+  "note": "Fields: Government, Geography, People and Society"
+ },
+ {
+  "id": "wfb-ei",
+  "title": "World Factbook: Ireland",
+  "publisher": "US Central Intelligence Agency (via factbook.json)",
+  "url": "https://github.com/factbook/factbook.json/blob/master/europe/ei.json",
+  "type": "dataset",
+  "note": "Fields: Government, Geography, People and Society"
+ },
+ {
+  "id": "wfb-en",
+  "title": "World Factbook: Estonia",
+  "publisher": "US Central Intelligence Agency (via factbook.json)",
+  "url": "https://github.com/factbook/factbook.json/blob/master/europe/en.json",
+  "type": "dataset",
+  "note": "Fields: Government, Geography, People and Society"
+ },
+ {
+  "id": "wfb-ez",
+  "title": "World Factbook: Czechia",
+  "publisher": "US Central Intelligence Agency (via factbook.json)",
+  "url": "https://github.com/factbook/factbook.json/blob/master/europe/ez.json",
+  "type": "dataset",
+  "note": "Fields: Government, Geography, People and Society"
+ },
+ {
+  "id": "wfb-fi",
+  "title": "World Factbook: Finland",
+  "publisher": "US Central Intelligence Agency (via factbook.json)",
+  "url": "https://github.com/factbook/factbook.json/blob/master/europe/fi.json",
+  "type": "dataset",
+  "note": "Fields: Government, Geography, People and Society"
+ },
+ {
+  "id": "wfb-fo",
+  "title": "World Factbook: Faroe Islands",
+  "publisher": "US Central Intelligence Agency (via factbook.json)",
+  "url": "https://github.com/factbook/factbook.json/blob/master/europe/fo.json",
+  "type": "dataset",
+  "note": "Fields: Government, Geography, People and Society"
+ },
+ {
+  "id": "wfb-fr",
+  "title": "World Factbook: France",
+  "publisher": "US Central Intelligence Agency (via factbook.json)",
+  "url": "https://github.com/factbook/factbook.json/blob/master/europe/fr.json",
+  "type": "dataset",
+  "note": "Fields: Government, Geography, People and Society"
+ },
+ {
+  "id": "wfb-gi",
+  "title": "World Factbook: Gibraltar",
+  "publisher": "US Central Intelligence Agency (via factbook.json)",
+  "url": "https://github.com/factbook/factbook.json/blob/master/europe/gi.json",
+  "type": "dataset",
+  "note": "Fields: Government, Geography, People and Society"
+ },
+ {
+  "id": "wfb-gk",
+  "title": "World Factbook: Guernsey",
+  "publisher": "US Central Intelligence Agency (via factbook.json)",
+  "url": "https://github.com/factbook/factbook.json/blob/master/europe/gk.json",
+  "type": "dataset",
+  "note": "Fields: Government, Geography, People and Society"
+ },
+ {
+  "id": "wfb-gm",
+  "title": "World Factbook: Germany",
+  "publisher": "US Central Intelligence Agency (via factbook.json)",
+  "url": "https://github.com/factbook/factbook.json/blob/master/europe/gm.json",
+  "type": "dataset",
+  "note": "Fields: Government, Geography, People and Society"
+ },
+ {
+  "id": "wfb-gr",
+  "title": "World Factbook: Greece",
+  "publisher": "US Central Intelligence Agency (via factbook.json)",
+  "url": "https://github.com/factbook/factbook.json/blob/master/europe/gr.json",
+  "type": "dataset",
+  "note": "Fields: Government, Geography, People and Society"
+ },
+ {
+  "id": "wfb-hr",
+  "title": "World Factbook: Croatia",
+  "publisher": "US Central Intelligence Agency (via factbook.json)",
+  "url": "https://github.com/factbook/factbook.json/blob/master/europe/hr.json",
+  "type": "dataset",
+  "note": "Fields: Government, Geography, People and Society"
+ },
+ {
+  "id": "wfb-hu",
+  "title": "World Factbook: Hungary",
+  "publisher": "US Central Intelligence Agency (via factbook.json)",
+  "url": "https://github.com/factbook/factbook.json/blob/master/europe/hu.json",
+  "type": "dataset",
+  "note": "Fields: Government, Geography, People and Society"
+ },
+ {
+  "id": "wfb-ic",
+  "title": "World Factbook: Iceland",
+  "publisher": "US Central Intelligence Agency (via factbook.json)",
+  "url": "https://github.com/factbook/factbook.json/blob/master/europe/ic.json",
+  "type": "dataset",
+  "note": "Fields: Government, Geography, People and Society"
+ },
+ {
+  "id": "wfb-im",
+  "title": "World Factbook: Isle of Man",
+  "publisher": "US Central Intelligence Agency (via factbook.json)",
+  "url": "https://github.com/factbook/factbook.json/blob/master/europe/im.json",
+  "type": "dataset",
+  "note": "Fields: Government, Geography, People and Society"
+ },
+ {
+  "id": "wfb-it",
+  "title": "World Factbook: Italy",
+  "publisher": "US Central Intelligence Agency (via factbook.json)",
+  "url": "https://github.com/factbook/factbook.json/blob/master/europe/it.json",
+  "type": "dataset",
+  "note": "Fields: Government, Geography, People and Society"
+ },
+ {
+  "id": "wfb-je",
+  "title": "World Factbook: Jersey",
+  "publisher": "US Central Intelligence Agency (via factbook.json)",
+  "url": "https://github.com/factbook/factbook.json/blob/master/europe/je.json",
+  "type": "dataset",
+  "note": "Fields: Government, Geography, People and Society"
+ },
+ {
+  "id": "wfb-kv",
+  "title": "World Factbook: Kosovo",
+  "publisher": "US Central Intelligence Agency (via factbook.json)",
+  "url": "https://github.com/factbook/factbook.json/blob/master/europe/kv.json",
+  "type": "dataset",
+  "note": "Fields: Government, Geography, People and Society"
+ },
+ {
+  "id": "wfb-lg",
+  "title": "World Factbook: Latvia",
+  "publisher": "US Central Intelligence Agency (via factbook.json)",
+  "url": "https://github.com/factbook/factbook.json/blob/master/europe/lg.json",
+  "type": "dataset",
+  "note": "Fields: Government, Geography, People and Society"
+ },
+ {
+  "id": "wfb-lh",
+  "title": "World Factbook: Lithuania",
+  "publisher": "US Central Intelligence Agency (via factbook.json)",
+  "url": "https://github.com/factbook/factbook.json/blob/master/europe/lh.json",
+  "type": "dataset",
+  "note": "Fields: Government, Geography, People and Society"
+ },
+ {
+  "id": "wfb-lo",
+  "title": "World Factbook: Slovakia",
+  "publisher": "US Central Intelligence Agency (via factbook.json)",
+  "url": "https://github.com/factbook/factbook.json/blob/master/europe/lo.json",
+  "type": "dataset",
+  "note": "Fields: Government, Geography, People and Society"
+ },
+ {
+  "id": "wfb-ls",
+  "title": "World Factbook: Liechtenstein",
+  "publisher": "US Central Intelligence Agency (via factbook.json)",
+  "url": "https://github.com/factbook/factbook.json/blob/master/europe/ls.json",
+  "type": "dataset",
+  "note": "Fields: Government, Geography, People and Society"
+ },
+ {
+  "id": "wfb-lu",
+  "title": "World Factbook: Luxembourg",
+  "publisher": "US Central Intelligence Agency (via factbook.json)",
+  "url": "https://github.com/factbook/factbook.json/blob/master/europe/lu.json",
+  "type": "dataset",
+  "note": "Fields: Government, Geography, People and Society"
+ },
+ {
+  "id": "wfb-md",
+  "title": "World Factbook: Moldova",
+  "publisher": "US Central Intelligence Agency (via factbook.json)",
+  "url": "https://github.com/factbook/factbook.json/blob/master/europe/md.json",
+  "type": "dataset",
+  "note": "Fields: Government, Geography, People and Society"
+ },
+ {
+  "id": "wfb-mj",
+  "title": "World Factbook: Montenegro",
+  "publisher": "US Central Intelligence Agency (via factbook.json)",
+  "url": "https://github.com/factbook/factbook.json/blob/master/europe/mj.json",
+  "type": "dataset",
+  "note": "Fields: Government, Geography, People and Society"
+ },
+ {
+  "id": "wfb-mk",
+  "title": "World Factbook: North Macedonia",
+  "publisher": "US Central Intelligence Agency (via factbook.json)",
+  "url": "https://github.com/factbook/factbook.json/blob/master/europe/mk.json",
+  "type": "dataset",
+  "note": "Fields: Government, Geography, People and Society"
+ },
+ {
+  "id": "wfb-mn",
+  "title": "World Factbook: Monaco",
+  "publisher": "US Central Intelligence Agency (via factbook.json)",
+  "url": "https://github.com/factbook/factbook.json/blob/master/europe/mn.json",
+  "type": "dataset",
+  "note": "Fields: Government, Geography, People and Society"
+ },
+ {
+  "id": "wfb-mt",
+  "title": "World Factbook: Malta",
+  "publisher": "US Central Intelligence Agency (via factbook.json)",
+  "url": "https://github.com/factbook/factbook.json/blob/master/europe/mt.json",
+  "type": "dataset",
+  "note": "Fields: Government, Geography, People and Society"
+ },
+ {
+  "id": "wfb-nl",
+  "title": "World Factbook: The Netherlands",
+  "publisher": "US Central Intelligence Agency (via factbook.json)",
+  "url": "https://github.com/factbook/factbook.json/blob/master/europe/nl.json",
+  "type": "dataset",
+  "note": "Fields: Government, Geography, People and Society"
+ },
+ {
+  "id": "wfb-no",
+  "title": "World Factbook: Norway",
+  "publisher": "US Central Intelligence Agency (via factbook.json)",
+  "url": "https://github.com/factbook/factbook.json/blob/master/europe/no.json",
+  "type": "dataset",
+  "note": "Fields: Government, Geography, People and Society"
+ },
+ {
+  "id": "wfb-pl",
+  "title": "World Factbook: Poland",
+  "publisher": "US Central Intelligence Agency (via factbook.json)",
+  "url": "https://github.com/factbook/factbook.json/blob/master/europe/pl.json",
+  "type": "dataset",
+  "note": "Fields: Government, Geography, People and Society"
+ },
+ {
+  "id": "wfb-po",
+  "title": "World Factbook: Portugal",
+  "publisher": "US Central Intelligence Agency (via factbook.json)",
+  "url": "https://github.com/factbook/factbook.json/blob/master/europe/po.json",
+  "type": "dataset",
+  "note": "Fields: Government, Geography, People and Society"
+ },
+ {
+  "id": "wfb-ri",
+  "title": "World Factbook: Serbia",
+  "publisher": "US Central Intelligence Agency (via factbook.json)",
+  "url": "https://github.com/factbook/factbook.json/blob/master/europe/ri.json",
+  "type": "dataset",
+  "note": "Fields: Government, Geography, People and Society"
+ },
+ {
+  "id": "wfb-ro",
+  "title": "World Factbook: Romania",
+  "publisher": "US Central Intelligence Agency (via factbook.json)",
+  "url": "https://github.com/factbook/factbook.json/blob/master/europe/ro.json",
+  "type": "dataset",
+  "note": "Fields: Government, Geography, People and Society"
+ },
+ {
+  "id": "wfb-si",
+  "title": "World Factbook: Slovenia",
+  "publisher": "US Central Intelligence Agency (via factbook.json)",
+  "url": "https://github.com/factbook/factbook.json/blob/master/europe/si.json",
+  "type": "dataset",
+  "note": "Fields: Government, Geography, People and Society"
+ },
+ {
+  "id": "wfb-sm",
+  "title": "World Factbook: San Marino",
+  "publisher": "US Central Intelligence Agency (via factbook.json)",
+  "url": "https://github.com/factbook/factbook.json/blob/master/europe/sm.json",
+  "type": "dataset",
+  "note": "Fields: Government, Geography, People and Society"
+ },
+ {
+  "id": "wfb-sp",
+  "title": "World Factbook: Spain",
+  "publisher": "US Central Intelligence Agency (via factbook.json)",
+  "url": "https://github.com/factbook/factbook.json/blob/master/europe/sp.json",
+  "type": "dataset",
+  "note": "Fields: Government, Geography, People and Society"
+ },
+ {
+  "id": "wfb-sv",
+  "title": "World Factbook: Svalbard and Jan Mayen",
+  "publisher": "US Central Intelligence Agency (via factbook.json)",
+  "url": "https://github.com/factbook/factbook.json/blob/master/europe/sv.json",
+  "type": "dataset",
+  "note": "Fields: Government, Geography, People and Society"
+ },
+ {
+  "id": "wfb-sw",
+  "title": "World Factbook: Sweden",
+  "publisher": "US Central Intelligence Agency (via factbook.json)",
+  "url": "https://github.com/factbook/factbook.json/blob/master/europe/sw.json",
+  "type": "dataset",
+  "note": "Fields: Government, Geography, People and Society"
+ },
+ {
+  "id": "wfb-sz",
+  "title": "World Factbook: Switzerland",
+  "publisher": "US Central Intelligence Agency (via factbook.json)",
+  "url": "https://github.com/factbook/factbook.json/blob/master/europe/sz.json",
+  "type": "dataset",
+  "note": "Fields: Government, Geography, People and Society"
+ },
+ {
+  "id": "wfb-uk",
+  "title": "World Factbook: United Kingdom",
+  "publisher": "US Central Intelligence Agency (via factbook.json)",
+  "url": "https://github.com/factbook/factbook.json/blob/master/europe/uk.json",
+  "type": "dataset",
+  "note": "Fields: Government, Geography, People and Society"
+ },
+ {
+  "id": "wfb-up",
+  "title": "World Factbook: Ukraine",
+  "publisher": "US Central Intelligence Agency (via factbook.json)",
+  "url": "https://github.com/factbook/factbook.json/blob/master/europe/up.json",
+  "type": "dataset",
+  "note": "Fields: Government, Geography, People and Society"
+ },
+ {
+  "id": "wfb-vt",
+  "title": "World Factbook: Vatican",
+  "publisher": "US Central Intelligence Agency (via factbook.json)",
+  "url": "https://github.com/factbook/factbook.json/blob/master/europe/vt.json",
+  "type": "dataset",
+  "note": "Fields: Government, Geography, People and Society"
+ },
+ {
+  "id": "wfb-ae",
+  "title": "World Factbook: United Arab Emirates",
+  "publisher": "US Central Intelligence Agency (via factbook.json)",
+  "url": "https://github.com/factbook/factbook.json/blob/master/middle-east/ae.json",
+  "type": "dataset",
+  "note": "Fields: Government, Geography, People and Society"
+ },
+ {
+  "id": "wfb-ba",
+  "title": "World Factbook: Bahrain",
+  "publisher": "US Central Intelligence Agency (via factbook.json)",
+  "url": "https://github.com/factbook/factbook.json/blob/master/middle-east/ba.json",
+  "type": "dataset",
+  "note": "Fields: Government, Geography, People and Society"
+ },
+ {
+  "id": "wfb-ir",
+  "title": "World Factbook: Iran",
+  "publisher": "US Central Intelligence Agency (via factbook.json)",
+  "url": "https://github.com/factbook/factbook.json/blob/master/middle-east/ir.json",
+  "type": "dataset",
+  "note": "Fields: Government, Geography, People and Society"
+ },
+ {
+  "id": "wfb-is",
+  "title": "World Factbook: Israel",
+  "publisher": "US Central Intelligence Agency (via factbook.json)",
+  "url": "https://github.com/factbook/factbook.json/blob/master/middle-east/is.json",
+  "type": "dataset",
+  "note": "Fields: Government, Geography, People and Society"
+ },
+ {
+  "id": "wfb-iz",
+  "title": "World Factbook: Iraq",
+  "publisher": "US Central Intelligence Agency (via factbook.json)",
+  "url": "https://github.com/factbook/factbook.json/blob/master/middle-east/iz.json",
+  "type": "dataset",
+  "note": "Fields: Government, Geography, People and Society"
+ },
+ {
+  "id": "wfb-jo",
+  "title": "World Factbook: Jordan",
+  "publisher": "US Central Intelligence Agency (via factbook.json)",
+  "url": "https://github.com/factbook/factbook.json/blob/master/middle-east/jo.json",
+  "type": "dataset",
+  "note": "Fields: Government, Geography, People and Society"
+ },
+ {
+  "id": "wfb-ku",
+  "title": "World Factbook: Kuwait",
+  "publisher": "US Central Intelligence Agency (via factbook.json)",
+  "url": "https://github.com/factbook/factbook.json/blob/master/middle-east/ku.json",
+  "type": "dataset",
+  "note": "Fields: Government, Geography, People and Society"
+ },
+ {
+  "id": "wfb-le",
+  "title": "World Factbook: Lebanon",
+  "publisher": "US Central Intelligence Agency (via factbook.json)",
+  "url": "https://github.com/factbook/factbook.json/blob/master/middle-east/le.json",
+  "type": "dataset",
+  "note": "Fields: Government, Geography, People and Society"
+ },
+ {
+  "id": "wfb-mu",
+  "title": "World Factbook: Oman",
+  "publisher": "US Central Intelligence Agency (via factbook.json)",
+  "url": "https://github.com/factbook/factbook.json/blob/master/middle-east/mu.json",
+  "type": "dataset",
+  "note": "Fields: Government, Geography, People and Society"
+ },
+ {
+  "id": "wfb-qa",
+  "title": "World Factbook: Qatar",
+  "publisher": "US Central Intelligence Agency (via factbook.json)",
+  "url": "https://github.com/factbook/factbook.json/blob/master/middle-east/qa.json",
+  "type": "dataset",
+  "note": "Fields: Government, Geography, People and Society"
+ },
+ {
+  "id": "wfb-sa",
+  "title": "World Factbook: Saudi Arabia",
+  "publisher": "US Central Intelligence Agency (via factbook.json)",
+  "url": "https://github.com/factbook/factbook.json/blob/master/middle-east/sa.json",
+  "type": "dataset",
+  "note": "Fields: Government, Geography, People and Society"
+ },
+ {
+  "id": "wfb-sy",
+  "title": "World Factbook: Syria",
+  "publisher": "US Central Intelligence Agency (via factbook.json)",
+  "url": "https://github.com/factbook/factbook.json/blob/master/middle-east/sy.json",
+  "type": "dataset",
+  "note": "Fields: Government, Geography, People and Society"
+ },
+ {
+  "id": "wfb-tu",
+  "title": "World Factbook: Turkey",
+  "publisher": "US Central Intelligence Agency (via factbook.json)",
+  "url": "https://github.com/factbook/factbook.json/blob/master/middle-east/tu.json",
+  "type": "dataset",
+  "note": "Fields: Government, Geography, People and Society"
+ },
+ {
+  "id": "wfb-we",
+  "title": "World Factbook: Palestinian Territory",
+  "publisher": "US Central Intelligence Agency (via factbook.json)",
+  "url": "https://github.com/factbook/factbook.json/blob/master/middle-east/we.json",
+  "type": "dataset",
+  "note": "Fields: Government, Geography, People and Society"
+ },
+ {
+  "id": "wfb-ym",
+  "title": "World Factbook: Yemen",
+  "publisher": "US Central Intelligence Agency (via factbook.json)",
+  "url": "https://github.com/factbook/factbook.json/blob/master/middle-east/ym.json",
+  "type": "dataset",
+  "note": "Fields: Government, Geography, People and Society"
+ },
+ {
+  "id": "wfb-bd",
+  "title": "World Factbook: Bermuda",
+  "publisher": "US Central Intelligence Agency (via factbook.json)",
+  "url": "https://github.com/factbook/factbook.json/blob/master/north-america/bd.json",
+  "type": "dataset",
+  "note": "Fields: Government, Geography, People and Society"
+ },
+ {
+  "id": "wfb-ca",
+  "title": "World Factbook: Canada",
+  "publisher": "US Central Intelligence Agency (via factbook.json)",
+  "url": "https://github.com/factbook/factbook.json/blob/master/north-america/ca.json",
+  "type": "dataset",
+  "note": "Fields: Government, Geography, People and Society"
+ },
+ {
+  "id": "wfb-gl",
+  "title": "World Factbook: Greenland",
+  "publisher": "US Central Intelligence Agency (via factbook.json)",
+  "url": "https://github.com/factbook/factbook.json/blob/master/north-america/gl.json",
+  "type": "dataset",
+  "note": "Fields: Government, Geography, People and Society"
+ },
+ {
+  "id": "wfb-mx",
+  "title": "World Factbook: Mexico",
+  "publisher": "US Central Intelligence Agency (via factbook.json)",
+  "url": "https://github.com/factbook/factbook.json/blob/master/north-america/mx.json",
+  "type": "dataset",
+  "note": "Fields: Government, Geography, People and Society"
+ },
+ {
+  "id": "wfb-sb",
+  "title": "World Factbook: Saint Pierre and Miquelon",
+  "publisher": "US Central Intelligence Agency (via factbook.json)",
+  "url": "https://github.com/factbook/factbook.json/blob/master/north-america/sb.json",
+  "type": "dataset",
+  "note": "Fields: Government, Geography, People and Society"
+ },
+ {
+  "id": "wfb-us",
+  "title": "World Factbook: United States",
+  "publisher": "US Central Intelligence Agency (via factbook.json)",
+  "url": "https://github.com/factbook/factbook.json/blob/master/north-america/us.json",
+  "type": "dataset",
+  "note": "Fields: Government, Geography, People and Society"
+ },
+ {
+  "id": "wfb-ar",
+  "title": "World Factbook: Argentina",
+  "publisher": "US Central Intelligence Agency (via factbook.json)",
+  "url": "https://github.com/factbook/factbook.json/blob/master/south-america/ar.json",
+  "type": "dataset",
+  "note": "Fields: Government, Geography, People and Society"
+ },
+ {
+  "id": "wfb-bl",
+  "title": "World Factbook: Bolivia",
+  "publisher": "US Central Intelligence Agency (via factbook.json)",
+  "url": "https://github.com/factbook/factbook.json/blob/master/south-america/bl.json",
+  "type": "dataset",
+  "note": "Fields: Government, Geography, People and Society"
+ },
+ {
+  "id": "wfb-br",
+  "title": "World Factbook: Brazil",
+  "publisher": "US Central Intelligence Agency (via factbook.json)",
+  "url": "https://github.com/factbook/factbook.json/blob/master/south-america/br.json",
+  "type": "dataset",
+  "note": "Fields: Government, Geography, People and Society"
+ },
+ {
+  "id": "wfb-ci",
+  "title": "World Factbook: Chile",
+  "publisher": "US Central Intelligence Agency (via factbook.json)",
+  "url": "https://github.com/factbook/factbook.json/blob/master/south-america/ci.json",
+  "type": "dataset",
+  "note": "Fields: Government, Geography, People and Society"
+ },
+ {
+  "id": "wfb-co",
+  "title": "World Factbook: Colombia",
+  "publisher": "US Central Intelligence Agency (via factbook.json)",
+  "url": "https://github.com/factbook/factbook.json/blob/master/south-america/co.json",
+  "type": "dataset",
+  "note": "Fields: Government, Geography, People and Society"
+ },
+ {
+  "id": "wfb-ec",
+  "title": "World Factbook: Ecuador",
+  "publisher": "US Central Intelligence Agency (via factbook.json)",
+  "url": "https://github.com/factbook/factbook.json/blob/master/south-america/ec.json",
+  "type": "dataset",
+  "note": "Fields: Government, Geography, People and Society"
+ },
+ {
+  "id": "wfb-fk",
+  "title": "World Factbook: Falkland Islands",
+  "publisher": "US Central Intelligence Agency (via factbook.json)",
+  "url": "https://github.com/factbook/factbook.json/blob/master/south-america/fk.json",
+  "type": "dataset",
+  "note": "Fields: Government, Geography, People and Society"
+ },
+ {
+  "id": "wfb-gy",
+  "title": "World Factbook: Guyana",
+  "publisher": "US Central Intelligence Agency (via factbook.json)",
+  "url": "https://github.com/factbook/factbook.json/blob/master/south-america/gy.json",
+  "type": "dataset",
+  "note": "Fields: Government, Geography, People and Society"
+ },
+ {
+  "id": "wfb-ns",
+  "title": "World Factbook: Suriname",
+  "publisher": "US Central Intelligence Agency (via factbook.json)",
+  "url": "https://github.com/factbook/factbook.json/blob/master/south-america/ns.json",
+  "type": "dataset",
+  "note": "Fields: Government, Geography, People and Society"
+ },
+ {
+  "id": "wfb-pa",
+  "title": "World Factbook: Paraguay",
+  "publisher": "US Central Intelligence Agency (via factbook.json)",
+  "url": "https://github.com/factbook/factbook.json/blob/master/south-america/pa.json",
+  "type": "dataset",
+  "note": "Fields: Government, Geography, People and Society"
+ },
+ {
+  "id": "wfb-pe",
+  "title": "World Factbook: Peru",
+  "publisher": "US Central Intelligence Agency (via factbook.json)",
+  "url": "https://github.com/factbook/factbook.json/blob/master/south-america/pe.json",
+  "type": "dataset",
+  "note": "Fields: Government, Geography, People and Society"
+ },
+ {
+  "id": "wfb-sx",
+  "title": "World Factbook: South Georgia and the South Sandwich Islands",
+  "publisher": "US Central Intelligence Agency (via factbook.json)",
+  "url": "https://github.com/factbook/factbook.json/blob/master/south-america/sx.json",
+  "type": "dataset",
+  "note": "Fields: Government, Geography, People and Society"
+ },
+ {
+  "id": "wfb-uy",
+  "title": "World Factbook: Uruguay",
+  "publisher": "US Central Intelligence Agency (via factbook.json)",
+  "url": "https://github.com/factbook/factbook.json/blob/master/south-america/uy.json",
+  "type": "dataset",
+  "note": "Fields: Government, Geography, People and Society"
+ },
+ {
+  "id": "wfb-ve",
+  "title": "World Factbook: Venezuela",
+  "publisher": "US Central Intelligence Agency (via factbook.json)",
+  "url": "https://github.com/factbook/factbook.json/blob/master/south-america/ve.json",
+  "type": "dataset",
+  "note": "Fields: Government, Geography, People and Society"
+ },
+ {
+  "id": "wfb-af",
+  "title": "World Factbook: Afghanistan",
+  "publisher": "US Central Intelligence Agency (via factbook.json)",
+  "url": "https://github.com/factbook/factbook.json/blob/master/south-asia/af.json",
+  "type": "dataset",
+  "note": "Fields: Government, Geography, People and Society"
+ },
+ {
+  "id": "wfb-bg",
+  "title": "World Factbook: Bangladesh",
+  "publisher": "US Central Intelligence Agency (via factbook.json)",
+  "url": "https://github.com/factbook/factbook.json/blob/master/south-asia/bg.json",
+  "type": "dataset",
+  "note": "Fields: Government, Geography, People and Society"
+ },
+ {
+  "id": "wfb-bt",
+  "title": "World Factbook: Bhutan",
+  "publisher": "US Central Intelligence Agency (via factbook.json)",
+  "url": "https://github.com/factbook/factbook.json/blob/master/south-asia/bt.json",
+  "type": "dataset",
+  "note": "Fields: Government, Geography, People and Society"
+ },
+ {
+  "id": "wfb-ce",
+  "title": "World Factbook: Sri Lanka",
+  "publisher": "US Central Intelligence Agency (via factbook.json)",
+  "url": "https://github.com/factbook/factbook.json/blob/master/south-asia/ce.json",
+  "type": "dataset",
+  "note": "Fields: Government, Geography, People and Society"
+ },
+ {
+  "id": "wfb-in",
+  "title": "World Factbook: India",
+  "publisher": "US Central Intelligence Agency (via factbook.json)",
+  "url": "https://github.com/factbook/factbook.json/blob/master/south-asia/in.json",
+  "type": "dataset",
+  "note": "Fields: Government, Geography, People and Society"
+ },
+ {
+  "id": "wfb-io",
+  "title": "World Factbook: British Indian Ocean Territory",
+  "publisher": "US Central Intelligence Agency (via factbook.json)",
+  "url": "https://github.com/factbook/factbook.json/blob/master/south-asia/io.json",
+  "type": "dataset",
+  "note": "Fields: Government, Geography, People and Society"
+ },
+ {
+  "id": "wfb-mv",
+  "title": "World Factbook: Maldives",
+  "publisher": "US Central Intelligence Agency (via factbook.json)",
+  "url": "https://github.com/factbook/factbook.json/blob/master/south-asia/mv.json",
+  "type": "dataset",
+  "note": "Fields: Government, Geography, People and Society"
+ },
+ {
+  "id": "wfb-np",
+  "title": "World Factbook: Nepal",
+  "publisher": "US Central Intelligence Agency (via factbook.json)",
+  "url": "https://github.com/factbook/factbook.json/blob/master/south-asia/np.json",
+  "type": "dataset",
+  "note": "Fields: Government, Geography, People and Society"
+ },
+ {
+  "id": "wfb-pk",
+  "title": "World Factbook: Pakistan",
+  "publisher": "US Central Intelligence Agency (via factbook.json)",
+  "url": "https://github.com/factbook/factbook.json/blob/master/south-asia/pk.json",
+  "type": "dataset",
+  "note": "Fields: Government, Geography, People and Society"
+ }
+]

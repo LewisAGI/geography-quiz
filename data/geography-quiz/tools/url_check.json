@@ -1,0 +1,973 @@
+{
+ "checked_at": "2026-10-22T22:58+10:00",
+ "results": [
+  {
+   "id": "cia-wfb",
+   "url_status": "200"
+  },
+  {
+   "id": "factbook-json",
+   "url_status": "200"
+  },
+  {
+   "id": "geonames-countryinfo",
+   "url_status": "200"
+  },
+  {
+   "id": "ne-elev",
+   "url_status": "200"
+  },
+  {
+   "id": "wfb-ag",
+   "url_status": "200"
+  },
+  {
+   "id": "wfb-ao",
+   "url_status": "200"
+  },
+  {
+   "id": "wfb-bc",
+   "url_status": "200"
+  },
+  {
+   "id": "wfb-bn",
+   "url_status": "200"
+  },
+  {
+   "id": "wfb-by",
+   "url_status": "200"
+  },
+  {
+   "id": "wfb-cd",
+   "url_status": "200"
+  },
+  {
+   "id": "wfb-cf",
+   "url_status": "200"
+  },
+  {
+   "id": "wfb-cg",
+   "url_status": "200"
+  },
+  {
+   "id": "wfb-cm",
+   "url_status": "200"
+  },
+  {
+   "id": "wfb-cn",
+   "url_status": "200"
+  },
+  {
+   "id": "wfb-ct",
+   "url_status": "200"
+  },
+  {
+   "id": "wfb-cv",
+   "url_status": "200"
+  },
+  {
+   "id": "wfb-dj",
+   "url_status": "200"
+  },
+  {
+   "id": "wfb-eg",
+   "url_status": "200"
+  },
+  {
+   "id": "wfb-ek",
+   "url_status": "200"
+  },
+  {
+   "id": "wfb-er",
+   "url_status": "200"
+  },
+  {
+   "id": "wfb-et",
+   "url_status": "200"
+  },
+  {
+   "id": "wfb-ga",
+   "url_status": "200"
+  },
+  {
+   "id": "wfb-gb",
+   "url_status": "200"
+  },
+  {
+   "id": "wfb-gh",
+   "url_status": "200"
+  },
+  {
+   "id": "wfb-gv",
+   "url_status": "200"
+  },
+  {
+   "id": "wfb-iv",
+   "url_status": "200"
+  },
+  {
+   "id": "wfb-ke",
+   "url_status": "200"
+  },
+  {
+   "id": "wfb-li",
+   "url_status": "200"
+  },
+  {
+   "id": "wfb-lt",
+   "url_status": "200"
+  },
+  {
+   "id": "wfb-ly",
+   "url_status": "200"
+  },
+  {
+   "id": "wfb-ma",
+   "url_status": "200"
+  },
+  {
+   "id": "wfb-mi",
+   "url_status": "200"
+  },
+  {
+   "id": "wfb-ml",
+   "url_status": "200"
+  },
+  {
+   "id": "wfb-mo",
+   "url_status": "200"
+  },
+  {
+   "id": "wfb-mp",
+   "url_status": "200"
+  },
+  {
+   "id": "wfb-mr",
+   "url_status": "200"
+  },
+  {
+   "id": "wfb-mz",
+   "url_status": "200"
+  },
+  {
+   "id": "wfb-ng",
+   "url_status": "200"
+  },
+  {
+   "id": "wfb-ni",
+   "url_status": "200"
+  },
+  {
+   "id": "wfb-od",
+   "url_status": "200"
+  },
+  {
+   "id": "wfb-pu",
+   "url_status": "200"
+  },
+  {
+   "id": "wfb-rw",
+   "url_status": "200"
+  },
+  {
+   "id": "wfb-se",
+   "url_status": "200"
+  },
+  {
+   "id": "wfb-sf",
+   "url_status": "200"
+  },
+  {
+   "id": "wfb-sg",
+   "url_status": "200"
+  },
+  {
+   "id": "wfb-sh",
+   "url_status": "200"
+  },
+  {
+   "id": "wfb-sl",
+   "url_status": "200"
+  },
+  {
+   "id": "wfb-so",
+   "url_status": "200"
+  },
+  {
+   "id": "wfb-su",
+   "url_status": "200"
+  },
+  {
+   "id": "wfb-to",
+   "url_status": "200"
+  },
+  {
+   "id": "wfb-tp",
+   "url_status": "200"
+  },
+  {
+   "id": "wfb-ts",
+   "url_status": "200"
+  },
+  {
+   "id": "wfb-tz",
+   "url_status": "200"
+  },
+  {
+   "id": "wfb-ug",
+   "url_status": "200"
+  },
+  {
+   "id": "wfb-uv",
+   "url_status": "200"
+  },
+  {
+   "id": "wfb-wa",
+   "url_status": "200"
+  },
+  {
+   "id": "wfb-wi",
+   "url_status": "200"
+  },
+  {
+   "id": "wfb-wz",
+   "url_status": "200"
+  },
+  {
+   "id": "wfb-za",
+   "url_status": "200"
+  },
+  {
+   "id": "wfb-zi",
+   "url_status": "200"
+  },
+  {
+   "id": "wfb-aq",
+   "url_status": "200"
+  },
+  {
+   "id": "wfb-as",
+   "url_status": "200"
+  },
+  {
+   "id": "wfb-bp",
+   "url_status": "200"
+  },
+  {
+   "id": "wfb-ck",
+   "url_status": "200"
+  },
+  {
+   "id": "wfb-cq",
+   "url_status": "200"
+  },
+  {
+   "id": "wfb-cw",
+   "url_status": "200"
+  },
+  {
+   "id": "wfb-fj",
+   "url_status": "200"
+  },
+  {
+   "id": "wfb-fm",
+   "url_status": "200"
+  },
+  {
+   "id": "wfb-fp",
+   "url_status": "200"
+  },
+  {
+   "id": "wfb-gq",
+   "url_status": "200"
+  },
+  {
+   "id": "wfb-kr",
+   "url_status": "200"
+  },
+  {
+   "id": "wfb-kt",
+   "url_status": "200"
+  },
+  {
+   "id": "wfb-nc",
+   "url_status": "200"
+  },
+  {
+   "id": "wfb-ne",
+   "url_status": "200"
+  },
+  {
+   "id": "wfb-nf",
+   "url_status": "200"
+  },
+  {
+   "id": "wfb-nh",
+   "url_status": "200"
+  },
+  {
+   "id": "wfb-nr",
+   "url_status": "200"
+  },
+  {
+   "id": "wfb-nz",
+   "url_status": "200"
+  },
+  {
+   "id": "wfb-pc",
+   "url_status": "200"
+  },
+  {
+   "id": "wfb-ps",
+   "url_status": "200"
+  },
+  {
+   "id": "wfb-rm",
+   "url_status": "200"
+  },
+  {
+   "id": "wfb-tl",
+   "url_status": "200"
+  },
+  {
+   "id": "wfb-tn",
+   "url_status": "200"
+  },
+  {
+   "id": "wfb-tv",
+   "url_status": "200"
+  },
+  {
+   "id": "wfb-wf",
+   "url_status": "200"
+  },
+  {
+   "id": "wfb-ws",
+   "url_status": "200"
+  },
+  {
+   "id": "wfb-aa",
+   "url_status": "200"
+  },
+  {
+   "id": "wfb-ac",
+   "url_status": "200"
+  },
+  {
+   "id": "wfb-av",
+   "url_status": "200"
+  },
+  {
+   "id": "wfb-bb",
+   "url_status": "200"
+  },
+  {
+   "id": "wfb-bf",
+   "url_status": "200"
+  },
+  {
+   "id": "wfb-bh",
+   "url_status": "200"
+  },
+  {
+   "id": "wfb-cj",
+   "url_status": "200"
+  },
+  {
+   "id": "wfb-cs",
+   "url_status": "200"
+  },
+  {
+   "id": "wfb-cu",
+   "url_status": "200"
+  },
+  {
+   "id": "wfb-do",
+   "url_status": "200"
+  },
+  {
+   "id": "wfb-dr",
+   "url_status": "200"
+  },
+  {
+   "id": "wfb-es",
+   "url_status": "200"
+  },
+  {
+   "id": "wfb-gj",
+   "url_status": "200"
+  },
+  {
+   "id": "wfb-gt",
+   "url_status": "200"
+  },
+  {
+   "id": "wfb-ha",
+   "url_status": "200"
+  },
+  {
+   "id": "wfb-ho",
+   "url_status": "200"
+  },
+  {
+   "id": "wfb-jm",
+   "url_status": "200"
+  },
+  {
+   "id": "wfb-mh",
+   "url_status": "200"
+  },
+  {
+   "id": "wfb-nn",
+   "url_status": "200"
+  },
+  {
+   "id": "wfb-nu",
+   "url_status": "200"
+  },
+  {
+   "id": "wfb-pm",
+   "url_status": "200"
+  },
+  {
+   "id": "wfb-rn",
+   "url_status": "200"
+  },
+  {
+   "id": "wfb-rq",
+   "url_status": "200"
+  },
+  {
+   "id": "wfb-sc",
+   "url_status": "200"
+  },
+  {
+   "id": "wfb-st",
+   "url_status": "200"
+  },
+  {
+   "id": "wfb-tb",
+   "url_status": "200"
+  },
+  {
+   "id": "wfb-td",
+   "url_status": "200"
+  },
+  {
+   "id": "wfb-tk",
+   "url_status": "200"
+  },
+  {
+   "id": "wfb-uc",
+   "url_status": "200"
+  },
+  {
+   "id": "wfb-vc",
+   "url_status": "200"
+  },
+  {
+   "id": "wfb-vi",
+   "url_status": "200"
+  },
+  {
+   "id": "wfb-vq",
+   "url_status": "200"
+  },
+  {
+   "id": "wfb-aj",
+   "url_status": "200"
+  },
+  {
+   "id": "wfb-am",
+   "url_status": "200"
+  },
+  {
+   "id": "wfb-gg",
+   "url_status": "200"
+  },
+  {
+   "id": "wfb-kg",
+   "url_status": "200"
+  },
+  {
+   "id": "wfb-kz",
+   "url_status": "200"
+  },
+  {
+   "id": "wfb-rs",
+   "url_status": "200"
+  },
+  {
+   "id": "wfb-ti",
+   "url_status": "200"
+  },
+  {
+   "id": "wfb-tx",
+   "url_status": "200"
+  },
+  {
+   "id": "wfb-uz",
+   "url_status": "200"
+  },
+  {
+   "id": "wfb-bm",
+   "url_status": "200"
+  },
+  {
+   "id": "wfb-bx",
+   "url_status": "200"
+  },
+  {
+   "id": "wfb-cb",
+   "url_status": "200"
+  },
+  {
+   "id": "wfb-ch",
+   "url_status": "200"
+  },
+  {
+   "id": "wfb-hk",
+   "url_status": "200"
+  },
+  {
+   "id": "wfb-id",
+   "url_status": "200"
+  },
+  {
+   "id": "wfb-ja",
+   "url_status": "200"
+  },
+  {
+   "id": "wfb-kn",
+   "url_status": "200"
+  },
+  {
+   "id": "wfb-ks",
+   "url_status": "200"
+  },
+  {
+   "id": "wfb-la",
+   "url_status": "200"
+  },
+  {
+   "id": "wfb-mc",
+   "url_status": "200"
+  },
+  {
+   "id": "wfb-mg",
+   "url_status": "200"
+  },
+  {
+   "id": "wfb-my",
+   "url_status": "200"
+  },
+  {
+   "id": "wfb-pp",
+   "url_status": "200"
+  },
+  {
+   "id": "wfb-rp",
+   "url_status": "200"
+  },
+  {
+   "id": "wfb-sn",
+   "url_status": "200"
+  },
+  {
+   "id": "wfb-th",
+   "url_status": "200"
+  },
+  {
+   "id": "wfb-tt",
+   "url_status": "200"
+  },
+  {
+   "id": "wfb-tw",
+   "url_status": "200"
+  },
+  {
+   "id": "wfb-vm",
+   "url_status": "200"
+  },
+  {
+   "id": "wfb-al",
+   "url_status": "200"
+  },
+  {
+   "id": "wfb-an",
+   "url_status": "200"
+  },
+  {
+   "id": "wfb-au",
+   "url_status": "200"
+  },
+  {
+   "id": "wfb-be",
+   "url_status": "200"
+  },
+  {
+   "id": "wfb-bk",
+   "url_status": "200"
+  },
+  {
+   "id": "wfb-bo",
+   "url_status": "200"
+  },
+  {
+   "id": "wfb-bu",
+   "url_status": "200"
+  },
+  {
+   "id": "wfb-cy",
+   "url_status": "200"
+  },
+  {
+   "id": "wfb-da",
+   "url_status": "200"
+  },
+  {
+   "id": "wfb-ei",
+   "url_status": "200"
+  },
+  {
+   "id": "wfb-en",
+   "url_status": "200"
+  },
+  {
+   "id": "wfb-ez",
+   "url_status": "200"
+  },
+  {
+   "id": "wfb-fi",
+   "url_status": "200"
+  },
+  {
+   "id": "wfb-fo",
+   "url_status": "200"
+  },
+  {
+   "id": "wfb-fr",
+   "url_status": "200"
+  },
+  {
+   "id": "wfb-gi",
+   "url_status": "200"
+  },
+  {
+   "id": "wfb-gk",
+   "url_status": "200"
+  },
+  {
+   "id": "wfb-gm",
+   "url_status": "200"
+  },
+  {
+   "id": "wfb-gr",
+   "url_status": "200"
+  },
+  {
+   "id": "wfb-hr",
+   "url_status": "200"
+  },
+  {
+   "id": "wfb-hu",
+   "url_status": "200"
+  },
+  {
+   "id": "wfb-ic",
+   "url_status": "200"
+  },
+  {
+   "id": "wfb-im",
+   "url_status": "200"
+  },
+  {
+   "id": "wfb-it",
+   "url_status": "200"
+  },
+  {
+   "id": "wfb-je",
+   "url_status": "200"
+  },
+  {
+   "id": "wfb-kv",
+   "url_status": "200"
+  },
+  {
+   "id": "wfb-lg",
+   "url_status": "200"
+  },
+  {
+   "id": "wfb-lh",
+   "url_status": "200"
+  },
+  {
+   "id": "wfb-lo",
+   "url_status": "200"
+  },
+  {
+   "id": "wfb-ls",
+   "url_status": "200"
+  },
+  {
+   "id": "wfb-lu",
+   "url_status": "200"
+  },
+  {
+   "id": "wfb-md",
+   "url_status": "200"
+  },
+  {
+   "id": "wfb-mj",
+   "url_status": "200"
+  },
+  {
+   "id": "wfb-mk",
+   "url_status": "200"
+  },
+  {
+   "id": "wfb-mn",
+   "url_status": "200"
+  },
+  {
+   "id": "wfb-mt",
+   "url_status": "200"
+  },
+  {
+   "id": "wfb-nl",
+   "url_status": "200"
+  },
+  {
+   "id": "wfb-no",
+   "url_status": "200"
+  },
+  {
+   "id": "wfb-pl",
+   "url_status": "200"
+  },
+  {
+   "id": "wfb-po",
+   "url_status": "200"
+  },
+  {
+   "id": "wfb-ri",
+   "url_status": "200"
+  },
+  {
+   "id": "wfb-ro",
+   "url_status": "200"
+  },
+  {
+   "id": "wfb-si",
+   "url_status": "200"
+  },
+  {
+   "id": "wfb-sm",
+   "url_status": "200"
+  },
+  {
+   "id": "wfb-sp",
+   "url_status": "200"
+  },
+  {
+   "id": "wfb-sv",
+   "url_status": "200"
+  },
+  {
+   "id": "wfb-sw",
+   "url_status": "200"
+  },
+  {
+   "id": "wfb-sz",
+   "url_status": "200"
+  },
+  {
+   "id": "wfb-uk",
+   "url_status": "200"
+  },
+  {
+   "id": "wfb-up",
+   "url_status": "200"
+  },
+  {
+   "id": "wfb-vt",
+   "url_status": "200"
+  },
+  {
+   "id": "wfb-ae",
+   "url_status": "200"
+  },
+  {
+   "id": "wfb-ba",
+   "url_status": "200"
+  },
+  {
+   "id": "wfb-ir",
+   "url_status": "200"
+  },
+  {
+   "id": "wfb-is",
+   "url_status": "200"
+  },
+  {
+   "id": "wfb-iz",
+   "url_status": "200"
+  },
+  {
+   "id": "wfb-jo",
+   "url_status": "200"
+  },
+  {
+   "id": "wfb-ku",
+   "url_status": "200"
+  },
+  {
+   "id": "wfb-le",
+   "url_status": "200"
+  },
+  {
+   "id": "wfb-mu",
+   "url_status": "200"
+  },
+  {
+   "id": "wfb-qa",
+   "url_status": "200"
+  },
+  {
+   "id": "wfb-sa",
+   "url_status": "200"
+  },
+  {
+   "id": "wfb-sy",
+   "url_status": "200"
+  },
+  {
+   "id": "wfb-tu",
+   "url_status": "200"
+  },
+  {
+   "id": "wfb-we",
+   "url_status": "200"
+  },
+  {
+   "id": "wfb-ym",
+   "url_status": "200"
+  },
+  {
+   "id": "wfb-bd",
+   "url_status": "200"
+  },
+  {
+   "id": "wfb-ca",
+   "url_status": "200"
+  },
+  {
+   "id": "wfb-gl",
+   "url_status": "200"
+  },
+  {
+   "id": "wfb-mx",
+   "url_status": "200"
+  },
+  {
+   "id": "wfb-sb",
+   "url_status": "200"
+  },
+  {
+   "id": "wfb-us",
+   "url_status": "200"
+  },
+  {
+   "id": "wfb-ar",
+   "url_status": "200"
+  },
+  {
+   "id": "wfb-bl",
+   "url_status": "200"
+  },
+  {
+   "id": "wfb-br",
+   "url_status": "200"
+  },
+  {
+   "id": "wfb-ci",
+   "url_status": "200"
+  },
+  {
+   "id": "wfb-co",
+   "url_status": "200"
+  },
+  {
+   "id": "wfb-ec",
+   "url_status": "200"
+  },
+  {
+   "id": "wfb-fk",
+   "url_status": "200"
+  },
+  {
+   "id": "wfb-gy",
+   "url_status": "200"
+  },
+  {
+   "id": "wfb-ns",
+   "url_status": "200"
+  },
+  {
+   "id": "wfb-pa",
+   "url_status": "200"
+  },
+  {
+   "id": "wfb-pe",
+   "url_status": "200"
+  },
+  {
+   "id": "wfb-sx",
+   "url_status": "200"
+  },
+  {
+   "id": "wfb-uy",
+   "url_status": "200"
+  },
+  {
+   "id": "wfb-ve",
+   "url_status": "200"
+  },
+  {
+   "id": "wfb-af",
+   "url_status": "200"
+  },
+  {
+   "id": "wfb-bg",
+   "url_status": "200"
+  },
+  {
+   "id": "wfb-bt",
+   "url_status": "200"
+  },
+  {
+   "id": "wfb-ce",
+   "url_status": "200"
+  },
+  {
+   "id": "wfb-in",
+   "url_status": "200"
+  },
+  {
+   "id": "wfb-io",
+   "url_status": "200"
+  },
+  {
+   "id": "wfb-mv",
+   "url_status": "200"
+  },
+  {
+   "id": "wfb-np",
+   "url_status": "200"
+  },
+  {
+   "id": "wfb-pk",
+   "url_status": "200"
+  }
+ ]
+}

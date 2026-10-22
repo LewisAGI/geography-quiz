@@ -1,0 +1,12 @@
+node_modules/
+dist/
+test-results/
+playwright-report/
+blob-report/
+playwright/.cache/
+.DS_Store
+*.log
+
+# factbook cache ships inside a nested git repo, which git cannot store.
+# scripts/ensure-data.mjs restores it byte-for-byte from pack/.
+data/geography-quiz/tools/cache/

@@ -1,0 +1,3 @@
+data/** -text
+pack/** binary
+*.tgz binary
