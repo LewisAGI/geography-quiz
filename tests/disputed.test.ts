@@ -1,7 +1,8 @@
 import { describe, expect, it } from 'vitest'
 import { entities, playable, questions } from '../src/lib/catalog'
 import { isCapitalQuestion, isDisputedCapitalEntity, playableQuestions } from '../src/lib/filter'
-import type { Entity, Question } from '../src/lib/types'
+import { buildQuestions } from '../src/lib/select'
+import type { Entity, PlayMode, Question } from '../src/lib/types'
 
 const base = entities[0]
 
@@ -89,5 +90,61 @@ describe('disputed capitals', () => {
     expect(playable.some((question) => question.type === 'capital' && question.answer === 'Beijing')).toBe(true)
     expect(playable.some((question) => question.country_iso2 === 'IL' && question.type === 'flag')).toBe(true)
     expect(filtered.length).toBe(questions.length)
+  })
+
+  it('uses the omitted-capital sentence on its own', () => {
+    const gap = (length: number) => `Capital questions${' ' + 'y'.repeat(length - 2) + ' '}omitted`
+    expect(
+      isDisputedCapitalEntity(entity({ iso2: 'QQ', capital: 'Kept', note: 'Capital questions omitted' })),
+    ).toBe(true)
+    expect(isDisputedCapitalEntity(entity({ iso2: 'QQ', capital: 'Kept', note: gap(80) }))).toBe(true)
+    expect(isDisputedCapitalEntity(entity({ iso2: 'QQ', capital: 'Kept', note: gap(81) }))).toBe(false)
+    expect(
+      isDisputedCapitalEntity(entity({ iso2: 'QQ', capital: 'Kept', note: 'Capital questions. are omitted.' })),
+    ).toBe(false)
+  })
+
+  it('uses the disputed-status sentence on its own', () => {
+    expect(
+      isDisputedCapitalEntity(
+        entity({ iso2: 'QQ', capital: 'Kept', note: `The status of ${'A'.repeat(40)} is disputed.` }),
+      ),
+    ).toBe(true)
+    expect(
+      isDisputedCapitalEntity(
+        entity({ iso2: 'QQ', capital: 'Kept', note: `The status of ${'A'.repeat(41)} is disputed.` }),
+      ),
+    ).toBe(false)
+    expect(
+      isDisputedCapitalEntity(entity({ iso2: 'QQ', capital: 'Kept', note: "The status of Ab'c is disputed." })),
+    ).toBe(true)
+    expect(
+      isDisputedCapitalEntity(entity({ iso2: 'QQ', capital: 'Kept', note: 'The status of Ab’c is disputed.' })),
+    ).toBe(true)
+    expect(
+      isDisputedCapitalEntity(
+        entity({ iso2: 'QQ', capital: 'Kept', note: 'Borders with a neighbour are disputed.' }),
+      ),
+    ).toBe(false)
+  })
+
+  it('plays the filtered catalog, not the raw question list', () => {
+    expect(playable).not.toBe(questions)
+    expect(playable).toEqual(playableQuestions(questions, entities))
+    const ids = new Set(playable.map((question) => question.id))
+    const modes: PlayMode[] = ['daily', 'map', 'endless', 'blitz', 'flags', 'choices', 'pack', 'duel']
+    for (const mode of modes) {
+      const played = buildQuestions({
+        mode,
+        settings: { difficulty: 'all', continent: 'all' },
+        today: '2026-10-22',
+        seed: 'wire',
+      })
+      expect(played.length).toBeGreaterThan(0)
+      for (const question of played) {
+        expect(ids.has(question.id)).toBe(true)
+        if (isCapitalQuestion(question)) expect(['IL', 'PS', 'EH']).not.toContain(question.country_iso2)
+      }
+    }
   })
 })

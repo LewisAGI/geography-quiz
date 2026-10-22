@@ -49,8 +49,18 @@ export function IconButton({
           clearTimer()
           timer.current = window.setTimeout(() => setHeld(true), 420)
         }}
-        onPointerUp={clearTimer}
-        onPointerCancel={clearTimer}
+        onPointerUp={(event) => {
+          clearTimer()
+          if (event.pointerType === 'touch') setHeld(false)
+        }}
+        onPointerCancel={() => {
+          clearTimer()
+          setHeld(false)
+        }}
+        onPointerLeave={() => {
+          clearTimer()
+          setHeld(false)
+        }}
         onBlur={() => setHeld(false)}
       >
         {children}

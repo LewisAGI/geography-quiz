@@ -23,7 +23,7 @@ import { clearMistakes, ensureDaily, loadProgress, patchSettings, saveProgress }
 import { breakdown } from './lib/stats'
 import type { ContinentFilter, DifficultyFilter, PlayMode, Progress } from './lib/types'
 
-const BETA = 'Beta. About 30 questions have been spot-checked.'
+const BETA = 'Beta'
 
 const TYPE_LABEL: Record<string, string> = {
   capital: 'Capital',

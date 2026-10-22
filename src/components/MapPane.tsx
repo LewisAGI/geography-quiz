@@ -1,6 +1,6 @@
 import { useEffect, useRef } from 'react'
 import maplibregl, { type GeoJSONSource, type Map as MapLibreMap, type Marker } from 'maplibre-gl'
-import { MAP_STYLE } from '../lib/geo'
+import { MAP_STYLE, quietBasemap } from '../lib/geo'
 import type { Question } from '../lib/types'
 
 const LINE = 'guess-line'
@@ -41,7 +41,7 @@ export function MapPane({
     if (!element || mapRef.current) return
     const map = new maplibregl.Map({
       container: element,
-      style: MAP_STYLE,
+      style: { version: 8, sources: {}, layers: [] },
       center: [10, 18],
       zoom: 1.4,
       minZoom: 1,
@@ -50,6 +50,9 @@ export function MapPane({
       fadeDuration: 0,
       pitchWithRotate: false,
       dragRotate: false,
+    })
+    map.setStyle(MAP_STYLE, {
+      transformStyle: (_previous, next) => quietBasemap(next),
     })
     map.touchPitch.disable()
     map.addControl(new maplibregl.NavigationControl({ showCompass: false }), 'bottom-right')
@@ -138,9 +141,11 @@ export function MapPane({
 
     paint()
     map.on('load', paint)
+    map.on('style.load', paint)
     return () => {
       cancelled = true
       map.off('load', paint)
+      map.off('style.load', paint)
     }
   }, [question.id, question.lat, question.lon, revealed, guessLat, guessLon])
 

@@ -278,13 +278,6 @@ export function QuizPlay({
       {kind === 'map' ? (
         <>
           <div className="map-wrap">
-            <MapPane
-              question={question}
-              revealed={phase === 'reveal'}
-              guessLat={pin?.lat ?? null}
-              guessLon={pin?.lon ?? null}
-              onGuess={submitMap}
-            />
             <div className="map-card">
               <div className="q-top">
                 <DiffMarks level={question.difficulty} />
@@ -327,6 +320,13 @@ export function QuizPlay({
                 </div>
               ) : null}
             </div>
+            <MapPane
+              question={question}
+              revealed={phase === 'reveal'}
+              guessLat={pin?.lat ?? null}
+              guessLon={pin?.lon ?? null}
+              onGuess={submitMap}
+            />
           </div>
         </>
       ) : (

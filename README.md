@@ -2,9 +2,9 @@
 
 A static geography quiz. Questions come from Shisui's geography pack in `data/`, unpacked byte for byte from `pack/pack-geography-quiz-v1.tgz`. The app filters that data in code. Disputed capitals (Israel, Palestine, Western Sahara) are skipped. Nothing in `data/` should be edited.
 
-The interface is a daily typed quiz, plus practice, flags, choices, a timed blitz, spaced review, pass-and-play, and a map-click mode on the OpenFreeMap Liberty basemap (no API key). Progress, streaks, and mistakes stay in `localStorage` on this device.
+The interface is a daily typed quiz, plus practice, flags, choices, a timed blitz, spaced review, pass-and-play, and a map-click mode on the OpenFreeMap Liberty basemap (no API key). Place names are stripped from that basemap so the map does not give away the answer. Progress, streaks, and mistakes stay in `localStorage` on this device.
 
-About 30 questions in the pack were spot-checked. The app is marked beta.
+The app is marked beta.
 
 ## Develop
 

@@ -19,18 +19,24 @@ test.beforeEach(async ({ page }) => {
   await page.goto('/')
 })
 
-test('beta label, difficulty pop-out, and security headers', async ({ page }) => {
+test('beta label, difficulty pop-out, and security headers', async ({ page }, info) => {
   await expect(page.getByText(/how to play/i)).toHaveCount(0)
   await expect(page.getByText(/type your answer/i)).toHaveCount(0)
-  const tip = page.getByRole('tooltip', { name: /spot-checked/i })
+  await expect(page.getByText(/spot-checked/i)).toHaveCount(0)
+  const tip = page.getByRole('tooltip', { name: 'Beta', exact: true })
+  const beta = page.getByRole('button', { name: 'Beta', exact: true })
   await expect(tip).toBeHidden()
-  const beta = page.getByRole('button', { name: /beta/i })
-  await beta.hover()
-  await expect(tip).toBeVisible()
-  await page.mouse.move(2, 2)
-  await expect(tip).toBeHidden()
-  await beta.dispatchEvent('contextmenu')
-  await expect(tip).toBeVisible()
+  if (info.project.name === 'iphone' || info.project.name === 'landscape') {
+    await beta.dispatchEvent('contextmenu')
+    await expect(tip).toHaveText('Beta')
+  } else {
+    await beta.hover()
+    await expect(tip).toHaveText('Beta')
+    await page.mouse.move(2, 2)
+    await expect(tip).toBeHidden()
+    await beta.dispatchEvent('contextmenu')
+    await expect(tip).toBeVisible()
+  }
 
   await expect(page.getByRole('menuitemradio', { name: 'Easy' })).toHaveCount(0)
   await page.getByRole('button', { name: 'Difficulty' }).click()
@@ -76,7 +82,11 @@ test('a miss is kept for review', async ({ page }) => {
   await expect(page.getByTestId('review-list')).toContainText(first)
 })
 
-test('map click reports distance', async ({ page }) => {
+test('map click reports distance', async ({ page }, info) => {
+  const glyphs: string[] = []
+  page.on('request', (request) => {
+    if (request.url().includes('/fonts/')) glyphs.push(request.url())
+  })
   const tile = page.waitForResponse(
     (response) => response.url().includes('tiles.openfreemap.org/planet/') && response.url().endsWith('.pbf') && response.ok(),
     { timeout: 20000 },
@@ -88,12 +98,24 @@ test('map click reports distance', async ({ page }) => {
     const map = document.querySelector('.maplibregl-canvas')
     return Boolean(map && map.clientHeight > 80 && map.clientWidth > 80)
   })
-  await expect(page.getByTestId('distance')).toHaveCount(0)
+  const card = await page.locator('.map-card').boundingBox()
   const box = await page.getByTestId('map').boundingBox()
+  expect(card).toBeTruthy()
   expect(box).toBeTruthy()
+  expect(box!.y).toBeGreaterThanOrEqual(card!.y + card!.height - 2)
+  if (info.project.name === 'desktop') {
+    const stage = await page.locator('.stage').boundingBox()
+    expect(box!.width).toBeGreaterThan((stage?.width ?? 0) * 0.98)
+    expect(box!.width).toBeGreaterThan(1000)
+  }
+  if (info.project.name === 'iphone' || info.project.name === 'landscape') {
+    await expect(page.getByRole('tooltip', { name: 'Map', exact: true })).toBeHidden()
+  }
+  await expect(page.getByTestId('distance')).toHaveCount(0)
   await page.mouse.click((box?.x ?? 0) + (box?.width ?? 0) * 0.35, (box?.y ?? 0) + (box?.height ?? 0) * 0.62)
   await expect(page.getByTestId('distance')).toContainText(/\d+ km/)
   await expect(page.getByTestId('explanation')).toBeVisible()
+  expect(glyphs).toEqual([])
 })
 
 test('finishing the daily quiz records a streak and a share card', async ({ page }, info) => {
