@@ -177,11 +177,18 @@ test('map click reports distance', async ({ page }, info) => {
   await expect(page.getByTestId('distance')).toContainText(/\d+ km/)
   await expect(page.getByTestId('explanation')).toBeVisible()
   if (info.project.name === 'landscape') {
-    await expectFullyShown(page, page.getByTestId('reveal-answer'))
-    await expectFullyShown(page, page.getByTestId('explanation'))
-    for (const label of ['Sources', 'Next']) {
-      await expectFullyShown(page, page.getByRole('button', { name: label, exact: true }))
+    for (const locator of [
+      page.getByTestId('reveal-answer'),
+      page.getByTestId('explanation'),
+      page.getByRole('button', { name: 'Sources', exact: true }),
+      page.getByRole('button', { name: 'Next', exact: true }),
+    ]) {
+      await locator.scrollIntoViewIfNeeded()
+      await expectFullyShown(page, locator)
     }
+    const canvas = await page.locator('.maplibregl-canvas').boundingBox()
+    expect(canvas).toBeTruthy()
+    expect(canvas!.height).toBeGreaterThanOrEqual(80)
   }
   if (info.project.name === 'iphone') {
     await page.getByTestId('difficulty').click()
@@ -210,6 +217,16 @@ test('map click reports distance', async ({ page }, info) => {
         await expectFullyShown(page, page.getByRole('button', { name: label, exact: true }))
       }
     }
+    await page.setViewportSize({ width: 802, height: 293 })
+    const answer = page.getByTestId('reveal-answer')
+    const next = page.getByRole('button', { name: 'Next', exact: true })
+    await answer.scrollIntoViewIfNeeded()
+    await expect(answer).toHaveText('Nicosia (Lefkosia/Lefkosa)')
+    await expectFullyShown(page, answer)
+    await next.scrollIntoViewIfNeeded()
+    await expectFullyShown(page, next)
+    await next.click()
+    await expect(page.getByTestId('prompt')).not.toContainText('Nicosia')
   }
   expect(glyphs).toEqual([])
 })

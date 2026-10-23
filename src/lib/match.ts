@@ -27,18 +27,36 @@ const NUMBER_WORDS = [
   'twenty',
 ]
 
-const ALIASES: Record<string, string[]> = {
+export const ALIASES: Record<string, string[]> = {
   'United States': ['USA', 'US', 'U.S.', 'U.S.A.', 'United States of America'],
   'United Kingdom': ['UK', 'U.K.', 'Britain', 'Great Britain'],
   'United Arab Emirates': ['UAE'],
-  Czechia: ['Czech Republic'],
+  Austria: ['Österreich', 'Osterreich'],
+  Belgium: ['Belgique', 'Belgie'],
+  Brazil: ['Brasil'],
+  Cameroon: ['Cameroun'],
+  Czechia: ['Czech Republic', 'Česko', 'Cesko'],
+  Denmark: ['Danmark'],
+  Egypt: ['Misr'],
+  Finland: ['Suomi'],
+  Germany: ['Deutschland'],
+  Greece: ['Hellas', 'Elláda', 'Ellada'],
+  Hungary: ['Magyarország', 'Magyarorszag'],
+  Japan: ['Nippon', 'Nihon'],
+  Kenya: ['Kenia'],
+  Morocco: ['Maroc'],
+  Norway: ['Norge'],
+  Poland: ['Polska'],
+  Spain: ['España', 'Espana'],
+  Sweden: ['Sverige'],
+  Switzerland: ['Suisse', 'Schweiz', 'Svizzera'],
   'Ivory Coast': ["Cote d'Ivoire", "Côte d'Ivoire", 'Cote dIvoire'],
   'Cabo Verde': ['Cape Verde'],
   Eswatini: ['Swaziland'],
   Myanmar: ['Burma'],
   'North Macedonia': ['Macedonia'],
   'Timor Leste': ['Timor-Leste', 'East Timor'],
-  'The Netherlands': ['Netherlands', 'Holland'],
+  'The Netherlands': ['Netherlands', 'Holland', 'Nederland'],
   Russia: ['Russian Federation'],
   Syria: ['Syrian Arab Republic'],
   Laos: ['Lao PDR'],
@@ -70,10 +88,8 @@ const ALIASES: Record<string, string[]> = {
     'Margherita Peak',
     'Mount Stanley',
     'Mont Ngaliema',
-    'Pic Marguerite on Mont Ngaliema',
   ],
   'Margherita Peak on Mount Stanley': ['Pic Marguerite', 'Margherita Peak', 'Mount Stanley', 'Mont Ngaliema'],
-  'Mount Stanley': ['Pic Marguerite', 'Margherita Peak', 'Mont Ngaliema'],
   'Fako on Mont Cameroun': ['Mont Cameroun', 'Fako on Mont Cameroun'],
   'Dufourspitze on Monte Rosa': ['Monte Rosa', 'Dufourspitze on Monte Rosa'],
   'Laberintos del Norte on Mount Roraima': ['Mount Roraima', 'Laberintos del Norte on Mount Roraima'],
@@ -185,7 +201,7 @@ export function matchKeys(raw: string): string[] {
   return squashed === spaced ? [spaced] : [spaced, squashed]
 }
 
-function allowedDistance(length: number): number {
+export function allowedDistance(length: number): number {
   if (length <= 4) return 0
   if (length <= 8) return 1
   return 2
@@ -212,12 +228,11 @@ export function levenshtein(a: string, b: string): number {
 
 export function acceptedFor(question: Question, entity?: Entity): string[] {
   const forms = new Set<string>(expandAnswer(question.answer, entity?.name ?? ''))
-  const aliasKey = forms.has(question.answer) ? question.answer : question.answer
-  for (const alias of ALIASES[aliasKey] ?? []) forms.add(alias)
+  for (const alias of ALIASES[question.answer] ?? []) forms.add(alias)
   for (const form of [...forms]) {
     for (const alias of ALIASES[form] ?? []) forms.add(alias)
   }
-  if (entity && normalize(question.answer) === normalize(entity.name)) {
+  if (entity && normalize(question.answer, false) === normalize(entity.name, false)) {
     for (const alias of ALIASES[entity.name] ?? []) forms.add(alias)
   }
   if (/^\d+$/.test(question.answer.trim())) {
