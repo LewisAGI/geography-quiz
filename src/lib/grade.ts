@@ -13,6 +13,9 @@ for (const entity of entities) {
 /**
  * A guess that only matches because a peak prefix strips down to a country name,
  * including a fuzzy spelling of that country. "Mt Kenya" still has the prefix, so it stays.
+ *
+ * The closest form wins, and a tie keeps the earlier one (`distance >= best`). There is
+ * no edit-distance cap: that form still rejects the guess when it is farther than a typo.
  */
 function rejectsBareCountry(guess: string, accepted: readonly string[]): boolean {
   const guessNorm = normalize(guess)
@@ -23,6 +26,7 @@ function rejectsBareCountry(guess: string, accepted: readonly string[]): boolean
     const stripped = normalize(form)
     if (!stripped) continue
     const distance = levenshtein(guessNorm, stripped)
+    // Strict less-than: an equally close later form does not replace the first.
     if (distance >= best) continue
     best = distance
     bestIsCountry = normalize(form, false) !== stripped && COUNTRY_NAMES.has(stripped)

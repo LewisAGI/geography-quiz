@@ -195,4 +195,22 @@ describe('answer matching', () => {
     const mapKenya = questions.find((item) => item.id === 'q01908')
     expect(gradeQuestion(mapKenya!, 'Kenya')).toBe(false)
   })
+
+  it('keeps the earlier form on a country tie and still rejects past the typo cap', () => {
+    // "Mount …" is accepted first and strips to the country. The bare country is
+    // added later at the same distance, so a last-wins tie would accept the guess.
+    // The squashed spelling is farther than the typo cap and still rejects.
+    const question = {
+      id: 'synth-tie',
+      type: 'highest_point' as const,
+      prompt: 'Highest point?',
+      answer: 'Mount Democratic Republic of the Congo (Democratic Republic of the Congo)',
+      difficulty: 'hard' as const,
+      sources: [],
+    }
+    const accepted = acceptedFor(question)
+    expect(answerMatches('democraticrepublicofthecongo', accepted, universe)).toBe(true)
+    expect(gradeQuestion(question, 'democraticrepublicofthecongo')).toBe(false)
+    expect(gradeQuestion(question, 'Mount Democratic Republic of the Congo')).toBe(true)
+  })
 })

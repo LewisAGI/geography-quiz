@@ -108,6 +108,21 @@ async function assertUserCanScrollCard(page: Page) {
   await expect.poll(async () => (await cardMetrics(page)).scrollTop).not.toBe(before.scrollTop)
 }
 
+/** The sticky bar and the card are the same solid paper. A tinted card or a transparent bar fails. */
+async function expectSolidPaperBar(page: Page) {
+  const colors = await page.locator('.map-card').evaluate((card) => {
+    const bar = card.querySelector('.reveal-actions')
+    return {
+      card: getComputedStyle(card).backgroundColor,
+      bar: bar ? getComputedStyle(bar).backgroundColor : '',
+    }
+  })
+  expect(colors.bar).toBe(colors.card)
+  const parts = colors.card.match(/rgba?\(([^)]+)\)/)?.[1].split(/[,\s/]+/).filter(Boolean) ?? []
+  expect(parts.slice(0, 3)).toEqual(['247', '244', '234'])
+  expect(parts[3] === undefined ? 1 : Number(parts[3])).toBe(1)
+}
+
 /** The answer sits above the sticky bar, not painted underneath it. */
 async function expectAnswerClearsActions(page: Page) {
   const answer = page.getByTestId('reveal-answer')
@@ -138,7 +153,9 @@ async function dragUntilShown(page: Page, locator: Locator) {
     const max = (await cardMetrics(page)).scrollHeight - (await cardMetrics(page)).clientHeight
     if (direction > 0 && top >= max - 1) direction = -1
     if (direction < 0 && top <= 1) direction = 1
-    await scrollMapCard(page, direction * 80)
+    // Pixel 5 landscape leaves about 55px between the card top and the bar.
+    // An 80px drag jumps past the answer, so the step stays inside that window.
+    await scrollMapCard(page, direction * 24)
   }
   await expectFullyShown(page, locator)
   if ((await locator.getAttribute('data-testid')) === 'reveal-answer') await expectAnswerClearsActions(page)
@@ -266,6 +283,7 @@ test('map click reports distance', async ({ page }, info) => {
   await expect(page.getByTestId('distance')).toHaveCount(0)
   await page.mouse.click((box?.x ?? 0) + (box?.width ?? 0) * 0.35, (box?.y ?? 0) + (box?.height ?? 0) * 0.62)
   await expect(page.getByTestId('distance')).toContainText(/\d+ km/)
+  await expectSolidPaperBar(page)
   await expect(page.getByTestId('explanation')).toBeVisible()
   if (info.project.name === 'landscape' || info.project.name === 'landscape-webkit') {
     const next = page.getByRole('button', { name: 'Next', exact: true })

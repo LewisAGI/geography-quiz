@@ -291,13 +291,15 @@ button { cursor: pointer; }
 .map-card .reveal-body { overflow: visible; }
 .map-card .reveal-actions {
   position: sticky;
-  bottom: calc(-1 * var(--card-pad-b));
+  /* One extra pixel covers the subpixel gap where the next line's ascenders peek out. */
+  bottom: calc(-1 * var(--card-pad-b) - 1px);
   z-index: 1;
   flex: none;
   margin-top: 0.35rem;
   margin-bottom: calc(-1 * var(--card-pad-b));
   padding-bottom: var(--card-pad-b);
   background: var(--paper-2);
+  box-shadow: 0 1px 0 var(--paper-2);
 }
 .map-card .prompt { font-size: clamp(1.15rem, 4vw, 1.6rem); }
 .maplibregl-map { font-family: var(--sans); height: 100%; width: 100%; background: #c5d5dc; }
