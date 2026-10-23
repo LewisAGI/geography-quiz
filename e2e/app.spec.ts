@@ -75,10 +75,7 @@ async function cardMetrics(page: Page) {
   }))
 }
 
-/**
- * Drag a touch across the card. A mouse wheel also scrolls overflow:hidden,
- * which is the mutant this check has to fail.
- */
+/** Touch-drag the card. overflow:hidden does not move under a real touch. */
 async function scrollMapCard(page: Page, deltaY: number) {
   const card = page.locator('.map-card')
   const box = await card.boundingBox()
@@ -111,10 +108,32 @@ async function assertUserCanScrollCard(page: Page) {
   await expect.poll(async () => (await cardMetrics(page)).scrollTop).not.toBe(before.scrollTop)
 }
 
-async function wheelUntilShown(page: Page, locator: Locator) {
+/** The answer sits above the sticky bar, not painted underneath it. */
+async function expectAnswerClearsActions(page: Page) {
+  const answer = page.getByTestId('reveal-answer')
+  await expect(answer).toBeVisible()
+  await expect.poll(async () =>
+    answer.evaluate((element) => {
+      const bar = element.closest('.map-card')?.querySelector('.reveal-actions')
+      if (!bar) return false
+      return element.getBoundingClientRect().bottom <= bar.getBoundingClientRect().top + 1
+    }),
+  ).toBe(true)
+}
+
+async function dragUntilShown(page: Page, locator: Locator) {
   let direction = 1
   for (let step = 0; step < 30; step += 1) {
-    if (await elementFullyShown(page, locator)) return
+    const shown = await elementFullyShown(page, locator)
+    const testId = await locator.getAttribute('data-testid')
+    const covered =
+      testId === 'reveal-answer' &&
+      !(await locator.evaluate((element) => {
+        const bar = element.closest('.map-card')?.querySelector('.reveal-actions')
+        if (!bar) return true
+        return element.getBoundingClientRect().bottom <= bar.getBoundingClientRect().top + 1
+      }))
+    if (shown && !covered) return
     const top = (await cardMetrics(page)).scrollTop
     const max = (await cardMetrics(page)).scrollHeight - (await cardMetrics(page)).clientHeight
     if (direction > 0 && top >= max - 1) direction = -1
@@ -122,6 +141,7 @@ async function wheelUntilShown(page: Page, locator: Locator) {
     await scrollMapCard(page, direction * 80)
   }
   await expectFullyShown(page, locator)
+  if ((await locator.getAttribute('data-testid')) === 'reveal-answer') await expectAnswerClearsActions(page)
 }
 
 async function clickMap(page: Page) {
@@ -153,7 +173,7 @@ test('beta label, difficulty pop-out, and security headers', async ({ page }, in
   const tip = page.getByRole('tooltip', { name: 'Beta', exact: true })
   const beta = page.getByRole('button', { name: 'Beta', exact: true })
   await expect(tip).toBeHidden()
-  if (info.project.name === 'iphone' || info.project.name === 'landscape') {
+  if (info.project.name.includes('iphone') || info.project.name.includes('landscape')) {
     await beta.dispatchEvent('contextmenu')
     await expect(tip).toHaveText('Beta')
   } else {
@@ -235,7 +255,7 @@ test('map click reports distance', async ({ page }, info) => {
     expect(box!.width).toBeGreaterThan((stage?.width ?? 0) * 0.98)
     expect(box!.width).toBeGreaterThan(1000)
   }
-  if (info.project.name === 'iphone' || info.project.name === 'landscape') {
+  if (info.project.name.includes('iphone') || info.project.name.includes('landscape')) {
     await expect(page.getByRole('tooltip', { name: 'Map', exact: true })).toBeHidden()
   }
   const attrib = page.locator('.maplibregl-ctrl-attrib')
@@ -247,20 +267,23 @@ test('map click reports distance', async ({ page }, info) => {
   await page.mouse.click((box?.x ?? 0) + (box?.width ?? 0) * 0.35, (box?.y ?? 0) + (box?.height ?? 0) * 0.62)
   await expect(page.getByTestId('distance')).toContainText(/\d+ km/)
   await expect(page.getByTestId('explanation')).toBeVisible()
-  if (info.project.name === 'landscape') {
+  if (info.project.name === 'landscape' || info.project.name === 'landscape-webkit') {
     const next = page.getByRole('button', { name: 'Next', exact: true })
     const sources = page.getByRole('button', { name: 'Sources', exact: true })
     await expectFullyShown(page, next)
     await expectFullyShown(page, sources)
-    await assertUserCanScrollCard(page)
-    await wheelUntilShown(page, page.getByTestId('reveal-answer'))
-    await wheelUntilShown(page, page.getByTestId('explanation'))
+    if (info.project.name === 'landscape') {
+      await assertUserCanScrollCard(page)
+      await dragUntilShown(page, page.getByTestId('reveal-answer'))
+      await expectAnswerClearsActions(page)
+      await dragUntilShown(page, page.getByTestId('explanation'))
+    }
     await expectFullyShown(page, next)
     const canvas = await page.locator('.maplibregl-canvas').boundingBox()
     expect(canvas).toBeTruthy()
     expect(canvas!.height).toBeGreaterThanOrEqual(80)
   }
-  if (info.project.name === 'iphone') {
+  if (info.project.name === 'iphone' || info.project.name === 'iphone-webkit') {
     await page.getByTestId('difficulty').click()
     await page.getByRole('menuitemradio', { name: 'Hard' }).click()
     await page.getByTestId('continent').click()
@@ -281,6 +304,7 @@ test('map click reports distance', async ({ page }, info) => {
       await page.setViewportSize(size)
       await expect(page.getByTestId('reveal-answer')).toHaveText('Nicosia (Lefkosia/Lefkosa)')
       await expectFullyShown(page, page.getByTestId('reveal-answer'))
+      await expectAnswerClearsActions(page)
       await expectFullyShown(page, page.getByTestId('explanation'))
       await expectFullyShown(page, note)
       for (const label of ['Sources', 'Next']) {
@@ -292,13 +316,17 @@ test('map click reports distance', async ({ page }, info) => {
     const next = page.getByRole('button', { name: 'Next', exact: true })
     await expect(answer).toHaveText('Nicosia (Lefkosia/Lefkosa)')
     await expectFullyShown(page, next)
-    await assertUserCanScrollCard(page)
-    await wheelUntilShown(page, answer)
+    if (info.project.name === 'iphone') {
+      await assertUserCanScrollCard(page)
+      await dragUntilShown(page, answer)
+      await expectAnswerClearsActions(page)
+    }
     await expectFullyShown(page, next)
     await next.click()
     await expect(page.getByTestId('prompt')).not.toContainText('Nicosia')
     await clickMap(page)
     await expectFullyShown(page, page.getByTestId('reveal-answer'))
+    await expectAnswerClearsActions(page)
     await expectFullyShown(page, page.getByRole('button', { name: 'Next', exact: true }))
   }
   expect(glyphs).toEqual([])
@@ -340,7 +368,7 @@ test('status notes use the per-country wording and do not repeat the pack note',
   )
   await expect(page.getByTestId('reveal')).not.toContainText('whole island')
   await expect(cyprus).toHaveJSProperty('scrollHeight', await cyprus.evaluate((element) => element.clientHeight))
-  if (info.project.name === 'iphone') {
+  if (info.project.name === 'iphone' || info.project.name === 'iphone-webkit') {
     await page.getByRole('button', { name: 'Sources' }).click()
     const pack = page.locator('.drawer .reveal-note')
     await expect(pack).toContainText('internationally recognised state for the whole island')

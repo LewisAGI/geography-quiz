@@ -264,6 +264,7 @@ button { cursor: pointer; }
 .map-wrap { position: relative; flex: 1; min-height: 0; display: flex; flex-direction: column; }
 .map-host { position: relative; flex: 1; min-height: 80px; background: #d5e4ea; }
 .map-card {
+  --card-pad-b: 0.7rem;
   position: relative;
   z-index: 2;
   flex: 0 1 auto;
@@ -272,9 +273,9 @@ button { cursor: pointer; }
   flex-direction: column;
   overflow-y: auto;
   margin: 0.45rem 0.7rem 0.35rem;
-  padding: 0.7rem 0.85rem;
+  padding: 0.7rem 0.85rem var(--card-pad-b);
   border-radius: 16px;
-  background: rgba(247, 244, 234, 0.94);
+  background: var(--paper-2);
   box-shadow: var(--shadow);
 }
 .map-card .q-top,
@@ -290,10 +291,12 @@ button { cursor: pointer; }
 .map-card .reveal-body { overflow: visible; }
 .map-card .reveal-actions {
   position: sticky;
-  bottom: 0;
+  bottom: calc(-1 * var(--card-pad-b));
   z-index: 1;
   flex: none;
   margin-top: 0.35rem;
+  margin-bottom: calc(-1 * var(--card-pad-b));
+  padding-bottom: var(--card-pad-b);
   background: var(--paper-2);
 }
 .map-card .prompt { font-size: clamp(1.15rem, 4vw, 1.6rem); }
@@ -390,8 +393,9 @@ button { cursor: pointer; }
   .ring-label strong { font-size: 1.5rem; }
   .guess { font-size: 1.15rem; padding: 0.25rem 0; }
   .map-card {
+    --card-pad-b: 0.4rem;
     margin: 0.25rem 0.55rem 0.2rem;
-    padding: 0.4rem 0.7rem;
+    padding: 0.4rem 0.7rem var(--card-pad-b);
   }
   .map-card .prompt { font-size: 1.15rem; line-height: 1.1; }
   .map-card .reveal { margin-top: 0.25rem; padding-top: 0.3rem; }

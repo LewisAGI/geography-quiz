@@ -1,5 +1,5 @@
 import { entities, entityFor, universe } from './catalog'
-import { ALIASES, acceptedFor, allowedDistance, answerMatches, levenshtein, normalize } from './match'
+import { ALIASES, acceptedFor, answerMatches, levenshtein, normalize } from './match'
 import type { Question } from './types'
 
 const COUNTRY_NAMES = new Set<string>()
@@ -18,23 +18,16 @@ function rejectsBareCountry(guess: string, accepted: readonly string[]): boolean
   const guessNorm = normalize(guess)
   if (!guessNorm || normalize(guess, false) !== guessNorm) return false
   let best = Infinity
-  let bestLen = 0
   let bestIsCountry = false
   for (const form of accepted) {
     const stripped = normalize(form)
     if (!stripped) continue
     const distance = levenshtein(guessNorm, stripped)
-    const isCountry = normalize(form, false) !== stripped && COUNTRY_NAMES.has(stripped)
-    if (distance < best) {
-      best = distance
-      bestLen = stripped.length
-      bestIsCountry = isCountry
-    } else if (distance === best && isCountry) {
-      bestIsCountry = true
-      bestLen = stripped.length
-    }
+    if (distance >= best) continue
+    best = distance
+    bestIsCountry = normalize(form, false) !== stripped && COUNTRY_NAMES.has(stripped)
   }
-  return bestIsCountry && best <= allowedDistance(bestLen)
+  return bestIsCountry
 }
 
 export function gradeQuestion(question: Question, guess: string): boolean {

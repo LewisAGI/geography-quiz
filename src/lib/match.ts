@@ -213,7 +213,6 @@ export function levenshtein(a: string, b: string): number {
 
 export function acceptedFor(question: Question, entity?: Entity): string[] {
   const forms = new Set<string>(expandAnswer(question.answer, entity?.name ?? ''))
-  for (const alias of ALIASES[question.answer] ?? []) forms.add(alias)
   for (const form of [...forms]) {
     for (const alias of ALIASES[form] ?? []) forms.add(alias)
   }

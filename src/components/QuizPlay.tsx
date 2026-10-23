@@ -1,4 +1,4 @@
-import { useEffect, useMemo, useRef, useState } from 'react'
+import { useEffect, useLayoutEffect, useMemo, useRef, useState } from 'react'
 import { entityFor, sourceById } from '../lib/catalog'
 import { explanationFor } from '../lib/explain'
 import { mapScore } from '../lib/geo'
@@ -31,8 +31,7 @@ function scrollRevealAnswerIntoView(card: HTMLElement) {
   const actions = card.querySelector<HTMLElement>('.reveal-actions')
   const cardRect = card.getBoundingClientRect()
   const answerRect = answer.getBoundingClientRect()
-  const reserved = actions?.getBoundingClientRect().height ?? 0
-  const visibleBottom = cardRect.bottom - reserved
+  const visibleBottom = actions ? actions.getBoundingClientRect().top : cardRect.bottom
   if (answerRect.top >= cardRect.top - 1 && answerRect.bottom <= visibleBottom + 1) return
   if (answerRect.bottom > visibleBottom) card.scrollTop += answerRect.bottom - visibleBottom
   const nextRect = answer.getBoundingClientRect()
@@ -99,15 +98,19 @@ export function QuizPlay({
   const lock = useRef(false)
   const mapCardRef = useRef<HTMLDivElement>(null)
 
-  useEffect(() => {
+  useLayoutEffect(() => {
     const card = mapCardRef.current
     if (!card) return
     if (phase !== 'reveal') {
       card.scrollTop = 0
       return
     }
-    const frame = requestAnimationFrame(() => scrollRevealAnswerIntoView(card))
-    return () => cancelAnimationFrame(frame)
+    scrollRevealAnswerIntoView(card)
+    const observer = new ResizeObserver(() => scrollRevealAnswerIntoView(card))
+    observer.observe(card)
+    const answer = card.querySelector('[data-testid="reveal-answer"]')
+    if (answer) observer.observe(answer)
+    return () => observer.disconnect()
   }, [phase, index])
 
   useEffect(() => {
