@@ -65,6 +65,18 @@ const ALIASES: Record<string, string[]> = {
   Beijing: ['Peking'],
   'New Delhi': ['Delhi'],
   'Washington, D.C.': ['Washington', 'Washington DC', 'Washington D.C.'],
+  'Pic Marguerite on Mont Ngaliema (Mount Stanley)': [
+    'Pic Marguerite',
+    'Margherita Peak',
+    'Mount Stanley',
+    'Mont Ngaliema',
+    'Pic Marguerite on Mont Ngaliema',
+  ],
+  'Margherita Peak on Mount Stanley': ['Pic Marguerite', 'Margherita Peak', 'Mount Stanley', 'Mont Ngaliema'],
+  'Mount Stanley': ['Pic Marguerite', 'Margherita Peak', 'Mont Ngaliema'],
+  'Fako on Mont Cameroun': ['Mont Cameroun', 'Fako on Mont Cameroun'],
+  'Dufourspitze on Monte Rosa': ['Monte Rosa', 'Dufourspitze on Monte Rosa'],
+  'Laberintos del Norte on Mount Roraima': ['Mount Roraima', 'Laberintos del Norte on Mount Roraima'],
 }
 
 /** A shorter leading piece of the country name, such as "South Georgia" inside the longer territory name. */
@@ -75,15 +87,18 @@ function isContainingPlace(value: string, entityName: string): boolean {
   return entity.startsWith(`${place} `) || entity.startsWith(`${place},`)
 }
 
-/** A one-word bracket on a named peak is the place it stands on, not another name for the peak. */
-function isFeatureLocation(value: string, head: string): boolean {
+/**
+ * A one-word bracket is the place a peak stands on when the answer also says "on …".
+ * A one-word alternate such as Sagarmatha, Aoraki, or Denali has no "on" tail and stays.
+ */
+function isFeatureLocation(value: string, head: string, located: boolean): boolean {
   const word = value.trim()
-  if (!word || /\s/.test(word) || !head.trim()) return false
+  if (!located || !word || /\s/.test(word) || !head.trim()) return false
   if (!/\b(pico|pic|mount|mt|mont|gora|peak)\b/i.test(head)) return false
   return !head.toLowerCase().includes(word.toLowerCase())
 }
 
-function isQualifier(value: string, head = '', entityName = ''): boolean {
+function isQualifier(value: string, head = '', entityName = '', located = false): boolean {
   const text = value.trim()
   if (
     /^(city|highest point|a volcano|located\b|on\b|at\b|administrative|constitutional|legislative|commercial|political|note\b|an\b|the )\b/i.test(
@@ -94,24 +109,12 @@ function isQualifier(value: string, head = '', entityName = ''): boolean {
   }
   if (/\bfor\s+["“]/i.test(text)) return true
   if (isContainingPlace(text, entityName)) return true
-  if (isFeatureLocation(text, head)) return true
+  if (isFeatureLocation(text, head, located)) return true
   return text.split(/\s+/).length > 6
 }
 
 function stripOnTail(value: string): string {
   return value.replace(/\s+on\s+.+$/i, ' ').replace(/\s+/g, ' ').trim()
-}
-
-function isProperName(value: string): boolean {
-  return /^(mont|mount|mt\.?|pico|pic|gora|monte)\b/i.test(value.trim())
-}
-
-const STANLEY_NAMES = ['Pic Marguerite', 'Margherita Peak', 'Mount Stanley', 'Mont Ngaliema']
-
-function addSharedSummits(forms: Set<string>) {
-  const joined = [...forms].join('\n')
-  if (!/marguerite|margherita|ngaliema|mount stanley/i.test(joined)) return
-  for (const name of STANLEY_NAMES) forms.add(name)
 }
 
 export function expandAnswer(answer: string, entityName = ''): string[] {
@@ -126,17 +129,16 @@ export function expandAnswer(answer: string, entityName = ''): string[] {
   add(bare)
   const outside = stripOnTail(bare)
   add(outside)
-  const onTail = bare.match(/\s+on\s+(.+)$/i)
-  if (onTail && isProperName(onTail[1])) add(onTail[1])
+  const located = /\son\s/i.test(bare)
   if (outside.includes('/')) {
     for (const part of outside.split(/\s*\/\s*/)) add(part)
   }
   for (const raw of answer.match(/\([^)]*\)/g) ?? []) {
     const inner = raw.slice(1, -1).trim()
-    if (isQualifier(inner, outside, entityName)) continue
+    if (isQualifier(inner, outside, entityName, located)) continue
     if (/\bis\b/i.test(inner)) {
       const head = inner.split(/\s+is\s+/i)[0] ?? ''
-      if (head && head !== inner && !isQualifier(head, outside, entityName)) add(head)
+      if (head && head !== inner && !isQualifier(head, outside, entityName, located)) add(head)
     }
     for (const piece of inner.split(/\s*(?:,|\/|\baka\b)\s*/i)) add(piece)
   }
@@ -147,7 +149,7 @@ export function expandAnswer(answer: string, entityName = ''): string[] {
   return [...out]
 }
 
-export function normalize(raw: string): string {
+export function normalize(raw: string, stripFeature = true): string {
   let s = raw.trim().toLowerCase()
   if (!s) return ''
   s = s.replace(/[æøłđðþßœ]/g, (ch) => {
@@ -169,7 +171,7 @@ export function normalize(raw: string): string {
   s = s.replace(/\bst\.?\b/g, 'saint')
   s = s.replace(/[.'’"“”,/#!$%^*;:{}=_`~()?\-–—]/g, ' ')
   s = s.replace(/^the\s+/, '')
-  s = s.replace(/^(mount|mt|gora|pico|mont)\s+(?:de\s+)?/, '')
+  if (stripFeature) s = s.replace(/^(mount|mt|gora|pico|mont)\s+(?:de\s+)?/, '')
   s = s.replace(/^(river|rio)\s+/, '')
   s = s.replace(/\s+river$/, '')
   s = s.replace(/\s+/g, ' ').trim()
@@ -210,7 +212,6 @@ export function levenshtein(a: string, b: string): number {
 
 export function acceptedFor(question: Question, entity?: Entity): string[] {
   const forms = new Set<string>(expandAnswer(question.answer, entity?.name ?? ''))
-  addSharedSummits(forms)
   const aliasKey = forms.has(question.answer) ? question.answer : question.answer
   for (const alias of ALIASES[aliasKey] ?? []) forms.add(alias)
   for (const form of [...forms]) {

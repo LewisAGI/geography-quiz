@@ -266,12 +266,10 @@ button { cursor: pointer; }
 .map-card {
   position: relative;
   z-index: 2;
-  flex: 0 1 auto;
+  flex: none;
   display: flex;
   flex-direction: column;
-  min-height: 0;
-  max-height: 42%;
-  overflow: hidden;
+  overflow: visible;
   margin: 0.45rem 0.7rem 0.35rem;
   padding: 0.7rem 0.85rem;
   border-radius: 16px;
@@ -283,13 +281,12 @@ button { cursor: pointer; }
 .map-card .reveal {
   display: flex;
   flex-direction: column;
-  flex: 1 1 auto;
-  min-height: 0;
+  flex: none;
   margin-top: 0.35rem;
   padding: 0.45rem 0 0;
-  overflow: hidden;
+  overflow: visible;
 }
-.map-card .reveal-body { flex: 1 1 auto; overflow: auto; min-height: 0; }
+.map-card .reveal-body { overflow: visible; }
 .map-card .reveal-actions { flex: none; margin-top: 0.35rem; }
 .map-card .prompt { font-size: clamp(1.15rem, 4vw, 1.6rem); }
 .maplibregl-map { font-family: var(--sans); height: 100%; width: 100%; background: #c5d5dc; }
@@ -385,7 +382,6 @@ button { cursor: pointer; }
   .ring-label strong { font-size: 1.5rem; }
   .guess { font-size: 1.15rem; padding: 0.25rem 0; }
   .map-card {
-    max-height: 58%;
     margin: 0.25rem 0.55rem 0.2rem;
     padding: 0.4rem 0.7rem;
   }

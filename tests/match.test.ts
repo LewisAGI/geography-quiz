@@ -102,11 +102,11 @@ describe('answer matching', () => {
   })
 
   it('treats a bracketed location as a qualifier without a hard-coded name list', () => {
-    const peak = {
+    const located = {
       id: 'synth-peak',
       type: 'highest_point' as const,
       prompt: 'Highest point?',
-      answer: 'Pico de Example (Atlantis)',
+      answer: 'Pico de Example (Atlantis) on Far Islands',
       difficulty: 'hard' as const,
       sources: [],
     }
@@ -130,9 +130,58 @@ describe('answer matching', () => {
       pop_year: null,
       sources: [],
     }
-    expect(answerMatches('Atlantis', acceptedFor(peak), new Set())).toBe(false)
-    expect(answerMatches('Pico de Example', acceptedFor(peak), new Set())).toBe(true)
+    expect(answerMatches('Atlantis', acceptedFor(located), new Set())).toBe(false)
+    expect(answerMatches('Far Islands', acceptedFor(located), new Set())).toBe(false)
+    expect(answerMatches('Pico de Example', acceptedFor(located), new Set())).toBe(true)
     expect(answerMatches('New Place', acceptedFor(territory, entity), new Set())).toBe(false)
     expect(answerMatches('Mount Example', acceptedFor(territory, entity), new Set())).toBe(true)
+    for (const [answer, alias] of [
+      ['Mount Everest (Sagarmatha)', 'Sagarmatha'],
+      ['Mount Cook (Aoraki)', 'Aoraki'],
+      ['Mount McKinley (Denali)', 'Denali'],
+    ] as const) {
+      const question = {
+        id: `synth-${alias}`,
+        type: 'highest_point' as const,
+        prompt: 'Highest point?',
+        answer,
+        difficulty: 'hard' as const,
+        sources: [],
+      }
+      expect(answerMatches(alias, acceptedFor(question), new Set()), alias).toBe(true)
+    }
+  })
+
+  it('keeps summit tails on an alias list and rejects a wrong ridge', () => {
+    const byId = (id: string) => {
+      const question = questions.find((item) => item.id === id)
+      expect(question, id).toBeTruthy()
+      return question!
+    }
+    expect(gradeQuestion(byId('q01561'), 'Mont Cameroun')).toBe(true)
+    expect(gradeQuestion(byId('q01561'), 'Fako on Mont Cameroun')).toBe(true)
+    expect(gradeQuestion(byId('q01731'), 'Monte Rosa')).toBe(true)
+    expect(gradeQuestion(byId('q01731'), 'Dufourspitze on Monte Rosa')).toBe(true)
+    expect(gradeQuestion(byId('q01759'), 'Mount Roraima')).toBe(true)
+    expect(gradeQuestion(byId('q01759'), 'Laberintos del Norte on Mount Roraima')).toBe(true)
+    const monaco = byId('q01720')
+    expect(gradeQuestion(monaco, 'Chemin des Revoires')).toBe(true)
+    expect(gradeQuestion(monaco, 'Chemin des Revoires on Mont Agel')).toBe(true)
+    expect(gradeQuestion(monaco, 'Mont Agel')).toBe(false)
+    const france = byId('q00436')
+    expect(gradeQuestion(france, 'Mount Stanley')).toBe(false)
+    expect(gradeQuestion(france, 'Margherita Peak')).toBe(false)
+    expect(gradeQuestion(france, 'Paris')).toBe(true)
+  })
+
+  it('does not grade a country name as its namesake peak', () => {
+    const kenya = questions.find((item) => item.id === 'q01574')
+    expect(kenya).toBeTruthy()
+    expect(gradeQuestion(kenya!, 'Kenya')).toBe(false)
+    expect(gradeQuestion(kenya!, 'Mount Kenya')).toBe(true)
+    expect(gradeQuestion(kenya!, 'Mt. Kenya')).toBe(true)
+    expect(gradeQuestion(findAnswer('Mount Everest'), 'everest')).toBe(true)
+    const mapKenya = questions.find((item) => item.id === 'q01908')
+    expect(gradeQuestion(mapKenya!, 'Kenya')).toBe(false)
   })
 })
