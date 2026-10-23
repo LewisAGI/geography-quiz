@@ -11,6 +11,7 @@ import { TYPED_TYPES, type Difficulty, type PlayMode, type Progress, type Questi
 import { ArrowIcon, BookIcon, CheckIcon, CloseIcon, PlayIcon, ShareIcon } from '../icons'
 import { IconButton } from './IconButton'
 import { MapPane } from './MapPane'
+import { StatusNote } from './StatusNote'
 
 const TYPED = new Set<string>(TYPED_TYPES)
 type Phase = 'ask' | 'reveal' | 'done' | 'handoff'
@@ -309,6 +310,7 @@ export function QuizPlay({
                   <p className="reveal-explain" data-testid="explanation">
                     {explanation}
                   </p>
+                  <StatusNote question={question} />
                   <div className="reveal-actions">
                     <IconButton label="Sources" onClick={() => setSourcesOpen(true)}>
                       <BookIcon />
@@ -409,6 +411,7 @@ export function QuizPlay({
               <p className="reveal-explain" data-testid="explanation">
                 {explanation}
               </p>
+              <StatusNote question={question} />
               {question.note ? <p className="reveal-note">{question.note}</p> : null}
               <div className="reveal-actions">
                 <IconButton label="Sources" onClick={() => setSourcesOpen(true)}>

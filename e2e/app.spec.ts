@@ -111,11 +111,47 @@ test('map click reports distance', async ({ page }, info) => {
   if (info.project.name === 'iphone' || info.project.name === 'landscape') {
     await expect(page.getByRole('tooltip', { name: 'Map', exact: true })).toBeHidden()
   }
+  const attrib = page.locator('.maplibregl-ctrl-attrib')
+  await expect(attrib).toBeVisible()
+  await expect(attrib.locator('.maplibregl-ctrl-attrib-inner')).toBeVisible()
+  await expect(attrib).toContainText('OpenFreeMap')
+  await expect(attrib).toContainText('OpenStreetMap')
   await expect(page.getByTestId('distance')).toHaveCount(0)
   await page.mouse.click((box?.x ?? 0) + (box?.width ?? 0) * 0.35, (box?.y ?? 0) + (box?.height ?? 0) * 0.62)
   await expect(page.getByTestId('distance')).toContainText(/\d+ km/)
   await expect(page.getByTestId('explanation')).toBeVisible()
   expect(glyphs).toEqual([])
+})
+
+test('status note is shown for Taipei and not for Paris', async ({ page }) => {
+  await page.evaluate(() => {
+    localStorage.setItem(
+      'meridian.v1',
+      JSON.stringify({
+        version: 1,
+        streak: { count: 0, best: 0, lastCompleted: null },
+        daily: {},
+        stats: {},
+        mistakes: ['q00388', 'q00436'],
+        settings: { difficulty: 'all', continent: 'all' },
+        blitzBest: 0,
+      }),
+    )
+  })
+  await page.reload()
+  await page.getByTestId('nav-review').click()
+  await page.getByTestId('start-review').click()
+  await expect(page.getByTestId('prompt')).toContainText('Taiwan')
+  await page.getByTestId('guess').fill('Taipei')
+  await page.getByTestId('submit').click()
+  await expect(page.getByTestId('status-note')).toHaveText('Status disputed / limited international recognition.')
+  await page.getByTestId('next').click()
+  await expect(page.getByTestId('prompt')).toContainText('France')
+  await expect(page.getByTestId('status-note')).toHaveCount(0)
+  await page.getByTestId('guess').fill('Paris')
+  await page.getByTestId('submit').click()
+  await expect(page.getByTestId('reveal')).toHaveAttribute('data-correct', 'true')
+  await expect(page.getByTestId('status-note')).toHaveCount(0)
 })
 
 test('finishing the daily quiz records a streak and a share card', async ({ page }, info) => {

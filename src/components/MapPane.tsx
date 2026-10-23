@@ -50,6 +50,7 @@ export function MapPane({
       fadeDuration: 0,
       pitchWithRotate: false,
       dragRotate: false,
+      attributionControl: { compact: false },
     })
     map.setStyle(MAP_STYLE, {
       transformStyle: (_previous, next) => quietBasemap(next),

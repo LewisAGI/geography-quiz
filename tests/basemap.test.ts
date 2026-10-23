@@ -1,5 +1,6 @@
+import { readFileSync } from 'node:fs'
 import { describe, expect, it } from 'vitest'
-import { MAP_STYLE, quietBasemap } from '../src/lib/geo'
+import { quietBasemap } from '../src/lib/geo'
 
 type Layer = {
   id: string
@@ -8,6 +9,15 @@ type Layer = {
   paint?: Record<string, unknown>
   'source-layer'?: string
 }
+
+type LibertyStyle = {
+  layers: Layer[]
+  sources: Record<string, { attribution?: string; type?: string; url?: string }>
+}
+
+const liberty = JSON.parse(
+  readFileSync(new URL('./fixtures/liberty.style.json', import.meta.url), 'utf8'),
+) as LibertyStyle
 
 describe('quiet basemap', () => {
   it('strips text labels and keeps border lines', () => {
@@ -25,15 +35,27 @@ describe('quiet basemap', () => {
     expect(style.layers.map((layer) => layer.id)).toEqual(['boundary_2', 'road_one_way_arrow'])
   })
 
-  it('loads Liberty with no symbol text and with borders', async () => {
-    const response = await fetch(MAP_STYLE)
-    expect(response.ok).toBe(true)
-    const raw = (await response.json()) as { layers: Layer[] }
-    expect(raw.layers.some((layer) => layer.type === 'symbol' && layer.layout && 'text-field' in layer.layout)).toBe(true)
-    const loaded = quietBasemap(raw)
+  it('uses the saved Liberty style, keeps OSM borders, and keeps attribution', () => {
+    expect(liberty.layers.some((layer) => layer.type === 'symbol' && layer.layout && 'text-field' in layer.layout)).toBe(true)
+    const credited = {
+      ...liberty,
+      sources: {
+        ...liberty.sources,
+        openmaptiles: {
+          ...liberty.sources.openmaptiles,
+          attribution:
+            '<a href="https://openfreemap.org">OpenFreeMap</a> Data from <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a>',
+        },
+      },
+    }
+    const loaded = quietBasemap(credited)
     expect(loaded.layers.some((layer) => layer.type === 'symbol' && layer.layout && 'text-field' in layer.layout)).toBe(false)
     expect(loaded.layers.some((layer) => layer.id === 'label_city_capital' || layer.id === 'poi_r1')).toBe(false)
-    expect(loaded.layers.some((layer) => layer.id === 'boundary_2' && layer.type === 'line')).toBe(true)
-    expect(loaded.layers.some((layer) => layer.id === 'boundary_disputed' && layer.type === 'line')).toBe(true)
+    for (const id of ['boundary_2', 'boundary_3', 'boundary_disputed']) {
+      expect(loaded.layers.some((layer) => layer.id === id && layer.type === 'line')).toBe(true)
+    }
+    const attribution = loaded.sources.openmaptiles?.attribution ?? ''
+    expect(attribution).toContain('OpenFreeMap')
+    expect(attribution).toContain('OpenStreetMap')
   })
 })

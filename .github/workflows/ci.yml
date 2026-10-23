@@ -6,12 +6,13 @@ on:
 
 permissions:
   contents: read
-  actions: write
 
 jobs:
   test:
     runs-on: ubuntu-latest
-    timeout-minutes: 55
+    container:
+      image: mcr.microsoft.com/playwright:v1.64.1-noble
+    timeout-minutes: 25
     steps:
       - name: Checkout
         uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262
@@ -30,31 +31,8 @@ jobs:
       - name: Build
         run: npm run build
 
-      - name: Cache Playwright browsers
-        uses: actions/cache@0057852bfaa89a56745cba8c7296529d2fc39830
-        with:
-          path: ~/.cache/ms-playwright
-          key: playwright-${{ runner.os }}-${{ hashFiles('package-lock.json') }}
-
       - name: Install Playwright browsers
-        timeout-minutes: 45
-        run: |
-          set -euo pipefail
-          # A slow apt mirror can take most of an hour. Do not kill a download that is still moving.
-          for attempt in 1 2 3; do
-            if npx playwright install --with-deps chromium webkit; then
-              exit 0
-            fi
-            echo "playwright install attempt ${attempt} failed"
-            if command -v fuser >/dev/null 2>&1 && sudo fuser /var/lib/dpkg/lock-frontend >/dev/null 2>&1; then
-              echo "releasing dpkg lock"
-              sudo fuser -k /var/lib/dpkg/lock-frontend || true
-              sleep 3
-            fi
-            sudo dpkg --configure -a || true
-            sleep $((attempt * 5))
-          done
-          exit 1
+        run: npx playwright install chromium webkit
 
       - name: Browser tests
         run: npx playwright test
