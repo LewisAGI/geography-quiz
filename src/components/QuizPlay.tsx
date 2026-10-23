@@ -1,8 +1,9 @@
-import { useEffect, useMemo, useRef, useState } from 'react'
+import { useEffect, useLayoutEffect, useMemo, useRef, useState } from 'react'
 import { entityFor, sourceById } from '../lib/catalog'
 import { explanationFor } from '../lib/explain'
 import { mapScore } from '../lib/geo'
 import { gradeQuestion } from '../lib/grade'
+import { statusNoteFor } from '../lib/recognition'
 import { seededOrder } from '../lib/hash'
 import { buildQuestions } from '../lib/select'
 import { shareCard } from '../lib/share'
@@ -11,6 +12,7 @@ import { TYPED_TYPES, type Difficulty, type PlayMode, type Progress, type Questi
 import { ArrowIcon, BookIcon, CheckIcon, CloseIcon, PlayIcon, ShareIcon } from '../icons'
 import { IconButton } from './IconButton'
 import { MapPane } from './MapPane'
+import { StatusNote } from './StatusNote'
 
 const TYPED = new Set<string>(TYPED_TYPES)
 type Phase = 'ask' | 'reveal' | 'done' | 'handoff'
@@ -20,6 +22,20 @@ function kindFor(mode: PlayMode, question: Question): 'map' | 'choice' | 'typed'
   if (mode === 'choices') return 'choice'
   if ((mode === 'review' || mode === 'spaced') && !TYPED.has(question.type)) return 'choice'
   return 'typed'
+}
+
+/** Bring the revealed answer above the sticky actions. Leave the card alone when it already fits. */
+function scrollRevealAnswerIntoView(card: HTMLElement) {
+  const answer = card.querySelector<HTMLElement>('[data-testid="reveal-answer"]')
+  if (!answer) return
+  const actions = card.querySelector<HTMLElement>('.reveal-actions')
+  const cardRect = card.getBoundingClientRect()
+  const answerRect = answer.getBoundingClientRect()
+  const visibleBottom = actions ? actions.getBoundingClientRect().top : cardRect.bottom
+  if (answerRect.top >= cardRect.top - 1 && answerRect.bottom <= visibleBottom + 1) return
+  if (answerRect.bottom > visibleBottom) card.scrollTop += answerRect.bottom - visibleBottom
+  const nextRect = answer.getBoundingClientRect()
+  if (nextRect.top < cardRect.top) card.scrollTop -= cardRect.top - nextRect.top
 }
 
 function DiffMarks({ level }: { level: Difficulty }) {
@@ -80,6 +96,22 @@ export function QuizPlay({
   const [left, setLeft] = useState(90)
   const runRef = useRef(0)
   const lock = useRef(false)
+  const mapCardRef = useRef<HTMLDivElement>(null)
+
+  useLayoutEffect(() => {
+    const card = mapCardRef.current
+    if (!card) return
+    if (phase !== 'reveal') {
+      card.scrollTop = 0
+      return
+    }
+    scrollRevealAnswerIntoView(card)
+    const observer = new ResizeObserver(() => scrollRevealAnswerIntoView(card))
+    observer.observe(card)
+    const answer = card.querySelector('[data-testid="reveal-answer"]')
+    if (answer) observer.observe(answer)
+    return () => observer.disconnect()
+  }, [phase, index])
 
   useEffect(() => {
     if (mode !== 'blitz') return
@@ -278,7 +310,7 @@ export function QuizPlay({
       {kind === 'map' ? (
         <>
           <div className="map-wrap">
-            <div className="map-card">
+            <div className="map-card" ref={mapCardRef}>
               <div className="q-top">
                 <DiffMarks level={question.difficulty} />
                 <span className="q-index">
@@ -300,15 +332,18 @@ export function QuizPlay({
               </h1>
               {phase === 'reveal' ? (
                 <div className={`reveal ${lastCorrect ? 'good' : 'bad'}`} data-testid="reveal" data-correct={String(lastCorrect)}>
-                  <p className="distance" data-testid="distance">
-                    {distance} km
-                  </p>
-                  <p className="reveal-answer" data-testid="reveal-answer">
-                    {question.answer}
-                  </p>
-                  <p className="reveal-explain" data-testid="explanation">
-                    {explanation}
-                  </p>
+                  <div className="reveal-body">
+                    <p className="distance" data-testid="distance">
+                      {distance} km
+                    </p>
+                    <p className="reveal-answer" data-testid="reveal-answer">
+                      {question.answer}
+                    </p>
+                    <p className="reveal-explain" data-testid="explanation">
+                      {explanation}
+                    </p>
+                    <StatusNote question={question} />
+                  </div>
                   <div className="reveal-actions">
                     <IconButton label="Sources" onClick={() => setSourcesOpen(true)}>
                       <BookIcon />
@@ -409,7 +444,8 @@ export function QuizPlay({
               <p className="reveal-explain" data-testid="explanation">
                 {explanation}
               </p>
-              {question.note ? <p className="reveal-note">{question.note}</p> : null}
+              <StatusNote question={question} />
+              {question.note && !statusNoteFor(question) ? <p className="reveal-note">{question.note}</p> : null}
               <div className="reveal-actions">
                 <IconButton label="Sources" onClick={() => setSourcesOpen(true)}>
                   <BookIcon />

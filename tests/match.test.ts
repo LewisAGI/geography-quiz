@@ -1,7 +1,7 @@
 import { describe, expect, it } from 'vitest'
 import { entities, questions, universe } from '../src/lib/catalog'
 import { gradeQuestion } from '../src/lib/grade'
-import { answerMatches, expandAnswer, normalize } from '../src/lib/match'
+import { acceptedFor, answerMatches, expandAnswer, normalize } from '../src/lib/match'
 import type { Question } from '../src/lib/types'
 
 function findAnswer(answer: string): Question {
@@ -50,6 +50,10 @@ describe('answer matching', () => {
     expect(gradeQuestion(findAnswer('United States'), 'usa')).toBe(true)
     expect(gradeQuestion(findAnswer('United States'), 'U.S.')).toBe(true)
     expect(gradeQuestion(findAnswer('The Netherlands'), 'netherlands')).toBe(true)
+    expect(gradeQuestion(findAnswer('The Settlement (Flying Fish Cove)'), 'Settlement')).toBe(true)
+    expect(gradeQuestion(findAnswer('The Settlement (Flying Fish Cove)'), 'The Settlement')).toBe(true)
+    expect(gradeQuestion(findAnswer('Baku (Baki, Baky)'), 'Bakı')).toBe(true)
+    expect(gradeQuestion(findAnswer('Baku (Baki, Baky)'), 'Baki')).toBe(true)
     expect(gradeQuestion(findAnswer('The Netherlands'), 'holland')).toBe(true)
     expect(gradeQuestion(findAnswer('Saint Lucia'), 'st. lucia')).toBe(true)
     expect(gradeQuestion(findAnswer('Saint Lucia'), 'st lucia')).toBe(true)
@@ -86,5 +90,127 @@ describe('answer matching', () => {
   it('does not treat a blocked universe collision as a typo of the target', () => {
     expect(answerMatches('mali', ['Malta'], new Set(['mali', 'malta']))).toBe(false)
     expect(answerMatches('malta', ['Malta'], new Set(['mali', 'malta']))).toBe(true)
+  })
+
+  it('splits semicolons and aka names, and skips a long gloss', () => {
+    expect(expandAnswer('Alpha; Beta')).toEqual(expect.arrayContaining(['Alpha; Beta', 'Alpha', 'Beta']))
+    expect(expandAnswer('Foo (aka Bar)')).toEqual(expect.arrayContaining(['Foo', 'Bar']))
+    expect(expandAnswer('Place (Alpha aka Beta)')).toEqual(expect.arrayContaining(['Place', 'Alpha', 'Beta']))
+    const gloss = expandAnswer('Name (one two three four five six seven)')
+    expect(gloss).toContain('Name')
+    expect(gloss).not.toContain('one two three four five six seven')
+  })
+
+  it('treats a bracketed location as a qualifier without a hard-coded name list', () => {
+    const located = {
+      id: 'synth-peak',
+      type: 'highest_point' as const,
+      prompt: 'Highest point?',
+      answer: 'Pico de Example (Atlantis) on Far Islands',
+      difficulty: 'hard' as const,
+      sources: [],
+    }
+    const territory = {
+      id: 'synth-place',
+      type: 'highest_point' as const,
+      prompt: 'Highest point?',
+      answer: 'Mount Example (New Place)',
+      difficulty: 'hard' as const,
+      sources: [],
+      country_iso2: 'ZZ',
+    }
+    const entity = {
+      iso2: 'ZZ',
+      iso3: 'ZZZ',
+      name: 'New Place and Nearby Islands',
+      continent: 'AF',
+      capital: '',
+      capital_latlon: null,
+      population: null,
+      pop_year: null,
+      sources: [],
+    }
+    expect(answerMatches('Atlantis', acceptedFor(located), new Set())).toBe(false)
+    expect(answerMatches('Far Islands', acceptedFor(located), new Set())).toBe(false)
+    expect(answerMatches('Pico de Example', acceptedFor(located), new Set())).toBe(true)
+    expect(answerMatches('New Place', acceptedFor(territory, entity), new Set())).toBe(false)
+    expect(answerMatches('Mount Example', acceptedFor(territory, entity), new Set())).toBe(true)
+    for (const [answer, alias] of [
+      ['Mount Everest (Sagarmatha)', 'Sagarmatha'],
+      ['Mount Cook (Aoraki)', 'Aoraki'],
+      ['Mount McKinley (Denali)', 'Denali'],
+    ] as const) {
+      const question = {
+        id: `synth-${alias}`,
+        type: 'highest_point' as const,
+        prompt: 'Highest point?',
+        answer,
+        difficulty: 'hard' as const,
+        sources: [],
+      }
+      expect(answerMatches(alias, acceptedFor(question), new Set()), alias).toBe(true)
+    }
+  })
+
+  it('keeps summit tails on an alias list and rejects a wrong ridge', () => {
+    const byId = (id: string) => {
+      const question = questions.find((item) => item.id === id)
+      expect(question, id).toBeTruthy()
+      return question!
+    }
+    expect(gradeQuestion(byId('q01561'), 'Mont Cameroun')).toBe(true)
+    expect(gradeQuestion(byId('q01561'), 'Mount Cameroon')).toBe(true)
+    expect(gradeQuestion(byId('q01561'), 'Fako on Mont Cameroun')).toBe(true)
+    expect(gradeQuestion(byId('q01561'), 'Cameroun')).toBe(false)
+    expect(gradeQuestion(byId('q01561'), 'Cameroon')).toBe(false)
+    expect(gradeQuestion(byId('q01561'), 'Camerun')).toBe(false)
+    const yaounde = byId('q00020')
+    expect(gradeQuestion(yaounde, 'Cameroon')).toBe(true)
+    expect(gradeQuestion(yaounde, 'Cameroun')).toBe(true)
+    expect(gradeQuestion(byId('q01731'), 'Monte Rosa')).toBe(true)
+    expect(gradeQuestion(byId('q01731'), 'Dufourspitze on Monte Rosa')).toBe(true)
+    expect(gradeQuestion(byId('q01759'), 'Mount Roraima')).toBe(true)
+    expect(gradeQuestion(byId('q01759'), 'Laberintos del Norte on Mount Roraima')).toBe(true)
+    const monaco = byId('q01720')
+    expect(gradeQuestion(monaco, 'Chemin des Revoires')).toBe(true)
+    expect(gradeQuestion(monaco, 'Chemin des Revoires on Mont Agel')).toBe(true)
+    expect(gradeQuestion(monaco, 'Mont Agel')).toBe(false)
+    const france = byId('q00436')
+    expect(gradeQuestion(france, 'Mount Stanley')).toBe(false)
+    expect(gradeQuestion(france, 'Margherita Peak')).toBe(false)
+    expect(gradeQuestion(france, 'Paris')).toBe(true)
+  })
+
+  it('does not grade a country name as its namesake peak', () => {
+    const kenya = questions.find((item) => item.id === 'q01574')
+    expect(kenya).toBeTruthy()
+    expect(gradeQuestion(kenya!, 'Kenya')).toBe(false)
+    expect(gradeQuestion(kenya!, 'Kenia')).toBe(false)
+    expect(gradeQuestion(kenya!, 'Kenyah')).toBe(false)
+    expect(gradeQuestion(kenya!, 'Mount Kenya')).toBe(true)
+    expect(gradeQuestion(kenya!, 'Mt. Kenya')).toBe(true)
+    expect(gradeQuestion(kenya!, 'Mount Kenia')).toBe(true)
+    expect(gradeQuestion(kenya!, 'Mt Kenia')).toBe(true)
+    expect(gradeQuestion(findAnswer('Mount Everest'), 'everest')).toBe(true)
+    const mapKenya = questions.find((item) => item.id === 'q01908')
+    expect(gradeQuestion(mapKenya!, 'Kenya')).toBe(false)
+  })
+
+  it('keeps the earlier form on a country tie and still rejects past the typo cap', () => {
+    // "Mount …" is accepted first and strips to the country. The bare country is
+    // added later at the same distance, so a last-wins tie would accept the guess.
+    // The squashed spelling is farther than the typo cap and still rejects.
+    const question = {
+      id: 'synth-tie',
+      type: 'highest_point' as const,
+      prompt: 'Highest point?',
+      answer: 'Mount Democratic Republic of the Congo (Democratic Republic of the Congo)',
+      difficulty: 'hard' as const,
+      sources: [],
+    }
+    const accepted = acceptedFor(question)
+    expect(answerMatches('democraticrepublicofthecongo', accepted, universe)).toBe(true)
+    expect(gradeQuestion(question, 'democraticrepublicofthecongo')).toBe(false)
+    expect(gradeQuestion(question, 'Mount Democratic Republic of the Congo')).toBe(true)
   })
 })

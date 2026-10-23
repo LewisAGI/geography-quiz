@@ -27,11 +27,13 @@ const NUMBER_WORDS = [
   'twenty',
 ]
 
-const ALIASES: Record<string, string[]> = {
+export const ALIASES: Record<string, string[]> = {
   'United States': ['USA', 'US', 'U.S.', 'U.S.A.', 'United States of America'],
   'United Kingdom': ['UK', 'U.K.', 'Britain', 'Great Britain'],
   'United Arab Emirates': ['UAE'],
+  Cameroon: ['Cameroun'],
   Czechia: ['Czech Republic'],
+  Kenya: ['Kenia'],
   'Ivory Coast': ["Cote d'Ivoire", "Côte d'Ivoire", 'Cote dIvoire'],
   'Cabo Verde': ['Cape Verde'],
   Eswatini: ['Swaziland'],
@@ -65,19 +67,58 @@ const ALIASES: Record<string, string[]> = {
   Beijing: ['Peking'],
   'New Delhi': ['Delhi'],
   'Washington, D.C.': ['Washington', 'Washington DC', 'Washington D.C.'],
+  'Pic Marguerite on Mont Ngaliema (Mount Stanley)': [
+    'Pic Marguerite',
+    'Margherita Peak',
+    'Mount Stanley',
+    'Mont Ngaliema',
+  ],
+  'Margherita Peak on Mount Stanley': ['Pic Marguerite', 'Margherita Peak', 'Mount Stanley', 'Mont Ngaliema'],
+  'Fako on Mont Cameroun': ['Mont Cameroun', 'Mount Cameroon', 'Fako on Mont Cameroun'],
+  'Mount Kenya': ['Mount Kenia', 'Mt Kenia'],
+  'Dufourspitze on Monte Rosa': ['Monte Rosa', 'Dufourspitze on Monte Rosa'],
+  'Laberintos del Norte on Mount Roraima': ['Mount Roraima', 'Laberintos del Norte on Mount Roraima'],
 }
 
-function isQualifier(value: string): boolean {
-  return (
+/** A shorter leading piece of the country name, such as "South Georgia" inside the longer territory name. */
+function isContainingPlace(value: string, entityName: string): boolean {
+  const place = value.trim().toLowerCase()
+  const entity = entityName.trim().toLowerCase()
+  if (!place || !entity || place === entity) return false
+  return entity.startsWith(`${place} `) || entity.startsWith(`${place},`)
+}
+
+/**
+ * A one-word bracket is the place a peak stands on when the answer also says "on …".
+ * A one-word alternate such as Sagarmatha, Aoraki, or Denali has no "on" tail and stays.
+ */
+function isFeatureLocation(value: string, head: string, located: boolean): boolean {
+  const word = value.trim()
+  if (!located || !word || /\s/.test(word) || !head.trim()) return false
+  if (!/\b(pico|pic|mount|mt|mont|gora|peak)\b/i.test(head)) return false
+  return !head.toLowerCase().includes(word.toLowerCase())
+}
+
+function isQualifier(value: string, head = '', entityName = '', located = false): boolean {
+  const text = value.trim()
+  if (
     /^(city|highest point|a volcano|located\b|on\b|at\b|administrative|constitutional|legislative|commercial|political|note\b|an\b|the )\b/i.test(
-      value,
-    ) ||
-    /highest point/i.test(value) ||
-    value.split(/\s+/).length > 6
-  )
+      text,
+    )
+  ) {
+    return true
+  }
+  if (/\bfor\s+["“]/i.test(text)) return true
+  if (isContainingPlace(text, entityName)) return true
+  if (isFeatureLocation(text, head, located)) return true
+  return text.split(/\s+/).length > 6
 }
 
-export function expandAnswer(answer: string): string[] {
+function stripOnTail(value: string): string {
+  return value.replace(/\s+on\s+.+$/i, ' ').replace(/\s+/g, ' ').trim()
+}
+
+export function expandAnswer(answer: string, entityName = ''): string[] {
   const out = new Set<string>()
   const add = (value: string) => {
     const cleaned = value.replace(LANGUAGE, ' ').replace(/\s+/g, ' ').trim()
@@ -85,21 +126,22 @@ export function expandAnswer(answer: string): string[] {
   }
   add(answer)
   for (const part of answer.split(/\s*;\s*/)) add(part)
-  const outside = answer.replace(/\([^)]*\)/g, ' ')
+  const bare = answer.replace(/\([^)]*\)/g, ' ').replace(/\s+/g, ' ').trim()
+  add(bare)
+  const outside = stripOnTail(bare)
   add(outside)
-  for (const part of outside.split(/\s*\/\s*/)) add(part)
+  const located = /\son\s/i.test(bare)
+  if (outside.includes('/')) {
+    for (const part of outside.split(/\s*\/\s*/)) add(part)
+  }
   for (const raw of answer.match(/\([^)]*\)/g) ?? []) {
     const inner = raw.slice(1, -1).trim()
-    const aka = inner.match(/\baka\s+([^,;]+)/i)
-    if (aka) add(aka[1])
+    if (isQualifier(inner, outside, entityName, located)) continue
     if (/\bis\b/i.test(inner)) {
       const head = inner.split(/\s+is\s+/i)[0] ?? ''
-      if (head && head !== inner && !isQualifier(head)) add(head)
+      if (head && head !== inner && !isQualifier(head, outside, entityName, located)) add(head)
     }
-    if (isQualifier(inner)) continue
-    for (const piece of inner.split(/\s*(?:,|\/|\baka\b)\s*/i)) {
-      if (!isQualifier(piece)) add(piece)
-    }
+    for (const piece of inner.split(/\s*(?:,|\/|\baka\b)\s*/i)) add(piece)
   }
   if (/washington/i.test(answer) && /d\.?\s*c/i.test(answer)) {
     add('Washington')
@@ -108,7 +150,7 @@ export function expandAnswer(answer: string): string[] {
   return [...out]
 }
 
-export function normalize(raw: string): string {
+export function normalize(raw: string, stripFeature = true): string {
   let s = raw.trim().toLowerCase()
   if (!s) return ''
   s = s.replace(/[æøłđðþßœ]/g, (ch) => {
@@ -124,12 +166,13 @@ export function normalize(raw: string): string {
     }
     return map[ch] ?? ch
   })
+  s = s.replace(/ı/g, 'i')
   s = s.normalize('NFD').replace(/\p{M}/gu, '')
   s = s.replace(/&/g, ' and ')
   s = s.replace(/\bst\.?\b/g, 'saint')
   s = s.replace(/[.'’"“”,/#!$%^*;:{}=_`~()?\-–—]/g, ' ')
   s = s.replace(/^the\s+/, '')
-  s = s.replace(/^(mount|mt|gora|pico|mont)\s+/, '')
+  if (stripFeature) s = s.replace(/^(mount|mt|gora|pico|mont)\s+(?:de\s+)?/, '')
   s = s.replace(/^(river|rio)\s+/, '')
   s = s.replace(/\s+river$/, '')
   s = s.replace(/\s+/g, ' ').trim()
@@ -143,7 +186,7 @@ export function matchKeys(raw: string): string[] {
   return squashed === spaced ? [spaced] : [spaced, squashed]
 }
 
-function allowedDistance(length: number): number {
+export function allowedDistance(length: number): number {
   if (length <= 4) return 0
   if (length <= 8) return 1
   return 2
@@ -169,13 +212,11 @@ export function levenshtein(a: string, b: string): number {
 }
 
 export function acceptedFor(question: Question, entity?: Entity): string[] {
-  const forms = new Set<string>(expandAnswer(question.answer))
-  const aliasKey = forms.has(question.answer) ? question.answer : question.answer
-  for (const alias of ALIASES[aliasKey] ?? []) forms.add(alias)
+  const forms = new Set<string>(expandAnswer(question.answer, entity?.name ?? ''))
   for (const form of [...forms]) {
     for (const alias of ALIASES[form] ?? []) forms.add(alias)
   }
-  if (entity && normalize(question.answer) === normalize(entity.name)) {
+  if (entity && normalize(question.answer, false) === normalize(entity.name, false)) {
     for (const alias of ALIASES[entity.name] ?? []) forms.add(alias)
   }
   if (/^\d+$/.test(question.answer.trim())) {

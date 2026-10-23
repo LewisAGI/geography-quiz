@@ -254,30 +254,58 @@ button { cursor: pointer; }
 .reveal.good { color: var(--good); }
 .reveal.bad { color: var(--bad); }
 .reveal-answer { margin: 0; font-family: var(--serif); font-size: 1.45rem; color: var(--ink); }
-.reveal-explain, .reveal-note { margin: 0.45rem 0 0; color: var(--ink-soft); line-height: 1.45; font-size: 0.98rem; }
-.reveal-note { display: -webkit-box; -webkit-line-clamp: 4; -webkit-box-orient: vertical; overflow: hidden; }
+.reveal-explain, .reveal-note, .status-note { margin: 0.45rem 0 0; color: var(--ink-soft); line-height: 1.45; font-size: 0.98rem; }
+.status-note { display: block; overflow: visible; font-size: 0.92rem; }
+.drawer .reveal-note { display: block; overflow: visible; }
 .reveal-actions { margin-top: 0.6rem; gap: 0.2rem; }
 .distance { margin: 0.35rem 0 0; font-weight: 700; font-variant-numeric: tabular-nums; }
 
 .quiz-map { padding: 0; min-height: 0; flex: 1; width: 100%; }
 .map-wrap { position: relative; flex: 1; min-height: 0; display: flex; flex-direction: column; }
-.map-host { position: relative; flex: 1; min-height: 0; background: #d5e4ea; }
+.map-host { position: relative; flex: 1; min-height: 80px; background: #d5e4ea; }
 .map-card {
+  --card-pad-b: 0.7rem;
   position: relative;
   z-index: 2;
-  flex: none;
-  max-height: 42%;
-  overflow: auto;
+  flex: 0 1 auto;
+  min-height: 0;
+  display: flex;
+  flex-direction: column;
+  overflow-y: auto;
   margin: 0.45rem 0.7rem 0.35rem;
-  padding: 0.7rem 0.85rem;
+  padding: 0.7rem 0.85rem var(--card-pad-b);
   border-radius: 16px;
-  background: rgba(247, 244, 234, 0.94);
+  background: var(--paper-2);
   box-shadow: var(--shadow);
+}
+.map-card .q-top,
+.map-card .prompt { flex: none; }
+.map-card .reveal {
+  display: flex;
+  flex-direction: column;
+  flex: none;
+  margin-top: 0.35rem;
+  padding: 0.45rem 0 0;
+  overflow: visible;
+}
+.map-card .reveal-body { overflow: visible; }
+.map-card .reveal-actions {
+  position: sticky;
+  /* One extra pixel covers the subpixel gap where the next line's ascenders peek out. */
+  bottom: calc(-1 * var(--card-pad-b) - 1px);
+  z-index: 1;
+  flex: none;
+  margin-top: 0.35rem;
+  margin-bottom: calc(-1 * var(--card-pad-b));
+  padding-bottom: var(--card-pad-b);
+  background: var(--paper-2);
+  box-shadow: 0 1px 0 var(--paper-2);
 }
 .map-card .prompt { font-size: clamp(1.15rem, 4vw, 1.6rem); }
 .maplibregl-map { font-family: var(--sans); height: 100%; width: 100%; background: #c5d5dc; }
-.maplibregl-ctrl-attrib { font-size: 10px; background: rgba(247, 244, 234, 0.88); }
+.maplibregl-ctrl-attrib { font-size: 10px; background: rgba(247, 244, 234, 0.92); }
 .maplibregl-ctrl-attrib a { color: var(--sea); }
+.map-host .maplibregl-ctrl-attrib .maplibregl-ctrl-attrib-inner { display: block; }
 .map-pin {
   width: 14px;
   height: 14px;
@@ -366,6 +394,16 @@ button { cursor: pointer; }
   .ring-wrap { width: 7.5rem; }
   .ring-label strong { font-size: 1.5rem; }
   .guess { font-size: 1.15rem; padding: 0.25rem 0; }
+  .map-card {
+    --card-pad-b: 0.4rem;
+    margin: 0.25rem 0.55rem 0.2rem;
+    padding: 0.4rem 0.7rem var(--card-pad-b);
+  }
+  .map-card .prompt { font-size: 1.15rem; line-height: 1.1; }
+  .map-card .reveal { margin-top: 0.25rem; padding-top: 0.3rem; }
+  .map-card .reveal-answer { font-size: 1.2rem; }
+  .map-card .reveal-actions { margin-top: 0.2rem; }
+  .map-card .reveal-actions .icon-btn { width: 2.45rem; height: 2.45rem; }
 }
 
 @media (min-width: 960px) {
