@@ -159,9 +159,11 @@ describe('answer matching', () => {
       return question!
     }
     expect(gradeQuestion(byId('q01561'), 'Mont Cameroun')).toBe(true)
+    expect(gradeQuestion(byId('q01561'), 'Mount Cameroon')).toBe(true)
     expect(gradeQuestion(byId('q01561'), 'Fako on Mont Cameroun')).toBe(true)
     expect(gradeQuestion(byId('q01561'), 'Cameroun')).toBe(false)
     expect(gradeQuestion(byId('q01561'), 'Cameroon')).toBe(false)
+    expect(gradeQuestion(byId('q01561'), 'Camerun')).toBe(false)
     const yaounde = byId('q00020')
     expect(gradeQuestion(yaounde, 'Cameroon')).toBe(true)
     expect(gradeQuestion(yaounde, 'Cameroun')).toBe(true)
@@ -184,8 +186,11 @@ describe('answer matching', () => {
     expect(kenya).toBeTruthy()
     expect(gradeQuestion(kenya!, 'Kenya')).toBe(false)
     expect(gradeQuestion(kenya!, 'Kenia')).toBe(false)
+    expect(gradeQuestion(kenya!, 'Kenyah')).toBe(false)
     expect(gradeQuestion(kenya!, 'Mount Kenya')).toBe(true)
     expect(gradeQuestion(kenya!, 'Mt. Kenya')).toBe(true)
+    expect(gradeQuestion(kenya!, 'Mount Kenia')).toBe(true)
+    expect(gradeQuestion(kenya!, 'Mt Kenia')).toBe(true)
     expect(gradeQuestion(findAnswer('Mount Everest'), 'everest')).toBe(true)
     const mapKenya = questions.find((item) => item.id === 'q01908')
     expect(gradeQuestion(mapKenya!, 'Kenya')).toBe(false)

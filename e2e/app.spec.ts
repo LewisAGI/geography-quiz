@@ -30,17 +30,15 @@ async function expectOpaque(locator: Locator) {
 }
 
 /** Fully inside the viewport, and not clipped by an overflow ancestor or its own box. */
-async function expectFullyShown(page: Page, locator: Locator) {
-  await expect(locator).toBeVisible()
+async function elementFullyShown(page: Page, locator: Locator): Promise<boolean> {
+  if (!(await locator.isVisible().catch(() => false))) return false
   const box = await locator.boundingBox()
   const viewport = page.viewportSize()
-  expect(box).toBeTruthy()
-  expect(viewport).toBeTruthy()
-  expect(box!.y).toBeGreaterThanOrEqual(-1)
-  expect(box!.x).toBeGreaterThanOrEqual(-1)
-  expect(box!.y + box!.height).toBeLessThanOrEqual((viewport?.height ?? 0) + 1)
-  expect(box!.x + box!.width).toBeLessThanOrEqual((viewport?.width ?? 0) + 1)
-  const unclipped = await locator.evaluate((element) => {
+  if (!box || !viewport) return false
+  if (box.y < -1 || box.x < -1) return false
+  if (box.y + box.height > viewport.height + 1) return false
+  if (box.x + box.width > viewport.width + 1) return false
+  return locator.evaluate((element) => {
     if (element.scrollHeight - element.clientHeight > 1) return false
     const rect = element.getBoundingClientRect()
     let parent = element.parentElement
@@ -62,13 +60,86 @@ async function expectFullyShown(page: Page, locator: Locator) {
     }
     return true
   })
-  expect(unclipped).toBe(true)
+}
+
+async function expectFullyShown(page: Page, locator: Locator) {
+  expect(await elementFullyShown(page, locator)).toBe(true)
+}
+
+async function cardMetrics(page: Page) {
+  return page.locator('.map-card').evaluate((element) => ({
+    overflowY: getComputedStyle(element).overflowY,
+    scrollHeight: element.scrollHeight,
+    clientHeight: element.clientHeight,
+    scrollTop: element.scrollTop,
+  }))
+}
+
+/**
+ * Drag a touch across the card. A mouse wheel also scrolls overflow:hidden,
+ * which is the mutant this check has to fail.
+ */
+async function scrollMapCard(page: Page, deltaY: number) {
+  const card = page.locator('.map-card')
+  const box = await card.boundingBox()
+  expect(box).toBeTruthy()
+  const x = box!.x + box!.width / 2
+  const y = box!.y + Math.min(28, Math.max(12, box!.height / 3))
+  const finger = -deltaY
+  const steps = 8
+  const client = await page.context().newCDPSession(page)
+  try {
+    await client.send('Input.dispatchTouchEvent', { type: 'touchStart', touchPoints: [{ x, y }] })
+    for (let step = 1; step <= steps; step += 1) {
+      await client.send('Input.dispatchTouchEvent', {
+        type: 'touchMove',
+        touchPoints: [{ x, y: y + (finger * step) / steps }],
+      })
+    }
+    await client.send('Input.dispatchTouchEvent', { type: 'touchEnd', touchPoints: [] })
+  } finally {
+    await client.detach()
+  }
+}
+
+async function assertUserCanScrollCard(page: Page) {
+  const before = await cardMetrics(page)
+  expect(['auto', 'scroll']).toContain(before.overflowY)
+  expect(before.scrollHeight).toBeGreaterThan(before.clientHeight)
+  const roomBelow = before.scrollHeight - before.clientHeight - before.scrollTop
+  await scrollMapCard(page, roomBelow > 24 ? 90 : -90)
+  await expect.poll(async () => (await cardMetrics(page)).scrollTop).not.toBe(before.scrollTop)
+}
+
+async function wheelUntilShown(page: Page, locator: Locator) {
+  let direction = 1
+  for (let step = 0; step < 30; step += 1) {
+    if (await elementFullyShown(page, locator)) return
+    const top = (await cardMetrics(page)).scrollTop
+    const max = (await cardMetrics(page)).scrollHeight - (await cardMetrics(page)).clientHeight
+    if (direction > 0 && top >= max - 1) direction = -1
+    if (direction < 0 && top <= 1) direction = 1
+    await scrollMapCard(page, direction * 80)
+  }
+  await expectFullyShown(page, locator)
 }
 
 async function clickMap(page: Page) {
-  const box = await page.getByTestId('map').boundingBox()
-  expect(box).toBeTruthy()
-  await page.mouse.click((box?.x ?? 0) + (box?.width ?? 0) * 0.35, (box?.y ?? 0) + (box?.height ?? 0) * 0.62)
+  const map = page.getByTestId('map')
+  const canvas = map.locator('.maplibregl-canvas')
+  await expect(canvas).toBeVisible()
+  for (let attempt = 0; attempt < 3; attempt += 1) {
+    const box = await map.boundingBox()
+    expect(box && box.height).toBeGreaterThan(40)
+    await page.mouse.click(box!.x + box!.width * 0.35, box!.y + box!.height * 0.62)
+    try {
+      await expect(page.getByTestId('distance')).toBeVisible({ timeout: 2500 })
+      return
+    } catch {
+      // The map ignores a click that lands before it is ready.
+    }
+  }
+  await expect(page.getByTestId('distance')).toBeVisible()
 }
 
 test.beforeEach(async ({ page }) => {
@@ -177,15 +248,14 @@ test('map click reports distance', async ({ page }, info) => {
   await expect(page.getByTestId('distance')).toContainText(/\d+ km/)
   await expect(page.getByTestId('explanation')).toBeVisible()
   if (info.project.name === 'landscape') {
-    for (const locator of [
-      page.getByTestId('reveal-answer'),
-      page.getByTestId('explanation'),
-      page.getByRole('button', { name: 'Sources', exact: true }),
-      page.getByRole('button', { name: 'Next', exact: true }),
-    ]) {
-      await locator.scrollIntoViewIfNeeded()
-      await expectFullyShown(page, locator)
-    }
+    const next = page.getByRole('button', { name: 'Next', exact: true })
+    const sources = page.getByRole('button', { name: 'Sources', exact: true })
+    await expectFullyShown(page, next)
+    await expectFullyShown(page, sources)
+    await assertUserCanScrollCard(page)
+    await wheelUntilShown(page, page.getByTestId('reveal-answer'))
+    await wheelUntilShown(page, page.getByTestId('explanation'))
+    await expectFullyShown(page, next)
     const canvas = await page.locator('.maplibregl-canvas').boundingBox()
     expect(canvas).toBeTruthy()
     expect(canvas!.height).toBeGreaterThanOrEqual(80)
@@ -220,13 +290,16 @@ test('map click reports distance', async ({ page }, info) => {
     await page.setViewportSize({ width: 802, height: 293 })
     const answer = page.getByTestId('reveal-answer')
     const next = page.getByRole('button', { name: 'Next', exact: true })
-    await answer.scrollIntoViewIfNeeded()
     await expect(answer).toHaveText('Nicosia (Lefkosia/Lefkosa)')
-    await expectFullyShown(page, answer)
-    await next.scrollIntoViewIfNeeded()
+    await expectFullyShown(page, next)
+    await assertUserCanScrollCard(page)
+    await wheelUntilShown(page, answer)
     await expectFullyShown(page, next)
     await next.click()
     await expect(page.getByTestId('prompt')).not.toContainText('Nicosia')
+    await clickMap(page)
+    await expectFullyShown(page, page.getByTestId('reveal-answer'))
+    await expectFullyShown(page, page.getByRole('button', { name: 'Next', exact: true }))
   }
   expect(glyphs).toEqual([])
 })

@@ -17,8 +17,9 @@ export default defineConfig({
   },
   projects: [
     { name: 'desktop', use: { ...devices['Desktop Chrome'] } },
-    { name: 'iphone', use: { ...devices['iPhone 13'] } },
-    { name: 'landscape', use: { ...devices['iPhone 13 landscape'] } },
+    // Chromium so a touch drag can scroll the card. Mobile WebKit has no wheel, and a wheel scrolls overflow:hidden.
+    { name: 'iphone', use: { ...devices['iPhone 13'], defaultBrowserType: 'chromium' } },
+    { name: 'landscape', use: { ...devices['iPhone 13 landscape'], defaultBrowserType: 'chromium' } },
     { name: 'webkit', use: { ...devices['Desktop Safari'] } },
   ],
   webServer: {

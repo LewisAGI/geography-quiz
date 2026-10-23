@@ -24,6 +24,21 @@ function kindFor(mode: PlayMode, question: Question): 'map' | 'choice' | 'typed'
   return 'typed'
 }
 
+/** Bring the revealed answer above the sticky actions. Leave the card alone when it already fits. */
+function scrollRevealAnswerIntoView(card: HTMLElement) {
+  const answer = card.querySelector<HTMLElement>('[data-testid="reveal-answer"]')
+  if (!answer) return
+  const actions = card.querySelector<HTMLElement>('.reveal-actions')
+  const cardRect = card.getBoundingClientRect()
+  const answerRect = answer.getBoundingClientRect()
+  const reserved = actions?.getBoundingClientRect().height ?? 0
+  const visibleBottom = cardRect.bottom - reserved
+  if (answerRect.top >= cardRect.top - 1 && answerRect.bottom <= visibleBottom + 1) return
+  if (answerRect.bottom > visibleBottom) card.scrollTop += answerRect.bottom - visibleBottom
+  const nextRect = answer.getBoundingClientRect()
+  if (nextRect.top < cardRect.top) card.scrollTop -= cardRect.top - nextRect.top
+}
+
 function DiffMarks({ level }: { level: Difficulty }) {
   const filled = level === 'easy' ? 1 : level === 'medium' ? 2 : 3
   return (
@@ -82,6 +97,18 @@ export function QuizPlay({
   const [left, setLeft] = useState(90)
   const runRef = useRef(0)
   const lock = useRef(false)
+  const mapCardRef = useRef<HTMLDivElement>(null)
+
+  useEffect(() => {
+    const card = mapCardRef.current
+    if (!card) return
+    if (phase !== 'reveal') {
+      card.scrollTop = 0
+      return
+    }
+    const frame = requestAnimationFrame(() => scrollRevealAnswerIntoView(card))
+    return () => cancelAnimationFrame(frame)
+  }, [phase, index])
 
   useEffect(() => {
     if (mode !== 'blitz') return
@@ -280,7 +307,7 @@ export function QuizPlay({
       {kind === 'map' ? (
         <>
           <div className="map-wrap">
-            <div className="map-card">
+            <div className="map-card" ref={mapCardRef}>
               <div className="q-top">
                 <DiffMarks level={question.difficulty} />
                 <span className="q-index">

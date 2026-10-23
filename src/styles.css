@@ -288,7 +288,14 @@ button { cursor: pointer; }
   overflow: visible;
 }
 .map-card .reveal-body { overflow: visible; }
-.map-card .reveal-actions { flex: none; margin-top: 0.35rem; }
+.map-card .reveal-actions {
+  position: sticky;
+  bottom: 0;
+  z-index: 1;
+  flex: none;
+  margin-top: 0.35rem;
+  background: var(--paper-2);
+}
 .map-card .prompt { font-size: clamp(1.15rem, 4vw, 1.6rem); }
 .maplibregl-map { font-family: var(--sans); height: 100%; width: 100%; background: #c5d5dc; }
 .maplibregl-ctrl-attrib { font-size: 10px; background: rgba(247, 244, 234, 0.92); }
