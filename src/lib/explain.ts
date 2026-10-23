@@ -1,3 +1,4 @@
+import { statusNoteFor } from './recognition'
 import type { Entity, Question } from './types'
 
 export function explanationFor(question: Question, entity?: Entity): string {
@@ -17,7 +18,8 @@ export function explanationFor(question: Question, entity?: Entity): string {
     case 'map_click': {
       const place = question.prompt.replace(/^Click on\s+/i, '').replace(/\.$/, '').trim()
       const sentence = place.endsWith('.') ? place : `${place}.`
-      return question.note ? `${sentence} ${question.note}` : sentence
+      if (question.note && !statusNoteFor(question)) return `${sentence} ${question.note}`
+      return sentence
     }
     case 'highest_point':
       return entity

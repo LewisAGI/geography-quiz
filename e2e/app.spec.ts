@@ -123,7 +123,7 @@ test('map click reports distance', async ({ page }, info) => {
   expect(glyphs).toEqual([])
 })
 
-test('status note is shown for Taipei and not for Paris', async ({ page }) => {
+test('status notes use the per-country wording and do not repeat the pack note', async ({ page }, info) => {
   await page.evaluate(() => {
     localStorage.setItem(
       'meridian.v1',
@@ -132,7 +132,7 @@ test('status note is shown for Taipei and not for Paris', async ({ page }) => {
         streak: { count: 0, best: 0, lastCompleted: null },
         daily: {},
         stats: {},
-        mistakes: ['q00388', 'q00436'],
+        mistakes: ['q00388', 'q00415', 'q00749'],
         settings: { difficulty: 'all', continent: 'all' },
         blitzBest: 0,
       }),
@@ -144,12 +144,32 @@ test('status note is shown for Taipei and not for Paris', async ({ page }) => {
   await expect(page.getByTestId('prompt')).toContainText('Taiwan')
   await page.getByTestId('guess').fill('Taipei')
   await page.getByTestId('submit').click()
-  await expect(page.getByTestId('status-note')).toHaveText('Status disputed / limited international recognition.')
+  const taiwan = page.getByTestId('status-note')
+  await expect(taiwan).toHaveText("Taiwan's status is disputed; limited formal diplomatic recognition.")
+  await expect(page.getByTestId('reveal')).not.toContainText('CIA World Factbook')
+  await expect(taiwan).toHaveJSProperty('scrollHeight', await taiwan.evaluate((element) => element.clientHeight))
+
   await page.getByTestId('next').click()
-  await expect(page.getByTestId('prompt')).toContainText('France')
-  await expect(page.getByTestId('status-note')).toHaveCount(0)
-  await page.getByTestId('guess').fill('Paris')
+  await expect(page.getByTestId('prompt')).toContainText('Cyprus')
+  await page.getByTestId('guess').fill('Nicosia')
   await page.getByTestId('submit').click()
+  const cyprus = page.getByTestId('status-note')
+  await expect(cyprus).toHaveText(
+    'Divided city; the north is administered by the Turkish Cypriot authorities, recognised only by Turkey.',
+  )
+  await expect(page.getByTestId('reveal')).not.toContainText('whole island')
+  await expect(cyprus).toHaveJSProperty('scrollHeight', await cyprus.evaluate((element) => element.clientHeight))
+  if (info.project.name === 'iphone') {
+    await page.getByRole('button', { name: 'Sources' }).click()
+    const pack = page.locator('.drawer .reveal-note')
+    await expect(pack).toContainText('internationally recognised state for the whole island')
+    await expect(pack).toHaveJSProperty('scrollHeight', await pack.evaluate((element) => element.clientHeight))
+    await page.locator('.drawer').getByRole('button', { name: 'Close' }).click()
+  }
+
+  await page.getByTestId('next').click()
+  await expect(page.getByTestId('prompt')).toContainText('flag')
+  await page.getByTestId('choice').filter({ hasText: /^Taiwan$/ }).click()
   await expect(page.getByTestId('reveal')).toHaveAttribute('data-correct', 'true')
   await expect(page.getByTestId('status-note')).toHaveCount(0)
 })

@@ -68,13 +68,23 @@ const ALIASES: Record<string, string[]> = {
 }
 
 function isQualifier(value: string): boolean {
-  return (
+  const text = value.trim()
+  if (!text) return true
+  if (/^(tenerife|south georgia)$/i.test(text)) return true
+  if (
     /^(city|highest point|a volcano|located\b|on\b|at\b|administrative|constitutional|legislative|commercial|political|note\b|an\b|the )\b/i.test(
-      value,
-    ) ||
-    /highest point/i.test(value) ||
-    value.split(/\s+/).length > 6
-  )
+      text,
+    )
+  ) {
+    return true
+  }
+  if (/highest point/i.test(text)) return true
+  if (/\bfor\s+["“]/i.test(text)) return true
+  return text.split(/\s+/).length > 6
+}
+
+function stripOnTail(value: string): string {
+  return value.replace(/\s+on\s+.+$/i, ' ').replace(/\s+/g, ' ').trim()
 }
 
 export function expandAnswer(answer: string): string[] {
@@ -85,21 +95,21 @@ export function expandAnswer(answer: string): string[] {
   }
   add(answer)
   for (const part of answer.split(/\s*;\s*/)) add(part)
-  const outside = answer.replace(/\([^)]*\)/g, ' ')
+  const outside = stripOnTail(answer.replace(/\([^)]*\)/g, ' '))
   add(outside)
-  for (const part of outside.split(/\s*\/\s*/)) add(part)
+  if (outside.includes('/')) {
+    for (const part of outside.split(/\s*\/\s*/)) add(part)
+  }
   for (const raw of answer.match(/\([^)]*\)/g) ?? []) {
     const inner = raw.slice(1, -1).trim()
+    if (isQualifier(inner)) continue
     const aka = inner.match(/\baka\s+([^,;]+)/i)
     if (aka) add(aka[1])
     if (/\bis\b/i.test(inner)) {
       const head = inner.split(/\s+is\s+/i)[0] ?? ''
       if (head && head !== inner && !isQualifier(head)) add(head)
     }
-    if (isQualifier(inner)) continue
-    for (const piece of inner.split(/\s*(?:,|\/|\baka\b)\s*/i)) {
-      if (!isQualifier(piece)) add(piece)
-    }
+    for (const piece of inner.split(/\s*(?:,|\/|\baka\b)\s*/i)) add(piece)
   }
   if (/washington/i.test(answer) && /d\.?\s*c/i.test(answer)) {
     add('Washington')
@@ -124,12 +134,13 @@ export function normalize(raw: string): string {
     }
     return map[ch] ?? ch
   })
+  s = s.replace(/ı/g, 'i')
   s = s.normalize('NFD').replace(/\p{M}/gu, '')
   s = s.replace(/&/g, ' and ')
   s = s.replace(/\bst\.?\b/g, 'saint')
   s = s.replace(/[.'’"“”,/#!$%^*;:{}=_`~()?\-–—]/g, ' ')
   s = s.replace(/^the\s+/, '')
-  s = s.replace(/^(mount|mt|gora|pico|mont)\s+/, '')
+  s = s.replace(/^(mount|mt|gora|pico|mont)\s+(?:de\s+)?/, '')
   s = s.replace(/^(river|rio)\s+/, '')
   s = s.replace(/\s+river$/, '')
   s = s.replace(/\s+/g, ' ').trim()

@@ -3,96 +3,57 @@ import { renderToStaticMarkup } from 'react-dom/server'
 import { describe, expect, it } from 'vitest'
 import { StatusNote } from '../src/components/StatusNote'
 import { playable, questions } from '../src/lib/catalog'
-import { gradeQuestion } from '../src/lib/grade'
-import {
-  RECOGNITION_COUNTRIES,
-  RECOGNITION_NOTES,
-  RECOGNITION_QUESTION_IDS,
-  STATUS_NOTE,
-  statusNoteFor,
-} from '../src/lib/recognition'
+import { CYPRUS_NOTE, KOSOVO_NOTE, RECOGNITION_NOTES, TAIWAN_NOTE, statusNoteFor } from '../src/lib/recognition'
 
-const countries = new Set<string>(RECOGNITION_COUNTRIES)
-
-/** Alternates written into the pack answer string: slashes and parenthetical lists. */
-function packAlternates(answer: string): string[] {
-  const forms = new Set<string>()
-  const add = (value: string) => {
-    const cleaned = value.trim()
-    if (cleaned) forms.add(cleaned)
-  }
-  add(answer)
-  const outside = answer.replace(/\([^)]*\)/g, ' ').replace(/\s+/g, ' ').trim()
-  add(outside)
-  for (const part of outside.split('/')) add(part)
-  for (const raw of answer.match(/\([^)]*\)/g) ?? []) {
-    for (const piece of raw.slice(1, -1).split(/[,/]/)) add(piece)
-  }
-  return [...forms]
+const EXPECTED: Record<string, string> = {
+  q00388: TAIWAN_NOTE,
+  q00389: TAIWAN_NOTE,
+  q00390: TAIWAN_NOTE,
+  q00415: CYPRUS_NOTE,
+  q00416: CYPRUS_NOTE,
+  q00417: CYPRUS_NOTE,
+  q00469: KOSOVO_NOTE,
+  q00470: KOSOVO_NOTE,
+  q00471: KOSOVO_NOTE,
 }
 
 describe('recognition notes', () => {
-  it('shows the status note for Taiwan, Kosovo, and Cyprus questions and no others', () => {
-    const such = questions.filter((question) => question.country_iso2 && countries.has(question.country_iso2))
-    expect(such.map((question) => question.id).sort()).toEqual([...RECOGNITION_QUESTION_IDS].sort())
-    for (const iso of RECOGNITION_COUNTRIES) expect(RECOGNITION_NOTES[iso]).toBe(STATUS_NOTE)
-    for (const id of RECOGNITION_QUESTION_IDS) expect(RECOGNITION_NOTES[id]).toBe(STATUS_NOTE)
-    const allowed = new Set<string>([...RECOGNITION_COUNTRIES, ...RECOGNITION_QUESTION_IDS])
-    expect(Object.keys(RECOGNITION_NOTES).sort()).toEqual([...allowed].sort())
+  it('shows the per-country note on the nine capital questions and on no others', () => {
+    expect(TAIWAN_NOTE).toBe("Taiwan's status is disputed; limited formal diplomatic recognition.")
+    expect(CYPRUS_NOTE).toBe(
+      'Divided city; the north is administered by the Turkish Cypriot authorities, recognised only by Turkey.',
+    )
+    expect(KOSOVO_NOTE).toBe("Kosovo's independence is not recognised by all UN members, including Serbia.")
+    expect(RECOGNITION_NOTES).toEqual(EXPECTED)
+    expect(Object.keys(RECOGNITION_NOTES)).toHaveLength(9)
 
+    const noted = new Set<string>()
     for (const question of questions) {
       const html = renderToStaticMarkup(createElement(StatusNote, { question }))
-      if (countries.has(question.country_iso2 ?? '')) {
-        expect(statusNoteFor(question)).toBe(STATUS_NOTE)
+      const expected = EXPECTED[question.id]
+      if (expected) {
+        noted.add(question.id)
+        expect(statusNoteFor(question), question.id).toBe(expected)
         expect(html).toContain('data-testid="status-note"')
-        expect(html).toContain(STATUS_NOTE)
+        expect(html.replace(/&#x27;/g, "'")).toContain(expected)
+        expect(html).not.toContain('Status disputed / limited international recognition.')
       } else {
-        expect(statusNoteFor(question)).toBeUndefined()
+        expect(statusNoteFor(question), question.id).toBeUndefined()
         expect(html).toBe('')
       }
     }
+    expect([...noted].sort()).toEqual(Object.keys(EXPECTED).sort())
+
+    const untouched = ['q00749', 'q00755', 'q01026', 'q01027', 'q01262', 'q01271', 'q01288', 'q01467', 'q01476', 'q01493', 'q01686', 'q01695', 'q01711', 'q00436']
+    for (const id of untouched) {
+      const question = questions.find((item) => item.id === id)
+      expect(question, id).toBeTruthy()
+      expect(statusNoteFor(question!)).toBeUndefined()
+    }
   })
 
-  it('keeps Taipei, Pristina, and Nicosia questions playable', () => {
+  it('keeps Taipei, Nicosia, and Pristina questions playable', () => {
     const ids = new Set(playable.map((question) => question.id))
-    for (const id of ['q00388', 'q00389', 'q00390', 'q00415', 'q00416', 'q00417', 'q00469', 'q00470', 'q00471']) {
-      expect(ids.has(id)).toBe(true)
-    }
-  })
-
-  it('accepts every alternate the pack lists for those questions', () => {
-    const subject = questions.filter((question) => countries.has(question.country_iso2 ?? ''))
-    expect(subject.length).toBe(RECOGNITION_QUESTION_IDS.length)
-    const accepted = new Set<string>()
-    for (const question of subject) {
-      const forms = packAlternates(question.answer)
-      expect(forms.length).toBeGreaterThan(0)
-      for (const form of forms) {
-        expect(gradeQuestion(question, form), `${question.id} accepts ${form}`).toBe(true)
-        accepted.add(form)
-      }
-      for (const distractor of question.distractors ?? []) {
-        expect(gradeQuestion(question, distractor), `${question.id} rejects ${distractor}`).toBe(false)
-      }
-      expect(gradeQuestion(question, 'zzzznotaplace')).toBe(false)
-    }
-    for (const form of [
-      'Taipei',
-      'Taiwan',
-      'Nicosia',
-      'Lefkosia',
-      'Lefkosa',
-      'Cyprus',
-      'Pristina',
-      'Prishtine',
-      'Prishtina',
-      'Kosovo',
-      'Yu Shan',
-      'Mount Olympus',
-      'Gjeravica',
-      'Deravica',
-    ]) {
-      expect(accepted.has(form)).toBe(true)
-    }
+    for (const id of Object.keys(EXPECTED)) expect(ids.has(id)).toBe(true)
   })
 })

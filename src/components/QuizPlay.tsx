@@ -3,6 +3,7 @@ import { entityFor, sourceById } from '../lib/catalog'
 import { explanationFor } from '../lib/explain'
 import { mapScore } from '../lib/geo'
 import { gradeQuestion } from '../lib/grade'
+import { statusNoteFor } from '../lib/recognition'
 import { seededOrder } from '../lib/hash'
 import { buildQuestions } from '../lib/select'
 import { shareCard } from '../lib/share'
@@ -412,7 +413,7 @@ export function QuizPlay({
                 {explanation}
               </p>
               <StatusNote question={question} />
-              {question.note ? <p className="reveal-note">{question.note}</p> : null}
+              {question.note && !statusNoteFor(question) ? <p className="reveal-note">{question.note}</p> : null}
               <div className="reveal-actions">
                 <IconButton label="Sources" onClick={() => setSourcesOpen(true)}>
                   <BookIcon />
