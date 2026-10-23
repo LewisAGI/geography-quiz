@@ -302,16 +302,18 @@ export function QuizPlay({
               </h1>
               {phase === 'reveal' ? (
                 <div className={`reveal ${lastCorrect ? 'good' : 'bad'}`} data-testid="reveal" data-correct={String(lastCorrect)}>
-                  <p className="distance" data-testid="distance">
-                    {distance} km
-                  </p>
-                  <p className="reveal-answer" data-testid="reveal-answer">
-                    {question.answer}
-                  </p>
-                  <p className="reveal-explain" data-testid="explanation">
-                    {explanation}
-                  </p>
-                  <StatusNote question={question} />
+                  <div className="reveal-body">
+                    <p className="distance" data-testid="distance">
+                      {distance} km
+                    </p>
+                    <p className="reveal-answer" data-testid="reveal-answer">
+                      {question.answer}
+                    </p>
+                    <p className="reveal-explain" data-testid="explanation">
+                      {explanation}
+                    </p>
+                    <StatusNote question={question} />
+                  </div>
                   <div className="reveal-actions">
                     <IconButton label="Sources" onClick={() => setSourcesOpen(true)}>
                       <BookIcon />

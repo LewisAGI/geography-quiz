@@ -114,12 +114,27 @@ test('map click reports distance', async ({ page }, info) => {
   const attrib = page.locator('.maplibregl-ctrl-attrib')
   await expect(attrib).toBeVisible()
   await expect(attrib.locator('.maplibregl-ctrl-attrib-inner')).toBeVisible()
-  await expect(attrib).toContainText('OpenFreeMap')
-  await expect(attrib).toContainText('OpenStreetMap')
+  await expect(attrib.getByRole('link', { name: 'OpenFreeMap' })).toBeVisible()
+  await expect(attrib.getByRole('link', { name: 'OpenStreetMap' })).toBeVisible()
   await expect(page.getByTestId('distance')).toHaveCount(0)
   await page.mouse.click((box?.x ?? 0) + (box?.width ?? 0) * 0.35, (box?.y ?? 0) + (box?.height ?? 0) * 0.62)
   await expect(page.getByTestId('distance')).toContainText(/\d+ km/)
   await expect(page.getByTestId('explanation')).toBeVisible()
+  if (info.project.name === 'iphone' || info.project.name === 'landscape') {
+    const revealed = await page.locator('.map-card').boundingBox()
+    const viewport = page.viewportSize()
+    expect(revealed).toBeTruthy()
+    expect(viewport).toBeTruthy()
+    for (const label of ['Sources', 'Next']) {
+      const button = page.getByRole('button', { name: label, exact: true })
+      await expect(button).toBeVisible()
+      const bounds = await button.boundingBox()
+      expect(bounds).toBeTruthy()
+      expect(bounds!.y).toBeGreaterThanOrEqual((revealed?.y ?? 0) - 1)
+      expect(bounds!.y + bounds!.height).toBeLessThanOrEqual((revealed?.y ?? 0) + (revealed?.height ?? 0) + 2)
+      expect(bounds!.y + bounds!.height).toBeLessThanOrEqual((viewport?.height ?? 0) + 1)
+    }
+  }
   expect(glyphs).toEqual([])
 })
 

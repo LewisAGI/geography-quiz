@@ -1,7 +1,7 @@
 import { describe, expect, it } from 'vitest'
 import { entities, questions, universe } from '../src/lib/catalog'
 import { gradeQuestion } from '../src/lib/grade'
-import { answerMatches, expandAnswer, normalize } from '../src/lib/match'
+import { acceptedFor, answerMatches, expandAnswer, normalize } from '../src/lib/match'
 import type { Question } from '../src/lib/types'
 
 function findAnswer(answer: string): Question {
@@ -90,5 +90,49 @@ describe('answer matching', () => {
   it('does not treat a blocked universe collision as a typo of the target', () => {
     expect(answerMatches('mali', ['Malta'], new Set(['mali', 'malta']))).toBe(false)
     expect(answerMatches('malta', ['Malta'], new Set(['mali', 'malta']))).toBe(true)
+  })
+
+  it('splits semicolons and aka names, and skips a long gloss', () => {
+    expect(expandAnswer('Alpha; Beta')).toEqual(expect.arrayContaining(['Alpha; Beta', 'Alpha', 'Beta']))
+    expect(expandAnswer('Foo (aka Bar)')).toEqual(expect.arrayContaining(['Foo', 'Bar']))
+    expect(expandAnswer('Place (Alpha aka Beta)')).toEqual(expect.arrayContaining(['Place', 'Alpha', 'Beta']))
+    const gloss = expandAnswer('Name (one two three four five six seven)')
+    expect(gloss).toContain('Name')
+    expect(gloss).not.toContain('one two three four five six seven')
+  })
+
+  it('treats a bracketed location as a qualifier without a hard-coded name list', () => {
+    const peak = {
+      id: 'synth-peak',
+      type: 'highest_point' as const,
+      prompt: 'Highest point?',
+      answer: 'Pico de Example (Atlantis)',
+      difficulty: 'hard' as const,
+      sources: [],
+    }
+    const territory = {
+      id: 'synth-place',
+      type: 'highest_point' as const,
+      prompt: 'Highest point?',
+      answer: 'Mount Example (New Place)',
+      difficulty: 'hard' as const,
+      sources: [],
+      country_iso2: 'ZZ',
+    }
+    const entity = {
+      iso2: 'ZZ',
+      iso3: 'ZZZ',
+      name: 'New Place and Nearby Islands',
+      continent: 'AF',
+      capital: '',
+      capital_latlon: null,
+      population: null,
+      pop_year: null,
+      sources: [],
+    }
+    expect(answerMatches('Atlantis', acceptedFor(peak), new Set())).toBe(false)
+    expect(answerMatches('Pico de Example', acceptedFor(peak), new Set())).toBe(true)
+    expect(answerMatches('New Place', acceptedFor(territory, entity), new Set())).toBe(false)
+    expect(answerMatches('Mount Example', acceptedFor(territory, entity), new Set())).toBe(true)
   })
 })

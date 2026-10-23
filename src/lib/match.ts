@@ -67,10 +67,24 @@ const ALIASES: Record<string, string[]> = {
   'Washington, D.C.': ['Washington', 'Washington DC', 'Washington D.C.'],
 }
 
-function isQualifier(value: string): boolean {
+/** A shorter leading piece of the country name, such as "South Georgia" inside the longer territory name. */
+function isContainingPlace(value: string, entityName: string): boolean {
+  const place = value.trim().toLowerCase()
+  const entity = entityName.trim().toLowerCase()
+  if (!place || !entity || place === entity) return false
+  return entity.startsWith(`${place} `) || entity.startsWith(`${place},`)
+}
+
+/** A one-word bracket on a named peak is the place it stands on, not another name for the peak. */
+function isFeatureLocation(value: string, head: string): boolean {
+  const word = value.trim()
+  if (!word || /\s/.test(word) || !head.trim()) return false
+  if (!/\b(pico|pic|mount|mt|mont|gora|peak)\b/i.test(head)) return false
+  return !head.toLowerCase().includes(word.toLowerCase())
+}
+
+function isQualifier(value: string, head = '', entityName = ''): boolean {
   const text = value.trim()
-  if (!text) return true
-  if (/^(tenerife|south georgia)$/i.test(text)) return true
   if (
     /^(city|highest point|a volcano|located\b|on\b|at\b|administrative|constitutional|legislative|commercial|political|note\b|an\b|the )\b/i.test(
       text,
@@ -78,8 +92,9 @@ function isQualifier(value: string): boolean {
   ) {
     return true
   }
-  if (/highest point/i.test(text)) return true
   if (/\bfor\s+["“]/i.test(text)) return true
+  if (isContainingPlace(text, entityName)) return true
+  if (isFeatureLocation(text, head)) return true
   return text.split(/\s+/).length > 6
 }
 
@@ -87,7 +102,19 @@ function stripOnTail(value: string): string {
   return value.replace(/\s+on\s+.+$/i, ' ').replace(/\s+/g, ' ').trim()
 }
 
-export function expandAnswer(answer: string): string[] {
+function isProperName(value: string): boolean {
+  return /^(mont|mount|mt\.?|pico|pic|gora|monte)\b/i.test(value.trim())
+}
+
+const STANLEY_NAMES = ['Pic Marguerite', 'Margherita Peak', 'Mount Stanley', 'Mont Ngaliema']
+
+function addSharedSummits(forms: Set<string>) {
+  const joined = [...forms].join('\n')
+  if (!/marguerite|margherita|ngaliema|mount stanley/i.test(joined)) return
+  for (const name of STANLEY_NAMES) forms.add(name)
+}
+
+export function expandAnswer(answer: string, entityName = ''): string[] {
   const out = new Set<string>()
   const add = (value: string) => {
     const cleaned = value.replace(LANGUAGE, ' ').replace(/\s+/g, ' ').trim()
@@ -95,19 +122,21 @@ export function expandAnswer(answer: string): string[] {
   }
   add(answer)
   for (const part of answer.split(/\s*;\s*/)) add(part)
-  const outside = stripOnTail(answer.replace(/\([^)]*\)/g, ' '))
+  const bare = answer.replace(/\([^)]*\)/g, ' ').replace(/\s+/g, ' ').trim()
+  add(bare)
+  const outside = stripOnTail(bare)
   add(outside)
+  const onTail = bare.match(/\s+on\s+(.+)$/i)
+  if (onTail && isProperName(onTail[1])) add(onTail[1])
   if (outside.includes('/')) {
     for (const part of outside.split(/\s*\/\s*/)) add(part)
   }
   for (const raw of answer.match(/\([^)]*\)/g) ?? []) {
     const inner = raw.slice(1, -1).trim()
-    if (isQualifier(inner)) continue
-    const aka = inner.match(/\baka\s+([^,;]+)/i)
-    if (aka) add(aka[1])
+    if (isQualifier(inner, outside, entityName)) continue
     if (/\bis\b/i.test(inner)) {
       const head = inner.split(/\s+is\s+/i)[0] ?? ''
-      if (head && head !== inner && !isQualifier(head)) add(head)
+      if (head && head !== inner && !isQualifier(head, outside, entityName)) add(head)
     }
     for (const piece of inner.split(/\s*(?:,|\/|\baka\b)\s*/i)) add(piece)
   }
@@ -180,7 +209,8 @@ export function levenshtein(a: string, b: string): number {
 }
 
 export function acceptedFor(question: Question, entity?: Entity): string[] {
-  const forms = new Set<string>(expandAnswer(question.answer))
+  const forms = new Set<string>(expandAnswer(question.answer, entity?.name ?? ''))
+  addSharedSummits(forms)
   const aliasKey = forms.has(question.answer) ? question.answer : question.answer
   for (const alias of ALIASES[aliasKey] ?? []) forms.add(alias)
   for (const form of [...forms]) {

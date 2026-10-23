@@ -46,7 +46,10 @@ const ALTERNATES: Record<string, { accept: string[]; reject: string[] }> = {
   q00588: { accept: ['Mexico City', 'Ciudad de Mexico'], reject: [] },
   q00935: { accept: ['Saint Martin', 'France'], reject: [] },
   q01025: { accept: ['Holy See', 'Vatican City'], reject: [] },
-  q01560: { accept: ['Pic Marguerite', 'Mount Stanley'], reject: ['Mont Ngaliema', 'Pic Marguerite on Mont Ngaliema'] },
+  q01560: {
+    accept: ['Pic Marguerite', 'Mount Stanley', 'Mont Ngaliema', 'Pic Marguerite on Mont Ngaliema', 'Margherita Peak'],
+    reject: [],
+  },
   q01564: { accept: ['Mt. Fogo'], reject: ['a volcano on Fogo Island'] },
   q01579: { accept: ['Sapitwa', 'Mount Mlanje'], reject: [] },
   q01591: { accept: ['Ntheledi', 'Mafadi'], reject: [] },
@@ -60,7 +63,10 @@ const ALTERNATES: Record<string, { accept: string[]; reject: string[] }> = {
   q01708: { accept: ['Hvannadalshnukur'], reject: ['at Vatnajokull Glacier'] },
   q01711: { accept: ['Gjeravica', 'Deravica'], reject: [] },
   q01719: { accept: ['Golem Korab', 'Maja e Korabit'], reject: [] },
-  q01728: { accept: ['Pico de Teide', 'Teide', 'Mount Teide'], reject: ['Canary Islands', 'Pico de Teide on Canary Islands', 'Tenerife'] },
+  q01728: {
+    accept: ['Pico de Teide', 'Teide', 'Mount Teide', 'Pico de Teide on Canary Islands'],
+    reject: ['Canary Islands', 'Tenerife'],
+  },
   q01734: { accept: ['Vatican Gardens', 'Vatican Hill'], reject: [] },
   q01738: { accept: ['Cheekha Dar'], reject: ['Kurdish for "Black Tent"'] },
   q01745: { accept: ['Mount Hermon', 'Jabal a-Shayk'], reject: [] },
@@ -94,6 +100,15 @@ describe('pack alternates', () => {
         expect(gradeQuestion(question, distractor), `${question.id} distractor ${distractor}`).toBe(false)
       }
     }
-    expect(forms).toBe(148)
+    expect(forms).toBe(149)
+  })
+
+  it('grades the Stanley summit the same on both questions', () => {
+    const names = ['Margherita Peak', 'Pic Marguerite', 'Mount Stanley', 'Mont Ngaliema']
+    for (const id of ['q01560', 'q01600']) {
+      const question = questions.find((item) => item.id === id)
+      expect(question, id).toBeTruthy()
+      for (const name of names) expect(gradeQuestion(question!, name), `${id} ${name}`).toBe(true)
+    }
   })
 })
